@@ -1,0 +1,1081 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>BIPV 컬러 시물레이션 Tool</title>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+		<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+		<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+		<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+		<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jqueryui-touch-punch/0.2.3/jquery.ui.touch-punch.min.js"></script>
+		<script type="text/javascript">
+		
+		function pantoneToHex ( pantoneType ) {
+			var result = $.ajax({
+				type: 'GET',
+				url: '../server/color/get_pantone.php?color_code=' + $('#input_code_value').val() + '&color_type=hex',
+
+			});
+			return result;
+		}
+
+		function rgbToHex ( rgbType ){ 
+
+				// 참고사이트 : https://tonks.tistory.com/130
+
+				// 컬러값과 쉼표만 남기고 삭제. 
+				var rgb = rgbType.replace( /[^%,.\d]/g, "" ); 
+
+				// 쉼표(,)를 기준으로 분리해서, 배열에 담기. 
+				rgb = rgb.split( "," ); 
+
+				// 컬러값이 "%"일 경우, 변환하기. 
+				for ( var x = 0; x < 3; x++ ) { 
+						if ( rgb[ x ].indexOf( "%" ) > -1 ) rgb[ x ] = Math.round( parseFloat( rgb[ x ] ) * 2.55 ); 
+				} 
+
+				// 16진수 문자로 변환. 
+				var toHex = function( string ){ 
+						string = parseInt( string, 10 ).toString( 16 ); 
+						string = ( string.length === 1 ) ? "0" + string : string; 
+
+						return string; 
+				}; 
+
+				var r = toHex( rgb[ 0 ] ); 
+				var g = toHex( rgb[ 1 ] ); 
+				var b = toHex( rgb[ 2 ] ); 
+
+				var hexType = "#" + r + g + b; 
+
+				return hexType; 
+		} 
+
+		function hexToRgb( hexType ){ 
+
+				// 참고사이트 : https://tonks.tistory.com/130
+
+				var hex = hexType.replace( "#", "" ); 
+				var value = hex.match( /[a-f\d]/gi ); 
+
+
+				// 헥사값이 세자리일 경우, 여섯자리로. 
+				if ( value.length == 3 ) hex = value[0] + value[0] + value[1] + value[1] + value[2] + value[2]; 
+
+
+				value = hex.match( /[a-f\d]{2}/gi ); 
+
+				var r = parseInt( value[0], 16 ); 
+				var g = parseInt( value[1], 16 ); 
+				var b = parseInt( value[2], 16 ); 
+
+				//var rgbType = "rgb(" + r + ", " + g + ", " + b + ")"; 
+				var rgbType = r + ", " + g + ", " + b; 
+
+				return rgbType; 
+		} 
+
+		function cmykToHex ( cmykType ){
+
+				// 컬러값과 쉼표만 남기고 삭제. 
+				var cmyk = cmykType.replace( /[^%,.\d]/g, "" ); 
+
+				// 쉼표(,)를 기준으로 분리해서, 배열에 담기. 
+				cmyk = cmyk.split( "," ); 
+
+				//CMYK to RGB
+				/*
+				var Cyan		= Math.round(cmyk[ 0 ]);
+				var Magenta		= Math.round(cmyk[ 1 ]);
+				var Yellow		= Math.round(cmyk[ 2 ]);
+				var Black		= Math.round(cmyk[ 3 ]);
+
+				var Red = 255 * ( 1 - (Cyan / 100) ) * ( 1 - (Black / 100) );
+				var Green = 255 * ( 1 - (Magenta / 100) ) * ( 1 - (Black / 100) );
+				var Blue = 255 * ( 1 - (Yellow / 100) ) * ( 1 - (Black / 100) );
+
+				Red		= Math.round(Red);
+				Green	= Math.round(Green);
+				Blue	= Math.round(Blue);
+				*/
+
+				// https://www.rapidtables.com/convert/color/rgb-to-cmyk.html
+				// http://www.easyrgb.com/en/math.php#text20
+
+				// //C, M, Y and K range = 0 ÷ 1.0
+				var Cyan		= parseInt(cmyk[ 0 ]) / 100;
+				var Magenta		= parseInt(cmyk[ 1 ]) / 100;
+				var Yellow		= parseInt(cmyk[ 2 ]) / 100;
+				var Black		= parseInt(cmyk[ 3 ]) / 100;
+
+				// CMYK → CMY
+				C = ( Cyan * ( 1 - Black ) + Black );
+				M = ( Magenta * ( 1 - Black ) + Black );
+				Y = ( Yellow * ( 1 - Black ) + Black );
+
+				// CMY → RGB
+				//C, M and Y input range = 0 ÷ 1.0
+				//R, G and B output range = 0 ÷ 255
+				Red = ( 1 - C ) * 255;
+				Green = ( 1 - M ) * 255;
+				Blue = ( 1 - Y ) * 255;
+
+				rgbType = Red + "," + Green + "," + Blue;
+
+				var hexType = rgbToHex(rgbType);
+
+				return hexType; 
+
+		}
+
+		var rgb2cmyk = function(rgbType, normalized){
+
+			// 쉼표(,)를 기준으로 분리해서, 배열에 담기. 
+			rgb = rgbType.split( "," ); 
+
+			R = rgb[0];
+			G = rgb[1];
+			B = rgb[2];
+
+			r = R / 255;
+			g = G / 255;
+			b = B / 255;
+	 
+			k = Math.min( 1 - r, 1 - g, 1 - b );
+			c = ( 1 - r - k ) / ( 1 - k );
+			m = ( 1 - g - k ) / ( 1 - k );
+			y = ( 1 - b - k ) / ( 1 - k );
+	 
+			c = Math.round( c * 100 );
+			m = Math.round( m * 100 );
+			y = Math.round( y * 100 );
+			k = Math.round( k * 100 );
+
+			result = c + "," + m + "," + y + "," + k;
+	 
+			return result;
+
+		}
+
+		function rgb2lab( rgbType ){
+
+			// 쉼표(,)를 기준으로 분리해서, 배열에 담기. 
+			rgb = rgbType.split( "," ); 
+
+			R = rgb[0];
+			G = rgb[1];
+			B = rgb[2];
+
+			var var_R = parseFloat(R/255.0);
+			var var_G = parseFloat(G/255.0);
+			var var_B = parseFloat(B/255.0);
+		   
+		   var var_R_pow = parseFloat((var_R + 0.055 ) / 1.055);
+		   var var_G_pow = parseFloat((var_G + 0.055 ) / 1.055);
+		   var var_B_pow = parseFloat((var_B + 0.055 ) / 1.055);
+
+			if ( var_R > 0.04045 ) var_R = Math.pow(var_R_pow, 2.4 );
+			else                   var_R = var_R / 12.92;
+			if ( var_G > 0.04045 ) var_G = Math.pow(var_G_pow, 2.4);
+			else                   var_G = var_G / 12.92;
+			if ( var_B > 0.04045 ) var_B = Math.pow(var_B_pow, 2.4);
+			else                   var_B = var_B / 12.92;
+
+			var_R = parseFloat(var_R * 100.0);
+			var_G = parseFloat(var_G * 100.0);
+			var_B = parseFloat(var_B * 100.0);
+
+			//Observer. = 2°, Illuminant = D65
+			var X = parseFloat(var_R * 0.4124 + var_G * 0.3576 + var_B * 0.1805);
+			var Y = parseFloat(var_R * 0.2126 + var_G * 0.7152 + var_B * 0.0722);
+			var Z = parseFloat(var_R * 0.0193 + var_G * 0.1192 + var_B * 0.9505);
+
+
+			var var_X = parseFloat(X / 95.047) ;         //ref_X =  95.047   Observer= 2°, Illuminant= D65
+			var var_Y = parseFloat(Y / 100.000);          //ref_Y = 100.000
+			var var_Z = parseFloat(Z / 108.883);          //ref_Z = 108.883
+
+			if ( var_X > 0.008856 ) var_X = Math.pow(var_X , ( 1.0/3.0 ) );
+			else                    var_X = ( 7.787 * var_X ) + ( 16.0 / 116.0 );
+			if ( var_Y > 0.008856 ) var_Y = Math.pow(var_Y , ( 1.0/3.0 ));
+			else                    var_Y = ( 7.787 * var_Y ) + ( 16.0 / 116.0 );
+			if ( var_Z > 0.008856 ) var_Z = Math.pow(var_Z , ( 1.0/3.0 ));
+			else                    var_Z = ( 7.787 * var_Z ) + ( 16.0 / 116.0 );
+
+			l_s = parseFloat((116.0 * var_Y) - 16.0);
+			a_s = parseFloat(500.0 * (var_X - var_Y));
+			b_s = parseFloat(200.0 * (var_Y - var_Z));
+
+			l_s = Math.round(l_s);
+			a_s = Math.round(a_s);
+			b_s = Math.round(b_s);
+
+			result = l_s + "," + a_s + "," + b_s;
+	 
+			return result;
+
+		}
+
+		function lab2rgb( labType ){
+			// https://github.com/antimatter15/rgb-lab/blob/master/color.js
+			// https://www.easyrgb.com/en/math.php
+			// https://www.nixsensor.com/free-color-converter/
+			// https://stackoverflow.com/questions/7880264/convert-lab-color-to-rgb
+
+			// 컬러값과 쉼표만 남기고 삭제. 
+			//var lab = labType.replace( /[^%,.\d]/g, "" ); 
+
+			// 쉼표(,)를 기준으로 분리해서, 배열에 담기. 
+			lab = labType.split( "," ); 
+
+			l_s = lab[0];
+			a_s = lab[1];
+			b_s = lab[2];
+
+			l_s = parseFloat(l_s);
+			a_s = parseFloat(a_s);
+			b_s = parseFloat(b_s);
+
+			var_Y = parseFloat(((l_s + 16.0) / 116.0));
+			var_X = parseFloat(((a_s / 500.0) + var_Y));
+			var_Z = parseFloat((var_Y - (b_s / 200.0)));
+
+			if ( Math.pow(var_X , 3) > 0.008856 ) var_X = Math.pow(var_X , 3);
+			else                    var_X = ( var_X - 16.0 / 116.0 ) / 7.787;
+			if ( Math.pow(var_Y , 3) > 0.008856 ) var_Y = Math.pow(var_Y , 3);
+			else                    var_X = ( var_X - 16.0 / 116.0 ) / 7.787;
+			if ( Math.pow(var_Z , 3) > 0.008856 ) var_Z = Math.pow(var_Z , 3);
+			else                     var_Z = ( var_Z - 16.0 / 116.0 ) / 7.787;
+
+			var X = parseFloat(var_X * 95.047) ;         //ref_X =  95.047   Observer= 2°, Illuminant= D65
+			var Y = parseFloat(var_Y * 100.000);          //ref_Y = 100.000
+			var Z = parseFloat(var_Z * 108.883);          //ref_Z = 108.883
+
+			var_X = parseFloat(X / 100.0);
+			var_Y = parseFloat(Y / 100.0);
+			var_Z = parseFloat(Z / 100.0);
+
+			var var_R = parseFloat(var_X * 3.2406 + var_Y * -1.5372 + var_Z * -0.4986);
+			var var_G = parseFloat(var_X * -0.9689 + var_Y * 1.8758 + var_Z * 0.0415);
+			var var_B = parseFloat(var_X * 0.0557 + var_Y * -0.2040 + var_Z * 1.0570);
+
+			if ( var_R > 0.0031308 ) var_R = 1.055 * Math.pow(var_R , ( 1 / 2.4 ))  - 0.055;
+			else                     var_R = 12.92 * var_R;
+			if ( var_G > 0.0031308 ) var_G = 1.055 * Math.pow(var_G , ( 1 / 2.4 ) )  - 0.055;
+			else                     var_G = 12.92 * var_G;
+			if ( var_B > 0.0031308 ) var_B = 1.055 * Math.pow( var_B , ( 1 / 2.4 ) ) - 0.055;
+			else                     var_B = 12.92 * var_B;
+
+			var R = parseFloat(var_R*255.0);
+			var G = parseFloat(var_G*255.0);
+			var B = parseFloat(var_B*255.0);
+
+
+
+			//console.log( 'l_s : ' + (l_s + 16.0) );
+			//console.log( 'l_s : ' + ((l_s + 16.0) / 116.0) );
+
+			console.log('R : ' + R);
+			console.log('G : ' + G);
+			console.log('B : ' + B);
+
+
+			//Return New Color(CSng(X), CSng(Y), CSng(Z))
+			rgbType = R + "," + G + "," + B;
+
+			// RGB에서 HEX를 추출하여 반환
+			var hexType = rgbToHex(rgbType);
+
+			return hexType; 
+
+		}
+
+
+		function rgb2hsv(r,g,b) {
+
+			 var computedH = 0;
+			 var computedS = 0;
+			 var computedV = 0;
+
+			 //remove spaces from input RGB values, convert to int
+			 var r = parseInt( (''+r).replace(/\s/g,''),10 ); 
+			 var g = parseInt( (''+g).replace(/\s/g,''),10 ); 
+			 var b = parseInt( (''+b).replace(/\s/g,''),10 ); 
+
+			 if ( r==null || g==null || b==null ||
+				 isNaN(r) || isNaN(g)|| isNaN(b) ) {
+			   alert ('Please enter numeric RGB values!');
+			   return;
+			 }
+			 if (r<0 || g<0 || b<0 || r>255 || g>255 || b>255) {
+			   alert ('RGB values must be in the range 0 to 255.');
+			   return;
+			 }
+			 r=r/255; g=g/255; b=b/255;
+			 var minRGB = Math.min(r,Math.min(g,b));
+			 var maxRGB = Math.max(r,Math.max(g,b));
+
+			 // Black-gray-white
+			 if (minRGB==maxRGB) {
+			  computedV = minRGB;
+			  return [0,0,computedV];
+			 }
+
+			 // Colors other than black-gray-white:
+			 var d = (r==minRGB) ? g-b : ((b==minRGB) ? r-g : b-r);
+			 var h = (r==minRGB) ? 3 : ((b==minRGB) ? 1 : 5);
+			 computedH = 60*(h - d/(maxRGB - minRGB));
+			 computedS = (maxRGB - minRGB)/maxRGB;
+			 computedV = maxRGB;
+			 //return [computedH,computedS,computedV];
+
+			 h = computedH;
+			 s = computedS;
+			 v = computedV;
+
+			  s = s * 100;
+			  v = v * 100;
+
+			  h = h.toFixed(0);
+			  s = s.toFixed(1);
+			  v = v.toFixed(1);
+
+		  return {h, s, v};
+		}
+
+		function hsv2rgb(h,s,v) 
+		{                              
+
+			var r, g, b;
+			var i;
+			var f, p, q, t;
+			 
+			// Make sure our arguments stay in-range
+			h = Math.max(0, Math.min(360, h));
+			s = Math.max(0, Math.min(100, s));
+			v = Math.max(0, Math.min(100, v));
+			 
+			// We accept saturation and value arguments from 0 to 100 because that's
+			// how Photoshop represents those values. Internally, however, the
+			// saturation and value are calculated from a range of 0 to 1. We make
+			// That conversion here.
+			s /= 100;
+			v /= 100;
+		 
+			if(s == 0) {
+				// Achromatic (grey)
+				r = g = b = v;
+				return [
+					Math.round(r * 255), 
+					Math.round(g * 255), 
+					Math.round(b * 255)
+				];
+			}
+		 
+			h /= 60; // sector 0 to 5
+			i = Math.floor(h);
+			f = h - i; // factorial part of h
+			p = v * (1 - s);
+			q = v * (1 - s * f);
+			t = v * (1 - s * (1 - f));
+		 
+			switch(i) {
+				case 0:
+					r = v;
+					g = t;
+					b = p;
+					break;
+			 
+				case 1:
+					r = q;
+					g = v;
+					b = p;
+					break;
+			 
+				case 2:
+					r = p;
+					g = v;
+					b = t;
+					break;
+			 
+				case 3:
+					r = p;
+					g = q;
+					b = v;
+					break;
+			 
+				case 4:
+					r = t;
+					g = p;
+					b = v;
+					break;
+			 
+				default: // case 5:
+					r = v;
+					g = p;
+					b = q;
+			}
+
+			r = Math.round(r * 255);
+			g = Math.round(g * 255);
+			b = Math.round(b * 255);
+
+			//return {r,g,b};       
+			rgb = r + "," + g + "," + b;
+			return rgb;
+		}   
+
+		function rgbTohex2( rgbType, pv ){
+			console.log( rgbType );
+
+			// 컬러값과 쉼표만 남기고 삭제. 
+			var rgb = rgbType.replace( /[^%,.\d]/g, "" ); 
+
+			// 쉼표(,)를 기준으로 분리해서, 배열에 담기. 
+			rgb = rgb.split( "," ); 
+
+			r = rgb[0];
+			g = rgb[1];
+			b = rgb[2];
+
+			var codes = rgb2hsv(r,g,b);
+			var h = codes.h;
+			var s = codes.s;
+			var v = codes.v;
+
+			console.log( 'h : ' +  h );
+			console.log( 's : ' +  s );
+			console.log( 'v : ' +  v );
+
+			pv = parseInt(pv);
+
+			v = Math.round(v);
+
+			var isCheck = true;
+
+			if (pv >= 75)
+			{
+				v = v * 4;
+			}
+			else if (pv > 50)
+			{
+				v = (2 + (pv - 50) * 0.08) * v;
+			}
+			else if (pv == 50)
+			{
+				v = v * 2;
+			}
+			else if (pv > 25)
+			{
+				v = (1.36 + (pv - 25) * 0.0246) * v;
+			}
+			else if (pv == 25)
+			{
+				v = v * 1.36;
+			}
+			else if (pv == 0)
+			{
+				v = v * 1;
+			}
+			else
+			{
+				isCheck = false;
+				alert("This color cannot be generated [1]");				
+//				return false;
+			}
+
+			if (v > 100)
+			{
+				isCheck = false;
+				alert("This color cannot be generated [2]");
+//				return false;
+			}
+
+			if (isNaN(v))
+			{
+				isCheck = false;
+				alert("This color cannot be generated [3]");
+//				return false;
+			}
+
+			if(typeof v == "undefined" || v == null || v == "")
+			{
+				isCheck = false;
+				alert("This color cannot be generated [4]");
+//				return false;
+			}
+
+			/*
+			if (pv == 75 && v < 25)
+			{
+				alert("This color cannot be generated");
+				return false;
+			}
+			if (pv == 50 && v < 50)
+			{
+				alert("This color cannot be generated");
+				return false;
+			}
+			if (pv == 25 && v < 73)
+			{
+				alert("This color cannot be generated");
+				return false;
+			}
+			*/
+
+			console.log( 'h : ' +  h );
+			console.log( 's : ' +  s );
+			console.log( 'v : ' +  v );
+
+			console.log( 'isCheck : ' +  isCheck );
+
+			if(isCheck == true){
+
+				var rgb = hsv2rgb(h,s,v); 
+				console.log( 'rgb : ' +  rgb );
+				surfaceColor_hex = rgbToHex(rgb);
+
+			}else{
+				// PV값 바로 직전값으로 변경
+				$("#slider-value").html($("#pre_pv").val());
+				$( "#slider" ).slider( "option", "value", $("#pre_pv").val() );
+				surfaceColor_hex = "";
+			}
+
+			console.log( 'pv : ' +  pv );
+			console.log( 'surfaceColor_hex : ' +  surfaceColor_hex );
+
+			return surfaceColor_hex;
+
+		}
+
+
+		async function changePV(pv) {
+
+			pv = parseInt(pv);
+			var isCheck = false;
+			
+			var input_code_type = $("#input_code_type").val();
+			var input_code_value = $("#input_code_value").val();
+			var hex = "";
+			console.log(input_code_type);
+			if(input_code_type == "rgb"){
+				targetColor_hex = rgbToHex(input_code_value);
+				isCheck = true;
+			}else if(input_code_type == "cmyk"){
+				targetColor_hex = cmykToHex(input_code_value);
+				isCheck = true;
+			}else if(input_code_type == "lab"){
+				targetColor_hex = lab2rgb(input_code_value);
+				isCheck = true;
+			}
+			// 2020 12 28 추가
+			else if(input_code_type == "pantone"){
+				var jsonData = await pantoneToHex(input_code_value);
+				try {
+					targetColor_hex = JSON.parse( jsonData ).hex;
+					isCheck = true;
+				} catch ( e ) {
+					targetColor_hex = "";
+					isCheck = false;
+					alert("This color cannot use in pantone");
+				}
+			}
+			else{
+				targetColor_hex = ""
+				alert("This color cannot be generated [5]");
+				isCheck = false;
+			}
+
+			console.log('targetColor_hex : ' + targetColor_hex);
+			//console.log('isCheck : ' + isCheck);
+			//surfaceColor_hex_change = surfaceColor_hex.replace("#","");
+
+			if(isCheck == true){
+
+				if(targetColor_hex != ""){
+					hexTorgb = hexToRgb(targetColor_hex);
+					surfaceColor_hex = rgbTohex2(hexTorgb, pv);
+				}
+
+				//PV변경시 명도, 채도 초기화
+				$("#slider2-value").html(0);
+				$("#slider3-value").html(0);
+
+				$( "#slider2" ).slider( "option", "value", 0 );
+				$( "#slider3" ).slider( "option", "value", 0 );
+
+				if(surfaceColor_hex != ""){
+
+					$("#targetColorLABCode").text(rgb2lab(hexToRgb(targetColor_hex)));
+					$("#targetColorRGBCode").text(hexToRgb(targetColor_hex));
+					$("#targetColorCMYKCode").text(rgb2cmyk(hexToRgb(targetColor_hex)));
+					$("#targetColorHexCode").text(targetColor_hex.toUpperCase());
+
+					$("#surfaceColorLABCode").text(rgb2lab(hexToRgb(surfaceColor_hex)));
+					$("#surfaceColorRGBCode").text(hexToRgb(surfaceColor_hex));
+					$("#surfaceColorCMYKCode").text(rgb2cmyk(hexToRgb(surfaceColor_hex)));
+					$("#surfaceColorHexCode").text(surfaceColor_hex.toUpperCase());
+
+					$("#surface_origin_color_hex").val(surfaceColor_hex.toUpperCase());
+					$("#surface_color_hex").val(surfaceColor_hex.toUpperCase());					
+
+					$("#targetColor").css({'background-color' : targetColor_hex});
+					$("#surfaceColor").css({'background-color' : surfaceColor_hex});
+
+					myColor = getTheColor( surfaceColor_hex );
+					$("#slider .ui-slider-range").css( "background-color", myColor );					
+					$("#slider2 .ui-slider-range").css( "background-color", myColor );
+					$("#slider3 .ui-slider-range").css( "background-color", myColor );
+
+				}
+			}
+
+
+		}
+
+		function colorLuminance(hex, lum) {
+		  // Validate hex string
+		  hex = String(hex).replace(/[^0-9a-f]/gi, "");
+		  if (hex.length < 6) {
+			hex = hex.replace(/(.)/g, '$1$1');
+		  }
+		  lum = lum || 0;
+		  // Convert to decimal and change luminosity
+		  var rgb = "#",
+			c;
+		  for (var i = 0; i < 3; ++i) {
+			c = parseInt(hex.substr(i * 2, 2), 16);
+			c = Math.round(Math.min(Math.max(0, c + (c * lum)), 255)).toString(16);
+			rgb += ("00" + c).substr(c.length);
+		  }
+		  return rgb;
+		}
+
+		function getTheColor( colorVal ) {
+			var theColor = "";
+			theColor = hexToRgb(colorVal)
+			theColor = "rgb(" + theColor + ")"; 
+  			return( theColor ); 
+		}
+
+		function changeBright(t, v){
+
+			var origin_color = document.getElementById('surface_origin_color_hex');
+			var change_color = document.getElementById('surface_color_hex');
+			var preview = document.getElementById('surfaceColor');
+
+			var lighter = colorLuminance(origin_color.value, (v * 0.01));
+			var darker = colorLuminance(origin_color.value, -(v * 0.01));
+
+			// 명도를 변경시는 채도 초기화
+			$("#slider3-value").html(0); 
+			$( "#slider3" ).slider( "option", "value", 0 );
+
+			if(t == "l"){
+				preview.style.backgroundColor = lighter;
+				console.log('lighter : ' + lighter);
+				$("#surface_color_hex").val(lighter.toUpperCase());
+				$("#surface_color_hex2").val(lighter.toUpperCase());
+				$("#surface_origin_color_hex2").val(lighter.toUpperCase());
+				myColor = getTheColor( lighter );
+				$("#slider2 .ui-slider-range").css( "background-color", myColor );
+				$("#slider3 .ui-slider-range").css( "background-color", myColor );
+			}else if(t == "d"){
+				preview.style.backgroundColor = darker;
+				console.log('darker : ' + darker);
+				$("#surface_color_hex").val(darker.toUpperCase());
+				$("#surface_color_hex2").val(darker.toUpperCase());
+				$("#surface_origin_color_hex2").val(darker.toUpperCase());
+				myColor = getTheColor( darker );
+				$("#slider2 .ui-slider-range").css( "background-color", myColor );
+				$("#slider3 .ui-slider-range").css( "background-color", myColor );
+			}			
+
+			$("#surfaceColorLABCode").text(rgb2lab(hexToRgb(change_color.value)));
+			$("#surfaceColorRGBCode").text(hexToRgb(change_color.value));
+			$("#surfaceColorCMYKCode").text(rgb2cmyk(hexToRgb(change_color.value)));
+			$("#surfaceColorHexCode").text(change_color.value.toUpperCase());
+
+		}
+
+		function applySaturationToHexColor(hex, saturationPercent) {
+			//https://stackoverflow.com/questions/13806483/increase-or-decrease-color-saturation
+
+			if (!/^#([0-9a-f]{6})$/i.test(hex)) {
+				throw('Unexpected color format');
+			}
+
+			if (saturationPercent < 0 || saturationPercent > 100) {
+				throw('Unexpected color format');
+			}
+
+			var saturationFloat   = saturationPercent / 100,
+				rgbIntensityFloat = [
+					parseInt(hex.substr(1,2), 16) / 255,
+					parseInt(hex.substr(3,2), 16) / 255,
+					parseInt(hex.substr(5,2), 16) / 255
+				];
+
+			var rgbIntensityFloatSorted = rgbIntensityFloat.slice(0).sort(function(a, b){ return a - b; }),
+				maxIntensityFloat       = rgbIntensityFloatSorted[2],
+				mediumIntensityFloat    = rgbIntensityFloatSorted[1],
+				minIntensityFloat       = rgbIntensityFloatSorted[0];
+
+			if (maxIntensityFloat == minIntensityFloat) {
+				// All colors have same intensity, which means 
+				// the original color is gray, so we can't change saturation.
+				return hex;
+			}
+
+			// New color max intensity wont change. Lets find medium and weak intensities.
+			var newMediumIntensityFloat,
+				newMinIntensityFloat = maxIntensityFloat * (1 - saturationFloat);
+
+			if (mediumIntensityFloat == minIntensityFloat) {
+				// Weak colors have equal intensity.
+				newMediumIntensityFloat = newMinIntensityFloat;
+			}
+			else {
+				// Calculate medium intensity with respect to original intensity proportion.
+				var intensityProportion = (maxIntensityFloat - mediumIntensityFloat) / (mediumIntensityFloat - minIntensityFloat);
+				newMediumIntensityFloat = (intensityProportion * newMinIntensityFloat + maxIntensityFloat) / (intensityProportion + 1);
+			}
+
+			var newRgbIntensityFloat       = [],
+				newRgbIntensityFloatSorted = [newMinIntensityFloat, newMediumIntensityFloat, maxIntensityFloat];
+
+			// We've found new intensities, but we have then sorted from min to max.
+			// Now we have to restore original order.
+			rgbIntensityFloat.forEach(function(originalRgb) {
+				var rgbSortedIndex = rgbIntensityFloatSorted.indexOf(originalRgb);
+				newRgbIntensityFloat.push(newRgbIntensityFloatSorted[rgbSortedIndex]);
+			});
+
+			var floatToHex = function(val) { return ('0' + Math.round(val * 255).toString(16)).substr(-2); },
+				rgb2hex    = function(rgb) { return '#' + floatToHex(rgb[0]) + floatToHex(rgb[1]) + floatToHex(rgb[2]); };
+
+			var newHex = rgb2hex(newRgbIntensityFloat);
+
+			return newHex;
+		}
+
+		function changeSaturation(saturationPercent){
+
+			var hex_origin = $("#surface_origin_color_hex2").val();
+			var hex_change = $("#surface_color_hex2").val();
+
+			console.log("hex_origin : " + hex_origin);
+			console.log("hex_change : " + hex_change);
+
+			// 채도는 명도가 바뀐 값으로 조정함
+//			if(hex_origin == hex_change){
+				hex = hex_origin;
+//			}else{
+//				hex = hex_change;
+//			}
+
+			var newhex = applySaturationToHexColor(hex, saturationPercent);
+
+			console.log("newhex : " + newhex);
+
+			myColor = getTheColor( newhex );
+			$("#slider3 .ui-slider-range").css( "background-color", myColor );
+
+			$("#surface_color_hex2").val(newhex.toUpperCase());
+
+			$("#surfaceColor").css({'background-color' : newhex});
+
+			$("#surfaceColorLABCode").text(rgb2lab(hexToRgb(newhex)));
+			$("#surfaceColorRGBCode").text(hexToRgb(newhex));
+			$("#surfaceColorCMYKCode").text(rgb2cmyk(hexToRgb(newhex)));
+			$("#surfaceColorHexCode").text(newhex.toUpperCase());
+
+		}
+
+		$(function() {
+
+			// PV 비율
+			$("#slider").slider({
+              orientation: "horizontal",
+		      range: "min",
+			  value: 50,
+			  min: 0,
+			  max: 75,
+			  step: 25,
+			  slide: function(event, ui) {
+				  num = parseInt(ui.value);
+				  //console.log('num : ' + num);
+				  $("#pre_pv").val($("#slider-value").html());
+				  changePV(Math.abs(num));
+				  surfaceColor_hex = $("#surface_color_hex").val();
+				  $("#slider").css('background', 'linear-gradient(90deg, '+surfaceColor_hex+' '+ui.value+'%, #000000 0%)');
+				  $("#slider-value").html(num);
+			  }
+			});
+
+			// Brightness
+			$("#slider2").slider({
+              orientation: "horizontal",
+		      range: "min",
+			  value: 0,
+			  min: -100,
+			  max: 100,
+			  step: 1,
+			  slide: function(event, ui) {
+				  num = parseInt(ui.value);
+				  //console.log('num : ' + num);
+				  if(num > 0){
+					changeBright('l',Math.abs(num));
+				  }else{
+					changeBright('d',Math.abs(num));
+				  }
+				  $("#slider2-value").html(num);
+			  }
+			});
+
+			// Saturation
+			$("#slider3").slider({
+              orientation: "horizontal",
+		      range: "min",
+			  value: 1,
+			  min: 0,
+			  max: 100,
+			  step: 1,
+			  slide: function(event, ui) {
+				  num = parseInt(ui.value);
+				  //console.log('num : ' + num);
+				  changeSaturation(num);
+				  $("#slider3-value").html(num);
+			  }
+			});
+
+			$("#slider-value").html($('#slider').slider('value'));
+			$("#slider2-value").html($('#slider2').slider('value'));
+			$("#slider3-value").html($('#slider3').slider('value'));
+
+		});			
+
+		function selectColorCode( typeTxt) {
+			if( typeTxt == "t" ){
+				$("#selectColorCode").val("t");
+				$("#targetSel").removeClass("button");
+				$("#targetSel").addClass("buttonC");
+				$("#surfaceSel").removeClass("buttonC");
+				$("#surfaceSel").addClass("button");
+			}else{
+				$("#selectColorCode").val("s");
+				$("#targetSel").removeClass("buttonC");
+				$("#targetSel").addClass("button");
+				$("#surfaceSel").removeClass("button");
+				$("#surfaceSel").addClass("buttonC");
+			}
+		}
+
+		function setColor(){
+			var selColorType = $("#selectColorCode").val();
+			var input_code_value = $("#input_code_value").val();
+			var input_code_type = $("#input_code_type").val();
+
+			var input_code;
+			var input_codecnt;
+
+			
+			if(input_code_type != "pantone") {
+				// 컬러값과 쉼표만 남기고 삭제. 
+				input_code = input_code_value.replace( /[^%,.\d]/g, "" );
+				// 쉼표(,)를 기준으로 분리해서, 배열에 담기. 
+				input_code = input_code.split( "," ); 
+				input_codecnt = input_code.length;
+			}
+
+			
+
+			
+			console.log("input_codecnt : " + input_codecnt);
+
+			if(selColorType == ""){
+				alert("Please select a color code target.");
+				return false;
+			}else if(input_code_value == ""){
+				alert("Please enter the color code.");
+				return false;
+			}else{
+
+				if(input_code_type == ""){
+					alert("Please select a color code type.");
+					return false;
+				}else{
+					if(input_code_type == "lab"){
+						if(input_codecnt != 3){
+							alert("Please enter the correct color code.");
+							return false;
+						}
+					}else if(input_code_type == "cmyk"){
+						if(input_codecnt != 4){
+							alert("Please enter the correct color code.");
+							return false;
+						}
+					}else if(input_code_type == "rgb"){
+						if(input_codecnt != 3){
+							alert("Please enter the correct color code.");
+							return false;
+						}
+					}else if(input_code_type == "pantone"){
+
+					}else{
+						alert("Please select a color code type.");
+						return false;
+					}
+
+					$("#slider-value").html(50);
+					$( "#slider" ).slider( "option", "value", 50 );
+					changePV(50);
+				}
+			}
+		}
+
+		</script>
+		<style>
+		body, p{
+			font-family: Helvetica, Arial;
+		}
+
+		.divBtn{
+			text-align:center;
+		}
+
+		.button {
+			vertical-align:middle;
+			width:40%;
+			border-radius: 5px;
+			display:inline-block;
+			border: none;
+			color: white;
+			padding: 15px 30px;
+			text-align: center;
+			text-decoration: none;
+			display: inline-block;
+			font-size: 16px;
+			margin: 4px 2px;
+			cursor: pointer;
+		}
+		.buttonC {
+			vertical-align:middle;
+			width:40%;
+			background-color: blue;
+			border-radius: 5px;
+			display:inline-block;
+			border: none;
+			color: white;
+			padding: 15px 30px;
+			text-align: center;
+			text-decoration: none;
+			display: inline-block;
+			font-size: 16px;
+			margin: 4px 2px;
+			cursor: pointer;
+		}
+
+		.colorArea {
+			text-align:center;
+			height:120px;
+		}
+		.tsColorArea {
+			border:1px solid black;
+			width:40%;
+			height:120px;
+			display:inline-block;
+		/*
+			width:40%;
+			border:1px solid black;
+			vertical-align:middle;
+			text-align: center;
+			display:inline-block;
+			height:100px;
+			line-height:100px;
+		*/
+		}
+		.surfaceColorArea {
+		/*
+			width:40%;
+			border:1px solid black;
+			vertical-align:middle;
+			text-align: center;
+			display:inline-block;
+			height:100px;
+			line-height:100px;
+		*/
+		}
+		</style>
+	</head>
+<body>
+
+<div class="divBtn">
+	<input type="button" value="TARGET" id="targetSel" class="button" onclick="selectColorCode('t');" />
+	<input type="button" value="SURFACE" id="surfaceSel" class="button" onclick="selectColorCode('s');" />
+</div>
+<br />
+<input type="hidden" name="selectColorCode" id="selectColorCode" value="" size="3" />
+<br /><br />
+<div>
+	<select name="input_code_type" id="input_code_type">		
+		<option value="lab">Lab</option>
+		<option value="cmyk">CMYK</option>
+		<option value="rgb">RGB</option>
+		<option value="pantone">Pantone</option>
+	</select>
+	<input type="text" name="input_code_value" id="input_code_value" value="" size="20" onblur="setColor();" />
+	<!-- <input type="button" value="Target Color input" onclick="changePV(50);" /> -->
+</div>
+
+<hr>
+
+<div id="divColorArea" class="colorArea">
+	<div id="targetColor" class="tsColorArea">
+	Target Color<br>
+	Lab : <span id="targetColorLABCode"></span><br>
+	RGB : <span id="targetColorRGBCode"></span><br>
+	CMYK : <span id="targetColorCMYKCode"></span><br>
+	HEX : <span id="targetColorHexCode"></span>
+	</div>
+
+	<div id="surfaceColor" class="tsColorArea">
+	Surface Color<br>
+	Lab : <span id="surfaceColorLABCode"></span><br>
+	RGB : <span id="surfaceColorRGBCode"></span><br>
+	CMYK : <span id="surfaceColorCMYKCode"></span><br>
+	HEX : <span id="surfaceColorHexCode"></span>
+	</div>
+</div>
+
+<hr>
+
+<input type="hidden" name="pre_pv" id="pre_pv" value="" size="3" />
+<br><br>
+
+PV ratio
+<div id="slider"></div>
+<p><span id="slider-value"></span>%</p>
+<br/>
+
+<!-- Surface(original) :  --><input type="hidden" name="surface_origin_color_hex" id="surface_origin_color_hex" value="" size="10" readonly />
+<!-- Surface :  --><input type="hidden" name="surface_color_hex" id="surface_color_hex" value="" size="10" readonly />
+<br><br>
+
+Bright
+<div id="slider2"></div>
+<p style="display:none;"><span id="slider2-value"></span></p>
+<br/>
+
+<!-- Surface(original) :  --><input type="hidden" name="surface_origin_color_hex2" id="surface_origin_color_hex2" value="" size="10" readonly />
+<!-- Surface :  --><input type="hidden" name="surface_color_hex2" id="surface_color_hex2" value="" size="10" readonly />
+<br><br>
+
+Tone
+<div id="slider3"></div>
+<p style="display:none;"><span id="slider3-value"></span></p>
+<br/>
+
+</body>
+</html>

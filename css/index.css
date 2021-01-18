@@ -1,0 +1,70 @@
+body, p{
+    font-family: Helvetica, Arial;
+}
+
+.divBtn{
+    text-align:center;
+}
+
+.button {
+    vertical-align:middle;
+    width:40%;
+    border-radius: 5px;
+    display:inline-block;
+    border: none;
+    color: white;
+    padding: 15px 30px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+}
+.buttonC {
+    vertical-align:middle;
+    width:40%;
+    background-color: blue;
+    border-radius: 5px;
+    display:inline-block;
+    border: none;
+    color: white;
+    padding: 15px 30px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+}
+
+.colorArea {
+    text-align:center;
+    height:120px;
+}
+.tsColorArea {
+    border:1px solid black;
+    width:40%;
+    height:120px;
+    display:inline-block;
+/*
+    width:40%;
+    border:1px solid black;
+    vertical-align:middle;
+    text-align: center;
+    display:inline-block;
+    height:100px;
+    line-height:100px;
+*/
+}
+.surfaceColorArea {
+/*
+    width:40%;
+    border:1px solid black;
+    vertical-align:middle;
+    text-align: center;
+    display:inline-block;
+    height:100px;
+    line-height:100px;
+*/
+}

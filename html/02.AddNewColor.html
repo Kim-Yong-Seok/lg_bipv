@@ -1,0 +1,186 @@
+<!DOCTYPE HTML>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalabel=no">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<title>LG전자 BIPV</title>
+<link href="../css/style.css" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="../js/jquery-1.11.1.min.js"></script>
+<script type="text/javascript" src="../js/default.js"></script>
+</head>
+<body>
+<div id="wrap">
+	<header class="header">
+		<h1>Add New Color</h1>
+		<button class="btn btnPrev" type="button">이전</button>
+	</header>
+	<main class="fs0 bgGray">
+		<section>
+			<div class="inner">
+				<h2>Color Code</h2>
+				<div class="right_area">
+					<div class="chktype2">
+						<div class="chkwrap">
+							<input type="checkbox" id="chkAccept1" checked>
+							<label class="switch" for="chkAccept1">
+								<span class="slider"></span>
+								<span class="tip left">Target</span>
+								<span class="tip right">Surface</span>
+							</label>
+						</div>
+					</div>
+				</div>
+				<div class="inner-item">
+					<select style="width: 30%;">
+						<option value="rgb" selected>Lab</option>
+						<option value="cmyk">CMYK</option>
+					</select>
+					<!-- rgb 선택일 경우 -->
+					<!-- <div class="input_box rgb mgl_10 " style="width: calc(70% - 10px);">
+						<input type="text"> - 
+						<input type="text"> - 
+						<input type="text">
+					</div> -->
+					<!-- CMYK 선택일 경우 -->
+					<!-- <div class="input_box cmyk mgl_10" style="width: calc(70% - 10px);">
+						<input type="text"> - 
+						<input type="text"> - 
+						<input type="text"> - 
+						<input type="text">
+					</div> -->
+					<div class="input_box mgl_10" style="width: calc(70% - 10px);">
+						<input type="text" style="width: 100%;">
+					</div>
+				</div>
+				<div class="button_area">
+					<button class="btnPhoto"><span>Photo</span></button>
+				</div>
+			</div>
+		</section>
+
+		<section>
+			<div class="inner">
+				<h2>Preview</h2>
+				<div class="inner-item">
+					<div class="col color_left">
+						<h3>Target Color</h3>
+						<div class="color_code" style="background: #7f4c46;"></div>
+					</div>
+					<div class="col color_right">
+						<h3>Surface Color</h3>
+						<div class="color_code" style="background: #aa463b;"></div>
+					</div>
+				</div>
+
+				<h2>PV Ratio</h2>
+				<div class="inner-item">
+					<!-- pv0 pv25 pv50 pv75 pv100 -->
+					<table class="color_ratio pv25" style="background: #aa463b;">
+						<tr>
+							<td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+							<td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+							<td></td>
+						</tr>
+						<tr>
+							<td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+							<td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+							<td></td>
+						</tr>
+						<tr>
+							<td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+							<td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+							<td></td>
+						</tr>
+						<tr>
+							<td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+							<td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+							<td></td>
+						</tr>
+						<tr>
+							<td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+							<td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+							<td></td>
+						</tr>
+					</table>
+
+					<div class="ratio_bar">
+						<span class="left"><em>75</em>%</span>
+						<span class="right"><em>25</em>%</span>
+						<div class="bar" style="background: #aa463b;"></div>
+						<!-- 슬라이드 스크립트 적용 -->
+						<span class="tit left">Surface Color</span>
+						<span class="tit right">PV</span>
+					</div>
+
+					<dl class="openList_area">
+						<dt class="active"><a href="#a"><h2>Surface Color Adjustment</h2></a></dt>
+						<dd class="openList_item">
+							<div class="ratio_bar">
+								<span class="tit2">Brightness</span>
+								<div class="bar small" style="background: #aa463b;"></div>
+								<!-- 슬라이드 스크립트 적용 -->
+							</div>
+							<div class="ratio_bar">
+								<span class="tit2">Saturation</span>
+								<div class="bar small" style="background: #aa463b;"></div>
+								<!-- 슬라이드 스크립트 적용 -->
+							</div>
+							<div class="ratio_bar">
+								<span class="tit2">Hue</span>
+								<div class="bar small" style="background: #aa463b;"></div>
+								<!-- 슬라이드 스크립트 적용 -->
+							</div>
+						</dd>
+					</dl>
+				</div>
+			</div>
+		</section>
+
+		<section>
+			<div class="inner">
+				<h2>Expected Power</h2>
+				<div class="inner-item relative">
+					<input class="input_box text-right" type="text" value="289 (15.2%)" readonly>
+					<span class="right_area">W</span>
+				</div>
+
+				<h2>Client</h2>
+				<div class="inner-item">
+					<select class="col">
+						<option selected>Public</option>
+						<option>option</option>
+					</select>
+					<select class="col">
+						<option selected>Company</option>
+						<option>option</option>
+					</select>
+				</div>
+				
+				<h2>Tag</h2>
+				<div class="inner-item">
+					<input class="input_box" type="text" placeholder="Input text">
+				</div>
+
+				<h2 class="relative">
+					Tag 
+					<button class="btn btn_option">옵션</button>
+				</h2>
+				<div class="inner-item relative">
+					<ul class="ul_list">
+						<li>Float Tempered Glass 5T</li>
+						<li>Asia Korea D65</li>
+					</ul>
+				</div>
+			</div>
+		</section>
+
+
+		<div class="bottom_btn_area">
+			<button class="btn typeBlack" type="button">SAVE</button>
+		</div>
+
+	</main>
+</div>
+</body>
+</html>

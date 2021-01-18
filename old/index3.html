@@ -1,0 +1,75 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+        <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" />
+        <link rel="stylesheet" href="./css/index.css" />
+		<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+		<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+        <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jqueryui-touch-punch/0.2.3/jquery.ui.touch-punch.min.js"></script>
+        <script type="text/javascript" src="js/convert.js"></script>
+        <script type="text/javascript" src="js/color_picker.js"></script>
+        <script type="text/javascript" src="js/lib.js"></script>
+    </head>
+    <body>
+        <div class="divBtn">
+            <input type="button" value="TARGET" id="targetSel" class="button" onclick="selectTarget('t');" />
+            <input type="button" value="SURFACE" id="surfaceSel" class="button" onclick="selectTarget('s');" />
+        </div>
+        <br />
+        <input type="hidden" name="selectColorCode" id="selectColorCode" value="" size="3" />
+        <br /><br />
+        <div>
+            <select name="input_code_type" id="inputCodeType">		
+                <option value="lab">Lab</option>
+                <option value="cmyk">CMYK</option>
+                <option value="rgb">RGB</option>
+                <option value="pantone">Pantone</option>
+            </select>
+            <input type="text" name="input_code_value" id="inputCodeValue" value="" size="20" />
+            <button type="button" onclick="setColor()">OK</button>
+        </div>
+        
+        <hr>
+        
+        <div id="divColorArea" class="colorArea">
+            <div id="targetColor" class="tsColorArea">
+            Target Color<br>
+            Lab : <span id="labValue"></span><br>
+            RGB : <span id="rgbValue"></span><br>
+            CMYK : <span id="cmykValue"></span><br>
+            HEX : <span id="hexValue"></span>
+            </div>
+        
+            <div id="surfaceColor" class="tsColorArea">
+            Surface Color<br>
+            Lab : <span id="labValue"></span><br>
+            RGB : <span id="rgbValue"></span><br>
+            CMYK : <span id="cmykValue"></span><br>
+            HEX : <span id="hexValue"></span>
+            </div>
+        </div>
+        
+        <hr>
+        
+        <input type="hidden" name="pre_pv" id="prePvValue" value="" size="3" />
+        <br><br>
+        
+        PV ratio
+        <div id="pvSlider"></div>
+        <p><span id="pvSliderValue"></span>%</p>
+        <br/>
+        <br><br>
+        
+        Bright
+        <div id="brightSlider"></div>
+        <p><span id="brightSliderValue"></span></p>
+        <br/>
+        <br><br>
+        
+        Tone
+        <div id="toneSlider"></div>
+        <p><span id="toneSliderValue"></span></p>
+        <br/>
+    </body>
+</html>
