@@ -1,4 +1,3 @@
-<!DOCTYPE HTML>
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
@@ -21,7 +20,8 @@
 	<header class="header">
 		<h1>Add New Color</h1>
 		<button class="btn btnPrev" type="button">이전</button>
-	</header>
+    </header>
+    <form action="./server/color/add_new_color.php" method="POST">
 	<main class="fs0 bgGray">
 		<section>
 			<div class="inner">
@@ -29,7 +29,7 @@
 				<div class="right_area">
 					<div class="chktype2">
 						<div class="chkwrap">
-							<input type="checkbox" id="chkAccept1" onchange="selectTarget()">
+							<input type="checkbox" id="chkAccept1" onchange="selectTarget()" name="target_value">
 							<label class="switch" for="chkAccept1">
 								<span class="slider"></span>
 								<span class="tip left">Target</span>
@@ -39,7 +39,7 @@
 					</div>
 				</div>
 				<div class="inner-item">
-					<select style="width: 30%;" id="inputCodeType" onchange="selectCodeType()">
+					<select style="width: 30%;" id="inputCodeType" onchange="selectCodeType()" name="color_type_value">
                         <option value="lab" selected>Lab</option>
                         <option value="rgb">RGB</option>
                         <option value="cmyk">CMYK</option>
@@ -62,7 +62,10 @@
 						<input type="text" id="ibv3_1"> - 
 						<input type="text" id="ibv3_2" onfocusout="setColor()">
 					</div>
-				</div>
+                </div>
+                <input type="hidden" name="color_value_1" id="colorValue1">
+                <input type="hidden" name="color_value_2" id="colorValue2">
+                <input type="hidden" name="color_value_3" id="colorValue3">
 				<div class="button_area">
 					<button class="btnPhoto"><span>Photo</span></button>
 				</div>
@@ -116,8 +119,9 @@
 
 					<div class="ratio_bar">
 						<span class="left"><em id="pvSliderValue2">50</em>%</span>
-						<span class="right"><em id="pvSliderValue">50</em>%</span>
-						<div id="pvSlider"></div>
+                        <span class="right"><em id="pvSliderValue">50</em>%</span>
+                        <input type="hidden" id="pvValue" name="pv_value">
+                        <div id="pvSlider"></div>
 						<!-- 슬라이드 스크립트 적용 -->
 						<span class="tit left" id="targetName">Surface Color</span>
 						<span class="tit right">PV</span>
@@ -127,19 +131,22 @@
 						<dt class="active"><a href="#a"><h2>Surface Color Adjustment</h2></a></dt>
 						<dd class="openList_item">
 							<div class="ratio_bar">
-								<span class="tit2">Brightness</span>
+                                <span class="tit2">Brightness</span>
+                                <input type="hidden" id="brightnessValue" name="brightness_value">
 								<!-- <div class="bar small" style="background: #aa463b;"></div> -->
                                 <!-- 슬라이드 스크립트 적용 -->
                                 <div id="brightSlider"></div>
 							</div>
 							<div class="ratio_bar">
-								<span class="tit2">Saturation</span>
+                                <span class="tit2">Saturation</span>
+                                <input type="hidden" id="saturationValue" name="saturation_value">
 								<!-- <div class="bar small" style="background: #aa463b;"></div> -->
                                 <!-- 슬라이드 스크립트 적용 -->
                                 <div id="toneSlider"></div>
 							</div>
 							<div class="ratio_bar">
-								<span class="tit2">Hue</span>
+                                <span class="tit2">Hue</span>
+                                <input type="hidden" id="hueValue" name="hue_value">
 								<!-- <div class="bar small" style="background: #aa463b;"></div> -->
                                 <!-- 슬라이드 스크립트 적용 -->
                                 <div id="hueSlider"></div>
@@ -154,7 +161,7 @@
 			<div class="inner">
 				<h2>Expected Power</h2>
 				<div class="inner-item relative">
-					<input class="input_box text-right" type="text" readonly id="expectedPower">
+					<input class="input_box text-right" type="text" readonly id="expectedPower" name="expected_power">
 					<span class="right_area">W</span>
 				</div>
 
@@ -191,9 +198,10 @@
 
 		<div class="bottom_btn_area">
 			<button class="btn typeBlack" type="button">SAVE</button>
-		</div>
-
-	</main>
+        </div>
+        <input type="hidden" id="rgbValue" name="rgb_value">
+    </main>
+    </form>
 </div>
 </body>
 </html>
