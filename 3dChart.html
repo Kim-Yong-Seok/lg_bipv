@@ -67,8 +67,8 @@
         }];
 
         var layout = {
-            autosize: true,
-            height: 480,
+            // autosize: true,
+            height: 800,
             scene: {
                 aspectratio: {
                     x: 1,
@@ -95,30 +95,24 @@
                 xaxis: {
                     type: 'linear',
                     title: 'a',
-                    zeroline: false,
-                    showgrid: false,
-                    autorange: true,
+                    rangemode: 'nonnegetive',
                     range: [-128, 127],
-                    rangemode: 'nonnegetive'
                 },
                 yaxis: {
                     type: 'linear',
                     title: 'b',
-                    zeroline: false,
-                    showgrid: true,
-                    autorange: true,
+                    rangemode: 'nonnegative',
                     range: [-128, 127]
                 },
                 zaxis: {
                     type: 'linear',
                     title: 'L',
-                    zeroline: false,
                     showgrid: false,
                     range: [0, 100]
                 }
             },
             title: '3d point clustering',
-            width: 800
+            width: 1000
         };
 
         Plotly.newPlot('myDiv', data, layout);
