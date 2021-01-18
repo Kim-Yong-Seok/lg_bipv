@@ -1,0 +1,125 @@
+<html>
+    <head>
+        <script type="text/javascript" src="./js/plotly.js"></script>
+        <script type="text/javscript" src="./js/jquery-1.11.1.min.js"></script>
+    </head>
+    <body>
+        <div id="myDiv">
+
+        </div>
+    </body>
+</html>
+<script>
+    // Plotly.d3.csv('https://raw.githubusercontent.com/plotly/datasets/master/alpha_shape.csv', function(err, rows){
+    //     function unpack(rows, key) {
+    //         return rows.map(function(row) { return row[key]; });
+    //     }
+
+        
+
+    // });
+
+    var data = [{
+            x: [-3, 5, -20, 70, 60, 77, 32, 126],
+            y: [-50, 10, 23, -70, -60, -77, -32, -90],
+            z: [36, 40, 40, 21, 7, 87, 72, 10],
+            mode: 'markers+text',
+            type: 'scatter3d',
+            // text: ["A", "B", "L"],
+            hovertemplate: 'L: %{z}<br>A: %{x}<br>B: %{y}',
+            marker: {
+                color: 'rgb(23, 190, 207)',
+                size: 3
+            }
+        }, {
+            x: [0, 0],
+            y: [0, 0],
+            z: [0, 100],
+            mode: 'lines',
+            type: 'scatter3d',
+            line: {
+                color: 'black',
+                width: 1
+            },
+            hoverinfo: 'none'
+        }, {
+            x: [-128, 128],
+            y: [0, 0],
+            z: [0, 0],
+            mode: 'lines',
+            type: 'scatter3d',
+            line: {
+                color: 'black',
+                width: 1
+            },
+            hoverinfo: 'none'
+        }, {
+            x: [0, 0],
+            y: [-128, 128],
+            z: [0, 0],
+            mode: 'lines',
+            type: 'scatter3d',
+            line: {
+                color: 'black',
+                width: 1
+            },
+            hoverinfo: 'none'
+        }];
+
+        var layout = {
+            autosize: true,
+            height: 480,
+            scene: {
+                aspectratio: {
+                    x: 1,
+                    y: 1,
+                    z: 1
+                },
+                camera: {
+                    center: {
+                        x: 0,
+                        y: 0,
+                        z: 0
+                    },
+                    eye: {
+                        x: 1.25,
+                        y: 1.25,
+                        z: 1.25
+                    },
+                    up: {
+                        x: 0,
+                        y: 0,
+                        z: 1
+                    }
+                },
+                xaxis: {
+                    type: 'linear',
+                    title: 'a',
+                    zeroline: false,
+                    showgrid: false,
+                    autorange: true,
+                    range: [-128, 127],
+                    rangemode: 'nonnegetive'
+                },
+                yaxis: {
+                    type: 'linear',
+                    title: 'b',
+                    zeroline: false,
+                    showgrid: true,
+                    autorange: true,
+                    range: [-128, 127]
+                },
+                zaxis: {
+                    type: 'linear',
+                    title: 'L',
+                    zeroline: false,
+                    showgrid: false,
+                    range: [0, 100]
+                }
+            },
+            title: '3d point clustering',
+            width: 800
+        };
+
+        Plotly.newPlot('myDiv', data, layout);
+</script>
