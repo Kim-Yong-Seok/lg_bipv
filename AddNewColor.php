@@ -19,7 +19,7 @@
 <div id="wrap">
 	<header class="header">
 		<h1>Add New Color</h1>
-		<button class="btn btnPrev" type="button">이전</button>
+		<button class="btn btnPrev" type="button" onclick="history.back(-1)">이전</button>
     </header>
     <form action="./server/color/add_new_color.php" method="POST" id="addNewColorForm">
 	<main class="fs0 bgGray">
@@ -60,7 +60,7 @@
 					</div>
 					<div class="input_box pantone mgl_10" id="inputCodeBox3" style="width: calc(70% - 10px); display: none;">
 						<input type="text" id="ibv3_1" name="ibv3_1"> - 
-						<input type="text" id="ibv3_2" name="ibv3_1" onfocusout="setColor()">
+						<input type="text" id="ibv3_2" name="ibv3_2" onfocusout="setColor()">
 					</div>
                 </div>
                 <!-- <input type="hidden" name="color_value_1" id="colorValue1">

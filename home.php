@@ -1,20 +1,42 @@
-<!DOCTYPE HTML>
+<?php
+require_once('./server/config.php');
+?>
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalabel=no">
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
 <title>LG전자 BIPV</title>
-<link href="../css/style.css" rel="stylesheet" type="text/css">
-<script type="text/javascript" src="../js/jquery-1.11.1.min.js"></script>
-<script type="text/javascript" src="../js/default.js"></script>
+<link href="./css/style.css" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="./js/jquery-1.11.1.min.js"></script>
+<script type="text/javascript" src="./js/default.js"></script>
 </head>
 <body>
 <div id="wrap" class="home">
+	<div class="left_menu">
+		<div class="dimmed"></div>
+		<nav>
+			<div class="profile">
+				<dl>
+					<dt>My Info</dt>
+					<dd>James</dd>
+				</dl>
+			</div>
+			<div class="menu">
+				<ul>
+					<li><a href="#">Log out</a></li>
+					<li><a href="#">Environment Setting</a></li>
+					<li><a href="#">Authority Setting</a></li>
+				</ul>
+			</div>
+			<button class="btn close" type="button">닫기</button>
+		</nav>
+	</div>
+
 	<header class="header">
 		<button class="btn btnMenu" type="button">이전</button>
-		<button class="btn btnAddNew" type="button">이전</button>
-		<h1><img src="../images/img_logo.png" alt="LG BIPV AC Color DX"></h1>
+		<button class="btn btnAddNew" type="button" onclick="location.href='./AddNewColor.php';">추가</button>
+		<h1><img src="./images/img_logo.png" alt="LG BIPV AC Color DX"></h1>
 	</header>
 	<main class="fs0 bgGray relative">
 
@@ -37,45 +59,19 @@
 					<button class="btn btn_more">더보기</button>
 				</h2>
 				<div class="inner-item">
-					<dl class="color_list">
-						<dd style="background: #7f4c46;"></dd>
-						<dt>G01-50-2222222</dt>
-					</dl>
-
-					<dl class="color_list">
-						<dd style="background: #2e567b;"></dd>
-						<dt>G01-50-2222222</dt>
-					</dl>
-
-					<dl class="color_list">
-						<dd style="background: #6d8c63;"></dd>
-						<dt>G01-50-2222222</dt>
-					</dl>
-
-					<dl class="color_list">
-						<dd style="background: #376058;"></dd>
-						<dt>G01-50-2222222</dt>
-					</dl>
-
-					<dl class="color_list">
-						<dd style="background: #5a413a;"></dd>
-						<dt>G01-50-2222222</dt>
-					</dl>
-
-					<dl class="color_list">
-						<dd style="background: #8f5c50;"></dd>
-						<dt>G01-50-2222222</dt>
-					</dl>
-
-					<dl class="color_list">
-						<dd style="background: #3e3e43;"></dd>
-						<dt>G01-50-2222222</dt>
-					</dl>
-
-					<dl class="color_list">
-						<dd style="background: #94946c;"></dd>
-						<dt>G01-50-2222222</dt>
-					</dl>
+					<?php
+						$query = "SELECT * FROM `b_bipv_color` ORDER BY `c_no`";
+						$result = $conn->query( $query );
+						
+						while( $res = $result->fetch_array(MYSQLI_ASSOC) ) {
+							?>
+							<dl class="color_list">
+								<dd style="background: <?=$res['c_surface_hex_code']?>;"></dd>
+								<dt><?=$res['c_no']?></dt>
+							</dl>
+							<?php							
+						}
+					?>
 				</div>
 			</div>
 		</section>

@@ -3,6 +3,13 @@ var FIXED_HEX_CODE = '';
 var NONE_FIXED_HEX_CODE = '';
 var ORIGIN_NONE_FIXED_HEX_CODE = '';
 
+function addNewColor () {
+    $('#fixedHexValue').val(FIXED_HEX_CODE);
+    $('#noneFixedHexValue').val(NONE_FIXED_HEX_CODE);
+    
+    $('#addNewColorForm').submit();
+}
+
 function reset () {
     console.log('RESET!');
 
@@ -36,6 +43,16 @@ function reset () {
     $("#pvSlider .ui-slider-range").css( "background-color", '' );
     $("#brightSlider .ui-slider-range").css( "background-color", '' );
     $("#toneSlider .ui-slider-range").css( "background-color", '' );
+    $('#hueSlider .ui-slider-range').css( "background-color", '' );
+
+    $('#pvValue').val('');
+    $('#brightnessValue').val('');
+    $('#saturationValue').val('');
+    $('#hueValue').val('');
+
+    NONE_FIXED_HEX_CODE = '';
+    FIXED_HEX_CODE = '';
+    ORIGIN_NONE_FIXED_HEX_CODE = '';
 }
 
 function selectTarget () {
@@ -205,6 +222,7 @@ function setColor () {
             FIXED_HEX_CODE = hexCode;
             NONE_FIXED_HEX_CODE = noneHexCode;
             ORIGIN_NONE_FIXED_HEX_CODE = noneHexCode;
+
             changePv( 50 );
         } else {
             alert('Some error occured!!');
@@ -237,8 +255,10 @@ function changePv ( pv ) {
     $('#toneSlider').slider( 'option', 'value', s );
     $('#hueSlider').slider( 'option', 'value', h );
 
-    // $('#brightSliderValue').html(l);
-    // $('#toneSliderValue').html(s);
+    $('#pvValue').val( pv );
+    $('#brightnessValue').val( l );
+    $('#saturationValue').val( s );
+    $('#hueValue').val( h );
 
     var barColor = getTheColor( noneHexCode );
     $("#pvSlider .ui-slider-range").css( "background-color", barColor );
@@ -264,7 +284,7 @@ function changePv ( pv ) {
     }
     
     $('#expectedPower').val( expectedPower );
-    console.log( expectedPower );
+    // console.log( expectedPower );
     NONE_FIXED_HEX_CODE = noneHexCode.toUpperCase();
     ORIGIN_NONE_FIXED_HEX_CODE = noneHexCode.toUpperCase();
 
@@ -279,6 +299,7 @@ function changeBright ( bright ) {
     var light = newHex;
     
     $('.noneFixedTarget').css('background-color', light );
+    $('#brightnessValue').val( bright );
 
     var barColor = getTheColor( light );
     $("#brightSlider .ui-slider-range").css( "background-color", barColor );
@@ -301,12 +322,13 @@ function changeTone ( tone ) {
     
     var newHexCode = newHex;
 
+    $(".noneFixedTarget").css( 'background-color', newHexCode );
+    $('#saturationValue').val( tone );
+
     var barColor = getTheColor( newHexCode );
     $("#brightSlider .ui-slider-range").css( "background-color", barColor );
     $("#toneSlider .ui-slider-range").css( "background-color", barColor );
     $("#hueSlider .ui-slider-range").css( "background-color", barColor );
-
-    $(".noneFixedTarget").css( 'background-color', newHexCode );
 
     // $('.noneFixedTarget > span#labValue').text( rgbTolab( hexToRgb( newHexCode ) ) );
     // $('.noneFixedTarget > span#cmykValue').text( rgbToCmyk( hexToRgb( newHexCode ) ) );
@@ -323,14 +345,15 @@ function changeHue ( hue ) {
     var newHex = hslToHex( newHsl );
 
     var newHexCode = newHex;
+    
+    $(".noneFixedTarget").css( 'background-color', newHexCode );
+    $('#hueValue').val( hue );
 
     var barColor = getTheColor( newHexCode );
 
     $("#brightSlider .ui-slider-range").css( "background-color", barColor );
     $("#toneSlider .ui-slider-range").css( "background-color", barColor );
     $("#hueSlider .ui-slider-range").css( "background-color", barColor );
-
-    $(".noneFixedTarget").css( 'background-color', newHexCode );
 
     NONE_FIXED_TONE_CODE = newHexCode.toUpperCase();
 }
