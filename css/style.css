@@ -16,7 +16,7 @@ caption,legend{line-height:0;font-size:1px;overflow:hidden;}
 /* hr{display:none;} */
 main,header,section,nav,footer,aside,article,figure{display:block;}
 a{color:#000;text-decoration:none;}
- * {-webkit-tap-highlight-color:rgba(0,0,0,0) /*!important;tap-highlight-color:rgba(0,0,0,0)*/ !important; outline: none;}
+ * {-webkit-tap-highlight-color:rgba(0,0,0,0) !important;tap-highlight-color:rgba(0,0,0,0) !important; outline: none;}
 a:link,a:hover,a:active{text-decoration:none;}
 .clear:after { content: ""; display:block; clear:both;}
 select { display:inline-block; /* for Firefox */ -moz-appearance: none;	/* for Chrome */  -webkit-appearance: none; -webkit-border-radius: 0; -moz-border-radius:0; border-radius:0;}
@@ -32,7 +32,7 @@ input[type="radio"] { position:absolute; left:-30000%;}
 .mgl_10 {margin-left: 10px;}
 .btn { display:inline-block; font-size:0; vertical-align:top;}
 .colorRed { color:#ee303c !important;}
-.chkwrap input { position:absolute; left:0; top:0; width:100%; height:100%;}
+.chkwrap input { position:absolute; left:0; top:-9999px; width:100%; height:100%;}
 .switch { position: relative; display: inline-block; width:58px; height:26px;}
 .slider { position: absolute; cursor: pointer; top: 0; left: 0px; right: 0; bottom: 0; background-color: #eff0f2; border-radius:13px; -webkit-transition: .2s; transition: .2s;}
 .slider:before { position: absolute; content: ""; height: 26px; width:26px; left:-1px; bottom:0px; border-radius:100%; background-color: #151a2c; -webkit-transition: .2s; transition: .2s;}
@@ -46,7 +46,20 @@ input:checked + .switch .tip.right {color: #fff;}
 .switch .tip.left { left:0px;}
 .switch .tip.right { right:0px;}
 .scroll_x { width: 100%; overflow-x: auto;}
+.chkwrap.checkBox label { display: inline-block; padding-left: 26px; line-height: 20px; font-size: 12px; background:url(../images/icoChk.png) no-repeat left center; background-size: auto 20px;}
+.chkwrap.checkBox input:checked + label { background:url(../images/icoChkOn.png) no-repeat left center; background-size: auto 20px;}
 /* hr { margin: 25px 0; border: 0; border-top: 1px solid #d8d8d8;} */
+
+.left_menu { display: none; position: fixed; top: 0; width: 100%; height: 100vh; z-index: 99999;}
+.left_menu nav { display: none; position: absolute; top:0; left:-290px; padding: 60px 20px 0; width: 290px; height: 100vh; background: #151a2c; box-sizing: border-box;}
+.left_menu nav .profile dt { font-size: 18px; color: #fff;}
+.left_menu nav .profile dd { margin-top: 4px; font-size: 14px; color: #999999;}
+.left_menu nav .menu {margin-top: 55px;}
+.left_menu nav .menu li { margin-bottom: 20px; background:url(../images/btnNext.png) no-repeat right center; background-size: auto 20px;}
+.left_menu nav .menu li a { line-height: 27px;font-size: 18px; color: #fff;}
+.left_menu .dimmed {position: fixed; top: 0; width: 100%; height: 100vh;background: #000; opacity: 0.5;}
+.left_menu.active {display: block;}
+.left_menu.active nav { display: block;}
 
 select { padding:0 30px 0 10px; width:100%; height:40px; background:#eff0f2 url(../images/icoArrow.png) no-repeat right center; background-size:auto 24px; border-radius: 10px; font-size:14px; box-sizing:border-box; vertical-align:top;}
 .input_box {display: inline-block;padding:0 10px !important; width:100%; height:40px; background:#eff0f2; border-radius: 10px !important; font-size:16px; font-weight: bold; box-sizing:border-box; }
@@ -54,19 +67,22 @@ select { padding:0 30px 0 10px; width:100%; height:40px; background:#eff0f2 url(
 .input_box input[type=text] {height:40px;font-size:14px;background:#eff0f2;font-weight: normal;}
 .input_box.rgb input[type=text] {width: 26%;}
 .input_box.cmyk input[type=text] {width: 17%;}
-.input_box.pantone input[type=text] {width: 40%;}
 .input_box.error {border: 1px solid #ff0039;}
 .input_box.error input[type=text] {height:38px;}
 .input_box:disabled, .input_box.disabled {color: #a1a3ac;}
 
 .bottom_btn_area { padding-top: 20px; width:100%; text-align:center; z-index:10;}
-.bottom_btn_area > .btn { width:calc(100% - 20px); height:52px; line-height:52px; text-align:center; font-size:16px; border-radius: 10px; color:#fff; vertical-align:top;}
+.bottom_btn_area.fixed { position: fixed; bottom: 10px;}
+.bottom_btn_area > .btn { width:calc(100% - 20px); height:48px; line-height:48px; text-align:center; font-size:16px; border-radius: 10px; color:#fff; vertical-align:top;}
 .bottom_btn_area.col2 > .btn { width:calc(50% - 15px);}
 .bottom_btn_area.col2 > .btn + .btn { margin-left: 10px;}
+.btn.typeWhite { border: 1px solid #25293a; border-radius: 24px; background:#fff; color: #6a718a; font-weight: bold;}
 .btn.typeGray { background:#999;}
 .btn.typeRed { background:#ee303c;}
-.btn.typeBlack { background:#151a2c;}
+.btn.typeBlack { border-radius: 24px; background:#151a2c;}
 .btn.typeBlack:active { color:#a1a3ac; background:#000000;}
+
+.btn.close { position: absolute; top:10px; right:10px; width:30px; height:30px; background:url(../images/ic_close.png) no-repeat center; background-size: 24px;}
 
 .btn.btnMinus { width:24px; height:24px; background:url(../images/btnMinus.png) no-repeat center;}
 .btn.btnPlus { width:24px; height:24px; background:url(../images/btnPlus.png) no-repeat center;}
@@ -173,3 +189,17 @@ input[type=text].text-right + .right_area {top:10px;font-size: 14px;}
 .home main .inner-item .tag_area .color_tag { display: inline-block; margin: 5px 0 0 5px; padding: 0 7px; border: 1px solid #ecedee; border-radius: 14px;}
 .home main .inner-item .tag_area .color_tag .dot { display: inline-block; width: 8px; height: 8px; border-radius: 4px; vertical-align: middle;}
 .home main .inner-item .tag_area .color_tag .text { margin-left: 5px; max-width: 280px; line-height: 26px; font-size: 12px; vertical-align: middle;}
+
+/* LOGIN */
+.login { height:100vh; background: #151a2c;}
+.login main { padding-top: 0;}
+.login .logo {padding: 178px 20px 0px;}
+.login section .inner { background:transparent; box-shadow:none;}
+.login section .inner h2 { font-size: 12px; color: #fff;}
+.login .chkwrap.checkBox {margin-top: 15px;}
+.login .chkwrap.checkBox label { color: #fff;}
+.login .chkwrap + p { margin-top: 35px;}
+.login .chkwrap + p a { font-size: 12px; color: #fff;}
+.login .bottom_btn_area { padding-top: 0; margin: 0 20px; width: calc(100% - 40px);}
+.login .bottom_btn_area .typeBlack { width:calc(50% - 5px); border: 1px solid #fff;}
+.login .bottom_btn_area .typeBlack + .typeBlack { margin-left: 10px;}
