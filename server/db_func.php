@@ -1,24 +1,15 @@
 <?php
-include_once('./config.php');
+$SERVER_ADDRESS = "localhost";
+$USER = "root";
+$PASSWORD = "color_picker_pjt";
+$DATABASE = "lg_bipv";
 
-function DB_INSERT( $query ) {
-    $result = $conn->query( $query );
-    return;
+$conn = new mysqli( $SERVER_ADDRESS, $USER, $PASSWORD, $DATABASE );
+
+if( $conn->connect_error ) {
+    echo "Error: Unable to connect to MySQL.";
+    echo "<br>Debugging error No: ".$conn->connect_errno;
+    echo "<br>Debugging error: ".$conn->connect_error;
+    exit;
 }
-
-function DB_UPDATE( ) {
-    
-    return;
-}
-
-function DB_DELETE( ) {
-
-    return;
-}
-
-function DB_SELECT( $query ) {
-    $result = $conn->query( $query );
-    return $result;
-}
-
 ?>

@@ -1,5 +1,4 @@
 <?php
-
 $SERVER_ADDRESS = "localhost";
 $USER = "root";
 $PASSWORD = "color_picker_pjt";
@@ -14,4 +13,11 @@ if( $conn->connect_error ) {
     exit;
 }
 
+function alert( $msg ) {
+    echo "<script>alert('".$msg."')</script>";
+}
+
+function go_to( $link ) {
+    echo "<script>location.href='".$link."'</script>";
+}
 ?>
