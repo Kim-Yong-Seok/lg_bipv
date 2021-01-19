@@ -36,9 +36,9 @@ function reset () {
     $('#pvTable').css('background-color', '');
     
     $('#pvTable').removeClass();
-    $('#pvTable').addClass('color_ratio pv25 noneFixedTarget');
-    $('#pvSlider').slider('option', 'value', 25);
-    $('#pvSliderValue').html(25);
+    $('#pvTable').addClass('color_ratio pv50 noneFixedTarget');
+    $('#pvSlider').slider('option', 'value', 50);
+    $('#pvSliderValue').html(50);
 
     $("#pvSlider .ui-slider-range").css( "background-color", '' );
     $("#brightSlider .ui-slider-range").css( "background-color", '' );
@@ -216,9 +216,6 @@ function setColor () {
             $('#toneSlider').slider( 'option', 'value', s);
             $('#hueSlider').slider( 'option', 'value', h);
 
-            // $('#brightSliderValue').html(l);
-            // $('#toneSliderValue').html(s);
-
             FIXED_HEX_CODE = hexCode;
             NONE_FIXED_HEX_CODE = noneHexCode;
             ORIGIN_NONE_FIXED_HEX_CODE = noneHexCode;
@@ -233,6 +230,7 @@ function setColor () {
 }
 
 function changePv ( pv ) {
+    console.log( pv );
     var noneRgb = hexToRgb( FIXED_HEX_CODE );
     var noneHexCode = rgbToHexWithPV( purposeTarget, noneRgb, pv );
     var hsl = hexToHsl( noneHexCode ).replace( /[^%,.\d]/g, "" ).split(',');
@@ -249,6 +247,7 @@ function changePv ( pv ) {
     $("#pvTable").removeClass();
     $("#pvTable").addClass("color_ratio noneFixedTarget pv" + pv);
 
+    $('.fixedTarget').css('background-color', FIXED_HEX_CODE);
     $('.noneFixedTarget').css('background-color', noneHexCode);
 
     $('#brightSlider').slider( 'option', 'value', l );

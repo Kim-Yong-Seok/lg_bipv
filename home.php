@@ -52,20 +52,21 @@ require_once('./server/config.php');
 		</div>
 
 		<section>
+			<?php
+				$query = "SELECT * FROM `b_bipv_color` ORDER BY `c_no`";
+				$result = $conn->query( $query );
+			?>
 			<div class="inner">
 				<h2 class="relative">
 					Project
-					<span class="num">24</span>
+					<span class="num"><?=$result->num_rows?></span>
 					<button class="btn btn_more">더보기</button>
 				</h2>
 				<div class="inner-item">
 					<?php
-						$query = "SELECT * FROM `b_bipv_color` ORDER BY `c_no`";
-						$result = $conn->query( $query );
-						
 						while( $res = $result->fetch_array(MYSQLI_ASSOC) ) {
 							?>
-							<dl class="color_list">
+							<dl class="color_list" onclick="location.href='./UpdateColor.php?id=<?=$res['c_no']?>'">
 								<dd style="background: <?=$res['c_surface_hex_code']?>;"></dd>
 								<dt><?=$res['c_no']?></dt>
 							</dl>
@@ -77,58 +78,35 @@ require_once('./server/config.php');
 		</section>
 
 		<section>
+			<?php
+				$query = "SELECT * FROM `b_bipv_color` WHERE `c_approval`='Y';";
+				$result = $conn->query( $query );
+			?>
 			<div class="inner">
 				<h2 class="relative">
 					Library
-					<span class="num">32</span>
+					<span class="num"><?=$result->num_rows?></span>
 					<button class="btn btn_more">더보기</button>
 				</h2>
 				<div class="inner-item scroll_x">
 					<!-- 100 * 4 -->
 					<div class="inner_scroll" style="width: 400px;">
-						<dl class="color_list library">
-							<dd style="background: #47485a;">
-								<ul>
-									<li class="left" style="background: #5e5f79;"></li>
-									<li class="right" style="background: #000000;"></li>
-								</ul>
-							</dd>
-							<dt>BIPV-G01-2222222</dt>
-							<span class="tag ellipsis">#Tagtag</span>
-						</dl>
-	
-						<dl class="color_list library">
-							<dd style="background: #66476a;">
-								<ul>
-									<li class="left" style="background: #7c5681;"></li>
-									<li class="right" style="background: #000000;"></li>
-								</ul>
-							</dd>
-							<dt>BIPV-G01-2222222</dt>
-							<span class="tag ellipsis">#Tagtagtagtagtagtag</span>
-						</dl>
-	
-						<dl class="color_list library">
-							<dd style="background: #50778f;">
-								<ul>
-									<li class="left" style="background: #6593b0;"></li>
-									<li class="right" style="background: #000000;"></li>
-								</ul>
-							</dd>
-							<dt>BIPV-G01-2222222</dt>
-							<span class="tag ellipsis">#Tagtag</span>
-						</dl>
-	
-						<dl class="color_list library">
-							<dd style="background: #9d6969;">
-								<ul>
-									<li class="left" style="background: #b97878;"></li>
-									<li class="right" style="background: #000000;"></li>
-								</ul>
-							</dd>
-							<dt>BIPV-G01-2222222</dt>
-							<span class="tag ellipsis">#Tagtag</span>
-						</dl>
+						<?php
+							while( $res = $result->fetch_array(MYSQLI_ASSOC) ) {
+								?>
+								<dl class="color_list library">
+									<dd style="background: <?=$res['c_surface_hex_code']?>;">
+										<ul>
+											<li class="left" style="background: <?=$res['c_target_hex_code']?>;"></li>
+											<li class="right" style="background: #000000;"></li>
+										</ul>
+									</dd>
+									<dt><?=$res['c_no']?></dt>
+									<span class="tag ellipsis">#Tagtag</span>
+								</dl>
+								<?php
+							}
+						?>
 					</div>
 				</div>
 			</div>

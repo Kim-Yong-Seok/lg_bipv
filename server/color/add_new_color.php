@@ -29,9 +29,11 @@ if( $c_input_color_type == "rgb" || $c_input_color_type == "lab" ) {
 }
 
 if( isset($_POST['target_value']) ) {
+    $c_target = 'S';
     $c_target_hex_code = $none_fixed_hex_value;
     $c_surface_hex_code = $fixed_hex_value;
 } else {
+    $c_target = 'T';
     $c_target_hex_code = $fixed_hex_value;
     $c_surface_hex_code = $none_fixed_hex_value;
 }
@@ -41,6 +43,7 @@ $c_user_no = '123';
 
 $query = "INSERT `b_bipv_color` SET 
     `c_user_no` = '$c_user_no',
+    `c_target` = '$c_target',
     `c_input_color_type` = '$c_input_color_type',
     `c_input_color_code1` = '$c_input_color_value1',
     `c_input_color_code2` = '$c_input_color_value2',
@@ -57,10 +60,11 @@ $query = "INSERT `b_bipv_color` SET
 $result = $conn->query( $query );
 if( $result ) {
     alert('성공적으로 저장되었습니다.');
-    go_to('../../home.html');
+    go_to('../../home.php');
 }else {
     alert('저장에 실패하였습니다.');
-    go_to('../../home.html');
+    history.back(-1);
+    // go_to('../../home.php');
 }
 
 ?>

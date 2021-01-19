@@ -1,0 +1,57 @@
+<!DOCTYPE HTML>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalabel=no">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<title>LG전자 BIPV</title>
+
+<link rel="stylesheet" type="text/css" href="../js/swiper/swiper.min.css">
+<script type="text/javascript" src="../js/swiper/swiper.min.js"></script>
+
+<link href="../css/style.css" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="../js/jquery-1.11.1.min.js"></script>
+<script type="text/javascript" src="../js/default.js"></script>
+
+</head>
+<body>
+<div id="wrap" class="info_popup">
+	<main class="fs0">
+		<section>
+			<div class="swiper-container">
+				<div class="swiper-wrapper">
+					<div class="swiper-slide">
+						<img src="../images/img_home_guide_01.png" alt="" style="width: 100%;">
+					</div>
+					<div class="swiper-slide">
+						<img src="../images/img_home_guide_01.png" alt="" style="width: 100%;">
+					</div>
+				</div>
+				<div class="swiper-pagination"></div>
+			</div>
+
+			<div class="info_popup_inner">
+				<div class="chkwrap checkBox">
+					<input type="checkbox" id="RememberMe" checked>
+					<label for="RememberMe" class="text">
+						더 이상 보지 않기
+					</label>
+				</div>
+			</div>
+
+			<button class="btn close" type="button">닫기</button>
+		</section>
+	</main>
+</div>
+
+<!-- Initialize Swiper -->
+<script>
+	var swiper = new Swiper('.swiper-container', {
+		pagination: {
+		el: '.swiper-pagination',
+		},
+	});
+</script>
+
+</body>
+</html>
