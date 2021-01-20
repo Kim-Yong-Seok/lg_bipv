@@ -1,4 +1,5 @@
 <?php
+session_start();
 require_once('../config.php');
 
 $c_input_color_type = $_POST['color_type_value'];
@@ -7,6 +8,10 @@ $c_adjust_brightness = $_POST['brightness_value'];
 $c_adjust_saturation = $_POST['saturation_value'];
 $c_adjust_hue = $_POST['hue_value'];
 $expected_power = $_POST['expected_power'];
+$c_client_type = $_POST['client_type'];
+$c_client_value = $_POST['client_value'];
+$c_tag = $_POST['tag'];
+$c_memo = $_POST['memo'];
 
 $fixed_hex_value = $_POST['fixed_hex_value'];
 $none_fixed_hex_value = $_POST['none_fixed_hex_value'];
@@ -38,8 +43,7 @@ if( isset($_POST['target_value']) ) {
     $c_surface_hex_code = $none_fixed_hex_value;
 }
 
-// $c_client_type = $_POST['client_type'];
-$c_user_no = '123';
+$c_user_no = $_SESSION['no'];
 
 $query = "INSERT `b_bipv_color` SET 
     `c_user_no` = '$c_user_no',
@@ -55,7 +59,11 @@ $query = "INSERT `b_bipv_color` SET
     `c_adjust_saturation` = '$c_adjust_saturation',
     `c_adjust_hue` = '$c_adjust_hue',
     `c_surface_hex_code` = '$c_surface_hex_code',
-    `c_expected_power` = '$expected_power'
+    `c_expected_power` = '$expected_power',
+    `c_client_type` = '$c_client_type',
+    `c_client_value` = '$c_client_value',
+    `c_tag` = '$c_tag',
+    `c_memo` = '$c_memo'
 ";
 $result = $conn->query( $query );
 if( $result ) {
@@ -63,8 +71,7 @@ if( $result ) {
     go_to('../../home.php');
 }else {
     alert('저장에 실패하였습니다.');
-    history.back(-1);
-    // go_to('../../home.php');
+    echo "<script>history.back(-1);</script>";
 }
 
 ?>

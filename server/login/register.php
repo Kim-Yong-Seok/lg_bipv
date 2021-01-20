@@ -1,20 +1,33 @@
 <?php
-include_once('../db_func.php');
+require_once('../config.php');
 
 $name = $conn->real_escape_string( $_POST['name'] );
 $email = $conn->real_escape_string( $_POST['email'] );
 $password = md5( $_POST['password'] );
 
+$query = "SELECT * FROM `b_user` WHERE `u_email` = '$email'";
+$result = $conn->query( $query );
+
+if( isset( $result ) && $result->num_rows > 0 ) {
+    alert('동일한 계정이 존재합니다.');
+    go_to('../../login.php');
+    return;
+}
+
 $query = "INSERT `b_user` SET 
-    `u_name` = $name,
-    `u_email` = $email,
-    `u_password` = $password,
-    `u_insert_datetime` = current_timestamp()
+    `u_name` = '$name',
+    `u_email` = '$email',
+    `u_password` = '$password'
 ";
 
-$result = DB_INSERT( $query );
+$result = $conn->query( $query );
 
-if( $reuslt ) echo "SUCCESS";
-else echo "FAILED";
+if( $result ) {
+    alert('계정이 등록되었습니다.');
+    go_to('../../login.php');
+} else {
+    alert('계정 등록에 실패하였습니다.');
+    go_to('../../join.php');
+}
 
 ?>

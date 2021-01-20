@@ -239,9 +239,6 @@ if( $color_target == 'T' ) {
 
         // setColor();
         changePv( pv );
-        changeBright( bright );
-        changeTone( tone );
-        changeHue( hue );
 
         $('#pvSlider').slider( 'option', 'value', pv );
         

@@ -1,3 +1,6 @@
+<?php
+require_once('./server/config.php');
+?>
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
@@ -6,8 +9,7 @@
 <title>LG전자 BIPV</title>
 <link href="./css/style.css" rel="stylesheet" type="text/css">
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" />
-<!-- <script type="text/javascript" src="./js/jquery-1.11.1.min.js"></script> -->
-<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script type="text/javascript" src="./js/jquery-1.11.1.min.js"></script>
 <script type="text/javascript" src="./js/default.js"></script>
 <script type="text/javascript" src="./js/convert.js"></script>
 <script type="text/javascript" src="./js/color_picker.js"></script>
@@ -167,29 +169,48 @@
 
 				<h2>Client</h2>
 				<div class="inner-item">
-					<select class="col">
-						<option selected>Public</option>
-						<option>option</option>
+					<select class="col" name="client_type">
+						<option selected>None</option>
+						<option value="public">Public</option>
+						<option value="company">Company</option>
 					</select>
-					<select class="col">
-						<option selected>Company</option>
-						<option>option</option>
+					<select class="col" name="client_value">
+						<option class="public_item" value="seoulCity">Seoul city</option>
+						<option class="public_item" value="LH">LH</option>
+						<option class="public_item" value="SH">SH</option>
+						<option class="company_item" value="Hyundai">Hyundai</option>
+						<option class="company_item" value="Xi">Xi</option>
+						<option class="company_item" value="Ramian">Ramian</option>
+						<option value="etc">Etc-추가입력</option>
 					</select>
 				</div>
 				
 				<h2>Tag</h2>
 				<div class="inner-item">
-					<input class="input_box" type="text" placeholder="Input text">
+					<input class="input_box" type="text" placeholder="Input text" name="tag">
+				</div>
+
+				<h2>Memo</h2>
+				<div class="inner-item">
+					<input class="input_box" type="text" placeholder="Input text" name="memo">
 				</div>
 
 				<h2 class="relative">
-					Tag 
-					<button class="btn btn_option">옵션</button>
+					Environment
+					<button class="btn btn_option" type="button" onclick="location.href='./environment.php';">옵션</button>
 				</h2>
 				<div class="inner-item relative">
 					<ul class="ul_list">
-						<li>Float Tempered Glass 5T</li>
-						<li>Asia Korea D65</li>
+						<?php
+							$query = 'SELECT * FROM `b_environment` WHERE `e_user_no` = "$user_no";';
+							$result = $conn->query( $query );
+							$res = $result->fetch_array(MYSQLI_NUM);
+							for( $i=0; $i<sizeof($res); $i++ ) {
+								?>
+								<li><?=$res[$i]?></li>
+								<?php
+							}
+						?>
 					</ul>
 				</div>
 			</div>
@@ -197,8 +218,9 @@
 
 
 		<div class="bottom_btn_area">
-			<button class="btn typeBlack" type="button" onclick="addNewColor();">SAVE</button>
-        </div>
+			<button class="btn typeWhite" type="button" onclick="addNewColor();">SAVE</button>
+		</div>
+		
         <input type="hidden" id="fixedHexValue" name="fixed_hex_value">
         <input type="hidden" id="noneFixedHexValue" name="none_fixed_hex_value">
     </main>
