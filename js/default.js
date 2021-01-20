@@ -14,7 +14,7 @@ function bottomBtnArea(){
 	var winH = $(window).height() - 60,
 		mainH = $('main').height();
 	if(mainH <= winH){
-		$('.bottom_btn_area').addClass('fixed');
+		// $('.bottom_btn_area').addClass('fixed');
  	};
 }
 

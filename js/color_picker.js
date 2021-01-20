@@ -7,7 +7,12 @@ function addNewColor () {
     $('#fixedHexValue').val(FIXED_HEX_CODE);
     $('#noneFixedHexValue').val(NONE_FIXED_HEX_CODE);
     
-    $('#addNewColorForm').submit();
+    if( !FIXED_HEX_CODE || !NONE_FIXED_HEX_CODE ) {
+        alert('Please enter color code.');
+        return;
+    }else {
+        $('#addNewColorForm').submit();
+    }
 }
 
 function reset () {
