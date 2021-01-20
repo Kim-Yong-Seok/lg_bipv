@@ -162,6 +162,9 @@ section .inner .inner-item dl.inner-list { margin-bottom: 24px;}
 section .inner .inner-item dl.inner-list dt { margin-bottom: 7px;font-size: 12px; color: #5f6166;}
 section .inner .inner-item dl.inner-list dd { font-size: 14px; font-weight: bold; color: #151a2c;}
 section .inner .inner-item dl.inner-list dd.default { font-weight: normal; color: #b3b8ca;}
+section .inner .inner-item .tag-list { display: inline-block; margin-top: 8px; margin-right: 8px; padding-left: 10px; height: 26px; font-size: 12px; border-radius: 14px; border: 1px solid #ecedee;}
+section .inner .inner-item .tag-list .ellipsis { max-width: 80px; line-height: 26px;}
+section .inner .inner-item .tag-list .close2 { width:27px; height:26px; background:url(../images/ic_tag_close.png) no-repeat center; background-size: 12px;}
 
 section .inner .button_area {margin-top: 10px;}
 
