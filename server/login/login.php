@@ -1,8 +1,9 @@
 <?php
 require_once('../config.php');
-session_start([
-    'cookie_lifetime' => 86400
-]);
+// session_start([
+//     'cookie_lifetime' => 86400
+// ]);
+session_start();
 
 $email = $conn->real_escape_string( $_POST['email'] );
 $pw = md5( $_POST['password'] );

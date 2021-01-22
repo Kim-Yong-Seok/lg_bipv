@@ -23,8 +23,21 @@ $query = "INSERT `b_user` SET
 $result = $conn->query( $query );
 
 if( $result ) {
-    alert('계정이 등록되었습니다.');
-    go_to('../../login.php');
+    $query = "SELECT `u_no` FROM `b_user` WHERE `u_email`='$email';";
+    $res = $conn->query( $query );
+    $res = $res->fetch_array(MYSQLI_ASSOC);
+    $no = $res['u_no'];
+    echo $no;
+    $query = "INSERT `b_environment` SET `e_user_no` = '$no';";
+    $res = $conn->query( $query );
+    
+    if( $res ) {
+        alert('계정이 등록되었습니다.');
+        go_to('../../login.php');
+    } else {
+        alert('계정 등록에 실패하였습니다.');
+        go_to('../../join.php');
+    }
 } else {
     alert('계정 등록에 실패하였습니다.');
     go_to('../../join.php');

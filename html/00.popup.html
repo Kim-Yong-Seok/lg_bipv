@@ -1,0 +1,105 @@
+<!DOCTYPE HTML>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalabel=no">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<title>LG전자 BIPV</title>
+
+<link rel="stylesheet" type="text/css" href="../js/swiper/swiper.min.css">
+<script type="text/javascript" src="../js/swiper/swiper.min.js"></script>
+
+<link href="../css/style.css" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="../js/jquery-1.11.1.min.js"></script>
+<script type="text/javascript" src="../js/default.js"></script>
+
+</head>
+<body>
+<div id="wrap">
+	<main class="fs0">
+		<section style="text-align: center;">
+
+			<button type="button" class="btn typeTest alertopen">Alert</button>
+			<button type="button" class="btn typeTest popopen" name="pop1">버튼 1개</button>
+			<button type="button" class="btn typeTest popopen" name="pop2">버튼 2개</button>
+			<button type="button" class="btn typeTest popopen" name="pop3">input case</button>
+			<button type="button" class="btn typeTest popopen" name="pop4">image case</button>
+			
+		</section>
+
+		<div class="bottom_btn_area">
+			<button class="btn typeWhite" type="button">TEST</button>
+		</div>
+	</main>
+</div>
+
+<!-- 팝업 -->
+<div class="dimmed"></div>
+
+<!-- Alert팝업 -->
+<div class="alert" id="alert">
+	<div class="popup-content">
+		<div class="message">
+			Please enter name.
+		</div>
+	</div>
+</div>
+
+<!-- 기본팝업 -->
+<div class="popup" id="pop1">
+	<div class="popup-content">
+		<div class="message">
+			This color<br/>
+			cannot be generated.
+		</div>
+	</div>
+	<div class="popup-footer">
+		<button class="btn popup_btn pop_close">RETRY</button>
+	</div>
+</div>
+
+<div class="popup" id="pop2">
+	<div class="popup-content">
+		<div class="message">
+			This color<br/>
+			cannot be generated.
+		</div>
+	</div>
+	<div class="popup-footer col">
+		<button class="btn popup_btn colorGray pop_close">CANCEL</button>
+		<button class="btn popup_btn">OK</button>
+	</div>
+</div>
+
+<!-- input case팝업 -->
+<div class="popup" id="pop3">
+	<div class="popup-content">
+		<div class="title">Save as</div>
+		<div class="message">
+			<input class="input_box" type="text" placeholder="프로젝트 명을 입력해주세요.">
+		</div>
+	</div>
+	<div class="popup-footer col">
+		<button class="btn popup_btn colorGray pop_close">CANCEL</button>
+		<button class="btn popup_btn">OK</button>
+	</div>
+</div>
+
+<!-- image case팝업 -->
+<div class="popup" id="pop4">
+	<div class="popup-content">
+		<div class="title">
+			This color<br/>
+			cannot be generated.
+		</div>
+		<div class="message">
+			<img src="https://lh3.googleusercontent.com/proxy/VLf1zyQAj5nnku6Rh3Ec2YG1bdCPrT5n5vS8JvEKcJj9_btYXGi-8ECbTBfD6_WhV6t1eIJw9PNlcnIYCPeLc96JZW-fOOTXjeL49cvoXPIrnY6xhw" style="width: 100%;">
+		</div>
+	</div>
+	<div class="popup-footer">
+		<button class="btn popup_btn pop_close">RETRY</button>
+	</div>
+</div>
+
+</body>
+</html>

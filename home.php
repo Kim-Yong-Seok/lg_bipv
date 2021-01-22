@@ -6,6 +6,8 @@ if( !$_SESSION['no'] ) {
 	go_to('login.php');
 }
 $user_no = $_SESSION['no'];
+$user_name = $_SESSION['name'];
+
 ?>
 <html lang="ko">
 <head>
@@ -25,13 +27,13 @@ $user_no = $_SESSION['no'];
 			<div class="profile">
 				<dl>
 					<dt>My Info</dt>
-					<dd>James</dd>
+					<dd><?=$user_name?></dd>
 				</dl>
 			</div>
 			<div class="menu">
 				<ul>
 					<li><a href="./server/login/logout.php">Log out</a></li>
-					<li><a href="#">Environment Setting</a></li>
+					<li><a href="environment.php">Environment Setting</a></li>
 					<li><a href="#">Authority Setting</a></li>
 				</ul>
 			</div>

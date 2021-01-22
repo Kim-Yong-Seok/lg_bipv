@@ -171,11 +171,11 @@ require_once('./server/config.php');
 				<div class="inner-item">
 					<select class="col" name="client_type">
 						<option selected>None</option>
-						<option value="public">Public</option>
-						<option value="company">Company</option>
+						<option value="Public">Public</option>
+						<option value="Company">Company</option>
 					</select>
 					<select class="col" name="client_value">
-						<option class="public_item" value="seoulCity">Seoul city</option>
+						<option class="public_item" value="Seoul City">Seoul city</option>
 						<option class="public_item" value="LH">LH</option>
 						<option class="public_item" value="SH">SH</option>
 						<option class="company_item" value="Hyundai">Hyundai</option>
