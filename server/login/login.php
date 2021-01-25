@@ -18,10 +18,7 @@ if( $result->num_rows > 0 ) {
     $_SESSION['no'] = $res['u_no'];
     $_SESSION['state'] = $res['u_state'];
     $_SESSION['effectiveness'] = $res['u_effectiveness'];
-    go_to('../../home.php');
-} else {
-    alert('일치하는 정보가 없습니다.');
-    echo "<script>history.back(-1);</script>";
+    echo "login";
 }
 
 

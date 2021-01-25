@@ -11,6 +11,13 @@
 </head>
 <body>
 <div id="wrap" class="login">
+	<div class="alert" id="alert">
+		<div class="popup-content">
+			<div class="message">
+				
+			</div>
+		</div>
+	</div>
     <form action="./server/login/login.php" method="POST" id="form">
 	<main class="fs0">
         <div class="logo">LG BIPV AC Color DX</div>
@@ -47,10 +54,36 @@
 </html>
 <script type="text/javascript">
     function check() {
-        if( $('#email').val() && $('#password').val() ) $('#form').submit();
-        else {
-            alert('이메일 혹은 패스워드를 입력해주세요.');
-            return;
-        }
+		var email = $('#email').val();
+		var password = $('#password').val();
+		var formData = $('#form').serialize();
+
+		if( !email ) {
+			showAlert('Please enter email address');
+			return;
+		}
+
+		if( !password ) {
+			showAlert('Please enter password');
+			return;
+		}
+
+		$.ajax({
+			url: './server/login/login.php',
+			method: 'post',
+			data: formData,
+			success: ( res ) => {
+				if( res == 'login' ) {
+					showAlert('Login success');
+					setTimeout(() => {
+						location.href='./home.php';
+					}, 1500);
+				} else {
+					showAlert('Login Faild');
+					return;
+				}
+			}
+		})
+		
     }
 </script>

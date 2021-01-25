@@ -113,7 +113,7 @@
 					showAlert('Successfully registered');
 					setTimeout(() => {
 						location.href='./login.php';
-					}, 2300);
+					}, 1500);
 				}else {
 					showAlert('Same email address exist');
 				}
