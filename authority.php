@@ -1,3 +1,8 @@
+<?php
+session_start();
+$user_email = $_SESSION['email'];
+
+?>
 <!DOCTYPE HTML>
 <html lang="ko">
 <head>
@@ -118,7 +123,17 @@
 			},
 			success: ( res ) => {
 				if( res ) {
-					showAlert();
+					
+					var email = '<?php echo $user_email; ?>';
+					if( email == id ) {
+						$('.message').append('<br>원활한 서비스를 위해<br> 로그아웃합니다.');
+						showAlert();
+						setTimeout( () => {
+							location.href='./server/login/logout.php';
+						}, 2300)
+					} else {
+						showAlert();
+					}
 				}
 			}
 		})

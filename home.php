@@ -34,8 +34,14 @@ $user_state = $_SESSION['state'];
 			<div class="menu">
 				<ul>
 					<li><a href="./server/login/logout.php">Log out</a></li>
-					<li><a href="environment.php">Environment Setting</a></li>
-					<li><a href="authority.php">Authority Setting</a></li>
+					<?php
+						if( $user_state == 'L' ) {
+							?>
+							<li><a href="environment.php">Environment Setting</a></li>
+							<li><a href="authority.php">Authority Setting</a></li>
+							<?php
+						}
+					?>
 				</ul>
 			</div>
 			<button class="btn close" type="button">닫기</button>
