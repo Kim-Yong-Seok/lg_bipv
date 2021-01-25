@@ -1,8 +1,8 @@
 <?php
 $SERVER_ADDRESS = "localhost";
-$USER = "root";
-$PASSWORD = "color_picker_pjt";
-$DATABASE = "lg_bipv";
+$USER = "daejeoninega";
+$PASSWORD = "emwpdl(())";
+$DATABASE = "daejeoninega";
 
 $conn = new mysqli( $SERVER_ADDRESS, $USER, $PASSWORD, $DATABASE );
 

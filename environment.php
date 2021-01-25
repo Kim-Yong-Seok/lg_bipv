@@ -4,7 +4,7 @@ require_once('./server/config.php');
 
 $user_no = $_SESSION['no'];
 
-$query = "SELECT * FROM `b_environment` WHERE `e_user_no`='$user_no';";
+$query = "SELECT * FROM `b_environment`";
 $result = $conn->query( $query );
 $res = $result->fetch_array(MYSQLI_ASSOC);
 
