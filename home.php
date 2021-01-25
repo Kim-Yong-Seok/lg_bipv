@@ -81,9 +81,9 @@ $user_name = $_SESSION['name'];
 									else $my_works = '';
 
 									?>
-									<dl class="color_list <?=$my_works?>" onclick="location.href='./UpdateColor.php?id=<?=$res['c_no']?>'">
+									<dl class="color_list <?=$my_works?>" onclick="location.href='./project_preview.php?id=<?=$res['c_no']?>'">
 										<dd style="background: <?=$res['c_surface_hex_code']?>;"></dd>
-										<dt><?=$res['c_no']?></dt>
+										<dt><?=$res['c_color_name']?></dt>
 									</dl>
 									<?php							
 								}

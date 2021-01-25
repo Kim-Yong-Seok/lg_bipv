@@ -12,6 +12,7 @@ $c_client_type = $_POST['client_type'];
 $c_client_value = $_POST['client_value'];
 $c_tag = $_POST['tag'];
 $c_memo = $_POST['memo'];
+$c_color_name = $_POST['pjt_name'];
 
 $fixed_hex_value = $_POST['fixed_hex_value'];
 $none_fixed_hex_value = $_POST['none_fixed_hex_value'];
@@ -47,6 +48,7 @@ $c_user_no = $_SESSION['no'];
 
 $query = "INSERT `b_bipv_color` SET 
     `c_user_no` = '$c_user_no',
+    `c_color_name` = '$c_color_name',
     `c_target` = '$c_target',
     `c_input_color_type` = '$c_input_color_type',
     `c_input_color_code1` = '$c_input_color_value1',
@@ -67,11 +69,7 @@ $query = "INSERT `b_bipv_color` SET
 ";
 $result = $conn->query( $query );
 if( $result ) {
-    alert('성공적으로 저장되었습니다.');
-    go_to('../../home.php');
-}else {
-    alert('저장에 실패하였습니다.');
-    echo "<script>history.back(-1);</script>";
+    echo "1";
 }
 
 ?>

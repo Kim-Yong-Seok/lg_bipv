@@ -1,5 +1,7 @@
 <?php
+session_start();
 require_once('./server/config.php');
+$user_no = $_SESSION['no'];
 ?>
 <html lang="ko">
 <head>
@@ -23,7 +25,28 @@ require_once('./server/config.php');
 		<h1>Add New Color</h1>
 		<button class="btn btnPrev" type="button" onclick="history.back(-1)">이전</button>
     </header>
-    <form action="./server/color/add_new_color.php" method="POST" id="addNewColorForm">
+	<form id="addNewColorForm">
+	<div class="dimmed"></div>
+	<div class="popup" id="addnewcolorbtn">
+		<div class="popup-content">
+			<div class="title">Save as</div>
+			<div class="message">
+				<input class="input_box" type="text" placeholder="프로젝트 명을 입력해주세요." name="pjt_name" id="pjtName">
+			</div>
+		</div>
+		<div class="popup-footer col">
+			<button class="btn popup_btn colorGray pop_close" type="button">CANCEL</button>
+			<button class="btn popup_btn" onclick="addNewColor()" type="button">OK</button>
+		</div>
+	</div>
+	<button class="alertopen" style="display: none;" type="button"></button>
+	<div class="alert" id="alert">
+		<div class="popup-content">
+			<div class="message">
+				Invaild data
+			</div>
+		</div>
+	</div>
 	<main class="fs0 bgGray">
 		<section>
 			<div class="inner">
@@ -164,7 +187,7 @@ require_once('./server/config.php');
 				<h2>Expected Power</h2>
 				<div class="inner-item relative">
 					<input class="input_box text-right" type="text" readonly id="expectedPower" name="expected_power">
-					<span class="right_area">W</span>
+					<span class="right_area">kWh</span>
 				</div>
 
 				<h2>Client</h2>
@@ -202,15 +225,24 @@ require_once('./server/config.php');
 				<div class="inner-item relative">
 					<ul class="ul_list">
 						<?php
-							$query = 'SELECT * FROM `b_environment` WHERE `e_user_no` = "$user_no";';
+							$query = 'SELECT * FROM `b_environment`;';
 							$result = $conn->query( $query );
-							$res = $result->fetch_array(MYSQLI_NUM);
-							for( $i=0; $i<sizeof($res); $i++ ) {
-								?>
-								<li><?=$res[$i]?></li>
-								<?php
+							$res = $result->fetch_array(MYSQLI_ASSOC);
+							$glasses = $res['e_glass_type']." ".$res['e_glass_thickness']." ".$res['e_glass_texture'];
+							if( $res['e_continent'] == 'Etc' ) {
+								$cont = $res['e_country_text']." ";
+							} else {
+								$cont = $res['e_continent']." ".$res['e_country']." ";
+							}
+
+							if( $res['e_illuminant'] == 'Etc' ) {
+								$cont .= $res['e_illuminant_text'];
+							} else {
+								$cont .= $res['e_illuminant'];
 							}
 						?>
+						<li><?=$glasses?></li>
+						<li><?=$cont?></li>
 					</ul>
 				</div>
 			</div>
@@ -218,7 +250,7 @@ require_once('./server/config.php');
 
 
 		<div class="bottom_btn_area">
-			<button class="btn typeWhite" type="button" onclick="addNewColor();">SAVE</button>
+			<button class="btn typeWhite popopen" type="button" onclick="setName();" name="addnewcolorbtn">SAVE</button>
 		</div>
 		
         <input type="hidden" id="fixedHexValue" name="fixed_hex_value">

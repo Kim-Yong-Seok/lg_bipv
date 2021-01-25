@@ -42,7 +42,28 @@ if( $color_target == 'T' ) {
 		<h1>Add New Color</h1>
 		<button class="btn btnPrev" type="button" onclick="history.back(-1)">이전</button>
     </header>
-    <form action="./server/color/add_new_color.php" method="POST" id="addNewColorForm">
+	<form action="./server/color/add_new_color.php" method="POST" id="addNewColorForm">
+	<div class="dimmed"></div>
+	<div class="popup" id="addnewcolorbtn">
+		<div class="popup-content">
+			<div class="title">Save as</div>
+			<div class="message">
+				<input class="input_box" type="text" placeholder="프로젝트 명을 입력해주세요." name="pjt_name" id="pjtName">
+			</div>
+		</div>
+		<div class="popup-footer col">
+			<button class="btn popup_btn colorGray pop_close" type="button">CANCEL</button>
+			<button class="btn popup_btn" onclick="addNewColor()" type="button">OK</button>
+		</div>
+	</div>
+	<button class="alertopen" style="display: none;" type="button"></button>
+	<div class="alert" id="alert">
+		<div class="popup-content">
+			<div class="message">
+				Invaild data
+			</div>
+		</div>
+	</div>
 	<main class="fs0 bgGray">
 		<section>
 			<div class="inner">
@@ -179,35 +200,63 @@ if( $color_target == 'T' ) {
 			<div class="inner">
 				<h2>Expected Power</h2>
 				<div class="inner-item relative">
-					<input class="input_box text-right" type="text" readonly id="expectedPower" name="expected_power">
-					<span class="right_area">W</span>
+					<input class="input_box text-right" type="text" readonly id="expectedPower" name="expected_power" value="<?=$res['c_expected_power']?>">
+					<span class="right_area">kWh</span>
 				</div>
 
 				<h2>Client</h2>
 				<div class="inner-item">
-					<select class="col">
-						<option selected>Public</option>
-						<option>option</option>
+					<select class="col" name="client_type">
+						<option value="None">None</option>
+						<option value="Public">Public</option>
+						<option value="Company">Company</option>
 					</select>
-					<select class="col">
-						<option selected>Company</option>
-						<option>option</option>
+					<select class="col" name="client_value">
+						<option class="public_item" value="Seoul City">Seoul city</option>
+						<option class="public_item" value="LH">LH</option>
+						<option class="public_item" value="SH">SH</option>
+						<option class="company_item" value="Hyundai">Hyundai</option>
+						<option class="company_item" value="Xi">Xi</option>
+						<option class="company_item" value="Ramian">Ramian</option>
+						<option value="etc">Etc-추가입력</option>
 					</select>
 				</div>
 				
 				<h2>Tag</h2>
 				<div class="inner-item">
-					<input class="input_box" type="text" placeholder="Input text">
+					<input class="input_box" type="text" placeholder="Input text" name="tag" value="<?=$res['c_tag']?>">
+				</div>
+
+				<h2>Memo</h2>
+				<div class="inner-item">
+					<input class="input_box" type="text" placeholder="Input text" name="memo" value="<?=$res['c_memo']?>">
 				</div>
 
 				<h2 class="relative">
-					Tag 
-					<button class="btn btn_option">옵션</button>
+					Environment
+					<button class="btn btn_option" type="button" onclick="location.href='./environment.php';">옵션</button>
 				</h2>
 				<div class="inner-item relative">
 					<ul class="ul_list">
-						<li>Float Tempered Glass 5T</li>
-						<li>Asia Korea D65</li>
+						<?php
+							$query = 'SELECT * FROM `b_environment`;';
+							$update = $conn->query( $query );
+							$update_res = $update->fetch_array(MYSQLI_ASSOC);
+							$glasses = $update_res['e_glass_type']." ".$update_res['e_glass_thickness']." ".$update_res['e_glass_texture'];
+							if( $update_res['e_continent'] == 'Etc' ) {
+								$cont = $update_res['e_country_text']." ";
+							} else {
+								$cont = $update_res['e_continent']." ".$update_res['e_country']." ";
+							}
+
+							if( $update_res['e_illuminant'] == 'Etc' ) {
+								$cont .= $update_res['e_illuminant_text'];
+							} else {
+								$cont .= $update_res['e_illuminant'];
+							}
+						?>
+						<li><?=$glasses?></li>
+						<li><?=$cont?></li>
 					</ul>
 				</div>
 			</div>
@@ -215,8 +264,8 @@ if( $color_target == 'T' ) {
 
 
 		<div class="bottom_btn_area">
-			<button class="btn typeBlack" type="button" onclick="addNewColor();">SAVE</button>
-        </div>
+			<button class="btn typeWhite popopen" type="button" onclick="setName();" name="addnewcolorbtn">SAVE</button>
+		</div>
         <input type="hidden" id="fixedHexValue" name="fixed_hex_value">
         <input type="hidden" id="noneFixedHexValue" name="none_fixed_hex_value">
     </main>

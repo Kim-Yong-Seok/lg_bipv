@@ -2,7 +2,6 @@
 session_start();
 require_once('../config.php');
 
-$e_user_no = $_SESSION['no'];
 $e_glass_type = $_POST['glass_type'];
 $e_glass_thickness = $_POST['thickness'];
 $e_glass_texture = $_POST['texture'];
@@ -18,7 +17,6 @@ $e_illuminant_text = $_POST['illuminant_text'];
 $e_distance = $_POST['distance'];
 
 $query = "UPDATE `b_environment` SET 
-    `e_user_no` = '$e_user_no',
     `e_glass_type` = '$e_glass_type',
     `e_glass_thickness` = '$e_glass_thickness',
     `e_glass_texture` = '$e_glass_texture',

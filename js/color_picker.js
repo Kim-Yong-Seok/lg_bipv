@@ -3,7 +3,20 @@ var FIXED_HEX_CODE = '';
 var NONE_FIXED_HEX_CODE = '';
 var ORIGIN_NONE_FIXED_HEX_CODE = '';
 
-function addNewColor () {
+function setName() {
+    var name;
+    var code = NONE_FIXED_HEX_CODE;
+    const date = new Date();
+    const today = date.getDate();
+    var month = date.getMonth() + 1;
+    month = month >= 10 ? month : '0' + month;
+    const year = date.getFullYear();
+    console.log( code );
+    name = 'G'+code.substr(1, 2)+'-50-'+year+month+today;
+    $('#pjtName').val( name );
+}
+
+function addNewColor ( ) {
     $('#fixedHexValue').val(FIXED_HEX_CODE);
     $('#noneFixedHexValue').val(NONE_FIXED_HEX_CODE);
     
@@ -11,7 +24,19 @@ function addNewColor () {
         alert('Please enter color code.');
         return;
     }else {
-        $('#addNewColorForm').submit();
+        var data = $('#addNewColorForm').serialize();
+        $.ajax({
+            type: 'post',
+            url: './server/color/add_new_color.php',
+            data: data,
+            success: ( response ) => {
+                if( response == '1' ) {
+                    location.href='./home.php';
+                } else {
+                    $('.alertopen').trigger('click');
+                }
+            },
+        });
     }
 }
 
