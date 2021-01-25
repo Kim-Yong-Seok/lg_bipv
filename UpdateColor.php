@@ -29,7 +29,7 @@ if( $color_target == 'T' ) {
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" />
 <!-- <script type="text/javascript" src="./js/jquery-1.11.1.min.js"></script> -->
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-<script type="text/javascript" src="./js/default.js"></script>
+<script type="text/javascript" src="./js/index.js"></script>
 <script type="text/javascript" src="./js/convert.js"></script>
 <script type="text/javascript" src="./js/color_picker.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
@@ -60,7 +60,7 @@ if( $color_target == 'T' ) {
 	<div class="alert" id="alert">
 		<div class="popup-content">
 			<div class="message">
-				Invaild data
+				
 			</div>
 		</div>
 	</div>

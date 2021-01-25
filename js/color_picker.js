@@ -33,7 +33,7 @@ function addNewColor ( ) {
                 if( response == '1' ) {
                     location.href='./home.php';
                 } else {
-                    $('.alertopen').trigger('click');
+                    showAlert('Invalid data');
                 }
             },
         });

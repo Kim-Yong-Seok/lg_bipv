@@ -32,7 +32,7 @@ $e_distance = $res['e_distance'];
 <title>LG전자 BIPV</title>
 <link href="./css/style.css" rel="stylesheet" type="text/css">
 <script type="text/javascript" src="./js/jquery-1.11.1.min.js"></script>
-<script type="text/javascript" src="./js/default.js"></script>
+<script type="text/javascript" src="./js/index.js"></script>
 <script type="text/javascript" src="./js/environment.js"></script>
 </head>
 <body>

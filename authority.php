@@ -12,7 +12,7 @@ $user_email = $_SESSION['email'];
 <title>LG전자 BIPV</title>
 <link href="./css/style.css" rel="stylesheet" type="text/css">
 <script type="text/javascript" src="./js/jquery-1.11.1.min.js"></script>
-<script type="text/javascript" src="./js/default.js"></script>
+<script type="text/javascript" src="./js/index.js"></script>
 </head>
 <body>
 <div id="wrap">
@@ -23,7 +23,7 @@ $user_email = $_SESSION['email'];
 	<div class="alert" id="alert">
 		<div class="popup-content">
 			<div class="message">
-				권한을 수정하였습니다.
+
 			</div>
 		</div>
 	</div>
@@ -98,18 +98,6 @@ $user_email = $_SESSION['email'];
 		changeApproveList();
 	});
 
-	function showAlert() {
-		if($('#wrap').find('.bottom_btn_area')){
-			$('.alert').css('bottom', '68px');
-		}; 
-
-		$('#alert').fadeIn(300);
-
-		setTimeout(function() {
-			$('#alert').fadeOut(300);
-		}, 2000);
-	}
-
 	function submit() {
 		var id = $('#idValue').val();
 		var authority = $('#authority').val();
@@ -126,13 +114,13 @@ $user_email = $_SESSION['email'];
 					
 					var email = '<?php echo $user_email; ?>';
 					if( email == id ) {
-						$('.message').append('<br>원활한 서비스를 위해<br> 로그아웃합니다.');
-						showAlert();
+						
+						showAlert('권한을 수정하였습니다.<br>원활한 서비스를 위해<br> 로그아웃합니다.');
 						setTimeout( () => {
 							location.href='./server/login/logout.php';
 						}, 2300)
 					} else {
-						showAlert();
+						showAlert('권한을 수정하였습니다.');
 					}
 				}
 			}

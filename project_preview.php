@@ -34,13 +34,13 @@ if( $user_state == 'L' || $user_state == 'M' ) {
 <title>LG전자 BIPV</title>
 <link href="./css/style.css" rel="stylesheet" type="text/css">
 <script type="text/javascript" src="./js/jquery-1.11.1.min.js"></script>
-<script type="text/javascript" src="./js/default.js"></script>
+<script type="text/javascript" src="./js/index.js"></script>
 </head>
 <body>
 <div id="wrap">
 	<header class="header">
 		<h1><?=$res['c_color_name']?></h1>
-		<button class="btn btnPrev" type="button" onclick="location.herf='./home.php';">이전</button>
+		<button class="btn btnPrev" type="button" onclick="location.href='./home.php';">이전</button>
 		<?php 
 			if( $effectiveness ) {
 				?>

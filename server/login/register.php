@@ -22,12 +22,6 @@ $query = "INSERT `b_user` SET
 
 $result = $conn->query( $query );
 
-if( $result ) {
-    alert('계정이 등록되었습니다.');
-    go_to('../../login.php');
-} else {
-    alert('계정 등록에 실패하였습니다.');
-    go_to('../../join.php');
-}
+echo $result;
 
 ?>

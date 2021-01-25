@@ -1,8 +1,6 @@
 function showTextInput( id ) {
     if( $('#'+id).val() == 'Etc' && !$('#'+id+'_input').is(':visible') ) $('#'+id+'_input').show();
     else if( $('#'+id).val() != 'Etc' && $('#'+id+'_input').is(':visible') ) $('#'+id+'_input').hide();
-
-    console.log
 }
 
 function reset() {
