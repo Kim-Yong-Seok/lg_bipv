@@ -39,7 +39,7 @@ $e_distance = $res['e_distance'];
 <div id="wrap">
 	<header class="header">
 		<h1>Environment Setting</h1>
-		<button class="btn btnPrev" type="button" onclick="history.back(-1)">이전</button>
+		<button class="btn btnPrev" type="button" onclick="location.href='./home.php';">이전</button>
 	</header>
 	<form action="./server/setting/environment_setting.php" method="POST" id="form">
 	<main class="fs0 bgGray">

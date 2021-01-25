@@ -1,4 +1,5 @@
 <?php
+session_start();
 require_once('./server/config.php');
 $id = $_GET['id'];
 
@@ -6,6 +7,13 @@ $query = "SELECT * FROM `b_bipv_color` WHERE `c_no`=$id";
 $result = $conn->query( $query );
 $res = $result->fetch_array(MYSQLI_ASSOC);
 
+
+$user_state = $_SESSION['state'];
+$effectiveness = false;
+
+if( $user_state == 'L' || $user_state == 'M' ) {
+	$effectiveness = true;
+}
 // $color_type = $res['c_input_color_type'];
 // $color_target = $res['c_target'];
 
@@ -32,8 +40,15 @@ $res = $result->fetch_array(MYSQLI_ASSOC);
 <div id="wrap">
 	<header class="header">
 		<h1><?=$res['c_color_name']?></h1>
-		<button class="btn btnPrev" type="button" onclick="history.back(-1)">이전</button>
-		<button class="btn btnEdit" type="button" onclick="location.href='./UpdateColor.php?id=<?=$id?>';">편집</button>
+		<button class="btn btnPrev" type="button" onclick="location.herf='./home.php';">이전</button>
+		<?php 
+			if( $effectiveness ) {
+				?>
+				<button class="btn btnEdit" type="button" onclick="location.href='./UpdateColor.php?id=<?=$id?>';">편집</button>
+				<?php
+			}
+		
+		?>
 	</header>
 	<main class="fs0 bgGray">
 		<section>

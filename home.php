@@ -7,6 +7,7 @@ if( !$_SESSION['no'] ) {
 }
 $user_no = $_SESSION['no'];
 $user_name = $_SESSION['name'];
+$user_state = $_SESSION['state'];
 
 ?>
 <html lang="ko">
@@ -34,7 +35,7 @@ $user_name = $_SESSION['name'];
 				<ul>
 					<li><a href="./server/login/logout.php">Log out</a></li>
 					<li><a href="environment.php">Environment Setting</a></li>
-					<li><a href="#">Authority Setting</a></li>
+					<li><a href="authority.php">Authority Setting</a></li>
 				</ul>
 			</div>
 			<button class="btn close" type="button">닫기</button>
@@ -43,7 +44,13 @@ $user_name = $_SESSION['name'];
 
 	<header class="header">
 		<button class="btn btnMenu" type="button">이전</button>
-		<button class="btn btnAddNew" type="button" onclick="location.href='./AddNewColor.php';">추가</button>
+		<?php
+			if( $user_state == "L" || $user_state == "M" ) {
+		?>
+			<button class="btn btnAddNew" type="button" onclick="location.href='./AddNewColor.php';">추가</button>
+		<?php
+			}
+		?>
 		<h1><img src="./images/img_logo.png" alt="LG BIPV AC Color DX"></h1>
 	</header>
 	<main class="fs0 bgGray relative">

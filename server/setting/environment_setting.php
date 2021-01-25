@@ -33,12 +33,12 @@ $query = "UPDATE `b_environment` SET
 ";
 
 $result = $conn->query( $query );
-
+// echo $query;
 if( $result ) {
-    alert('Successfully updated');
+    // alert('Successfully updated');
     go_to('../../home.php');
 } else {
-    alert('Update failed');
+    // alert('Update failed');
     go_to('../../environment.php');
 }
 

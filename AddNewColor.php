@@ -23,7 +23,7 @@ $user_no = $_SESSION['no'];
 <div id="wrap">
 	<header class="header">
 		<h1>Add New Color</h1>
-		<button class="btn btnPrev" type="button" onclick="history.back(-1)">이전</button>
+		<button class="btn btnPrev" type="button" onclick="location.href='./home.php';">이전</button>
     </header>
 	<form id="addNewColorForm">
 	<div class="dimmed"></div>
