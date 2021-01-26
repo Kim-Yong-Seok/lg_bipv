@@ -1,8 +1,9 @@
 $(function(){ // Load
 	openList();
+	projectOpenList();
 	bottomBtnArea();
 	leftNav();
-	alert1();
+	alert();
 	popopen();
 });
 
@@ -12,11 +13,18 @@ function openList(){
 	});
 }
 
+function projectOpenList(){
+	$('.project .tit a').click(function(){
+		$(this).parent().toggleClass('active');
+		$(this).parent().siblings('ul').toggleClass('active');
+	});
+}
+
 function bottomBtnArea(){
 	var winH = $(window).height() - 60,
 		mainH = $('main').height();
 	if(mainH <= winH){
-		// $('.bottom_btn_area').addClass('fixed');
+		$('.bottom_btn_area').addClass('fixed');
  	};
 }
 
@@ -37,16 +45,18 @@ function leftNav(){
 	});
 }
 
-function alert1(){
+function alert(){
 	$('.alertopen').click(function(){
 		if($('#wrap').find('.bottom_btn_area')){
 			$('.alert').css('bottom', '68px');
 		}; 
 
 		$('#alert').fadeIn(300);
+		// $('#alert').addClass('on');
 
 		setTimeout(function() {
 			$('#alert').fadeOut(1000);
+			// $('#alert').removeClass('on');
 		}, 5000);
 	});
 }

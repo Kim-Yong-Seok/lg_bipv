@@ -3,11 +3,20 @@ $(function(){ // Load
 	bottomBtnArea();
 	leftNav();
 	popopen();
+	projectOpenList();
 });
 
 function openList(){
 	$('.openList_area dt a').click(function(){
 		$(this).parent().toggleClass('active').siblings().removeClass('active');
+	});
+}
+
+function projectOpenList(){
+	$('.project .tit a').click(function(){
+		console.log("!!!!");
+		$(this).parent().toggleClass('active');
+		$(this).parent().siblings('ul').toggleClass('active');
 	});
 }
 

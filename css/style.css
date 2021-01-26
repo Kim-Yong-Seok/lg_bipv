@@ -30,7 +30,9 @@ input[type="radio"] { position:absolute; left:-30000%;}
 .pd_0 { padding: 0 !important;}
 .mg_0 {margin: 0px !important;}
 .mgt_0 {margin-top: 0px !important;}
+.mgt_20 {margin-top: 20px !important;}
 .mgl_10 {margin-left: 10px;}
+.mgl_20 {margin-left: 20px;}
 .btn { display:inline-block; font-size:0; vertical-align:top;}
 .colorRed { color:#ee303c !important;}
 .colorGray { color:#797b83 !important;}
@@ -98,6 +100,12 @@ select:disabled { opacity: 0.5;}
 .btnPhoto { width:100%; height:40px; border:1px solid #a1a3ac; background:#fff; line-height:40px; border-radius: 10px; font-size:14px; text-align:center;}
 .btnPhoto span { padding-left:20px; background:url(../images/icoPhoto.png) no-repeat left center; background-size: 16px; font-size:14px; color:#a1a3ac;}
 .btnPhoto:active {background: #ebebee;}
+.btnThumbnail { position: absolute; top:8px; right:68px; width:24px; height:24px; background: url(../images/ic_view_grid_nor.png) no-repeat center; background-size: 24px;}
+.btnThumbnail.active { background: url(../images/ic_view_grid_pre.png) no-repeat center; background-size: 24px;}
+.btnHorizontal { position: absolute; top:8px; right:34px; width:24px; height:24px; background: url(../images/ic_view_list_nor.png) no-repeat center; background-size: 24px;}
+.btnHorizontal.active { background: url(../images/ic_view_list_pre.png) no-repeat center; background-size: 24px;}
+.btnVertical { position: absolute; top:8px; right:0; width:24px; height:24px; background: url(../images/ic_view_detail_nor.png) no-repeat center; background-size: 24px;}
+.btnVertical.active { background: url(../images/ic_view_detail_pre.png) no-repeat center; background-size: 24px;}
 
 .bgWhite { background:#ffffff;}
 .bgGray { background:#eff0f2;}
@@ -115,6 +123,7 @@ main {padding-top: 50px; padding-bottom: 10px; min-height: 100vh; box-sizing:bor
 .header .btnEdit { position:absolute; right:20px; top:50%; margin-top:-12px; width:24px; height:24px; background:url(../images/ic_top_edit.png) no-repeat center; background-size: 100%;}
 
 section .inner { position:relative; margin-top: 16px; padding:20px; background:#ffffff; box-shadow: 0 2px 3px #ddd;}
+section .inner.type2 { position:relative; margin-top: 0px; padding:20px; background:#ffffff; box-shadow: none;}
 /* section .inner_img { padding:0;}
 section .inner_img img { width: 100%;} */
 section .inner h2 { font-size:18px;}
@@ -183,6 +192,39 @@ section .inner .inner-view-item .ul_list li .day { line-height: 24px; font-size:
 section .inner .inner-view-item .ul_list li::before { content: "ㆍ";}
 section .inner .inner-view-item .tag {margin-top: 8px; padding: 0 10px; max-width: 78px; line-height: 28px; font-size: 12px; border-radius: 14px; background: #eff0f2;}
 section .inner .inner-view-item .tag + .tag { margin-left: 6px;}
+
+section .inner.project { margin-top: 0px; padding: 0 10px 20px 20px; box-shadow: none;}
+section .inner.project .inner-item { margin-top: 20px;}
+section .inner.project .inner-item:first-child { margin-top: 0px;}
+section .inner.project .inner-item .tit { margin-right: 10px;}
+section .inner.project .inner-item .tit a { display:block; margin-bottom: 10px; height:40px; background:url(../images/ic_title_btn_down.png) no-repeat 100% center; background-size: auto 24px; line-height:40px; font-size:14px; box-sizing:border-box;}
+section .inner.project .inner-item .tit.active a { background:url(../images/ic_title_btn_up.png) no-repeat 100% center; background-size: auto 24px;}
+section .inner.project .inner-item .tit + .list-thumbnail { display: none;}
+section .inner.project .inner-item .list-thumbnail.active { display: block;}
+section .inner.project .inner-item .list-thumbnail li { display: inline-block; margin-bottom: 10px; margin-right: 10px; width:72px;}
+section .inner.project .inner-item .list-thumbnail li dt { width:72px; margin-top: 5px; font-size: 12px;}
+section .inner.project .inner-item .list-thumbnail li dd { width:72px; height: 72px; border-radius: 10px;}
+
+section .inner.project .inner-item .list-horizontal { margin-right: 10px;}
+section .inner.project .inner-item .tit + .list-horizontal { display: none;}
+section .inner.project .inner-item .list-horizontal.active { display: block;}
+section .inner.project .inner-item .list-horizontal li { margin-bottom: 10px;}
+section .inner.project .inner-item .list-horizontal dl { height: 68px; line-height: 68px; font-size: 14px; border-radius: 10px;}
+section .inner.project .inner-item .list-horizontal dl dt { float: left; padding-left: 12px; line-height: 68px; color: #fff}
+section .inner.project .inner-item .list-horizontal dl dd { float: right; padding-right: 12px; line-height: 68px; color: #fff}
+
+section .inner.project .inner-item .tit + .list-vertical { display: none;}
+section .inner.project .inner-item .list-vertical.active { display: block;}
+section .inner.project .inner-item .list-vertical li + li { margin-top: 30px;}
+section .inner.project .inner-item .list-vertical li .title { margin-bottom: 10px; font-size: 16px; font-weight: bold;}
+section .inner.project .inner-item .list-vertical dl { display: inline-block; font-size: 14px; vertical-align: top;}
+section .inner.project .inner-item .list-vertical dl.color_area { width: 40%;}
+section .inner.project .inner-item .list-vertical dl.color_area dd.color_box { width: calc(100% - 10px);}
+section .inner.project .inner-item .list-vertical dl.pv_area { width: 20%;}
+section .inner.project .inner-item .list-vertical dl dd.color_box { height: 20px; border-radius: 5px;}
+section .inner.project .inner-item .list-vertical dl dt { margin-top: 5px; font-weight: bold;}
+section .inner.project .inner-item .list-vertical dl dd.info_box { margin-top: 5px; color: #a1a3ac; font-size: 12px;}
+section .inner.project .inner-item .list-vertical dl dd.info_box p { line-height: 1.6em;}
 
 section .inner .button_area {margin-top: 10px;}
 

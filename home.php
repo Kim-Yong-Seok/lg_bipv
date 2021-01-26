@@ -81,7 +81,7 @@ $user_state = $_SESSION['state'];
 				<h2 class="relative">
 					Project
 					<span class="num"><?=$result->num_rows?></span>
-					<button class="btn btn_more">더보기</button>
+					<button class="btn btn_more" onclick="location.href='./profile_list.php';">더보기</button>
 				</h2>
 				<?php
 					if( $result->num_rows > 0 ) {
@@ -123,7 +123,7 @@ $user_state = $_SESSION['state'];
 				<h2 class="relative">
 					Library
 					<span class="num"><?=$result->num_rows?></span>
-					<button class="btn btn_more">더보기</button>
+					<button class="btn btn_more" style="cursor: pointer">더보기</button>
 				</h2>
 				<div class="inner-item scroll_x">
 					<?php
