@@ -13,7 +13,7 @@
 <body>
 <div id="wrap">
 	<header class="header">
-		<h1>Project</h1>
+		<h1>Library</h1>
 		<button class="btn btnPrev" type="button" onclick="location.href='./home.php'">이전</button>
 	</header>
 	<main class="fs0">
@@ -25,10 +25,11 @@
 						<option value="color">Color</option>
 					</select>
 					<div class="inner_right">
+                        <input type="checkbox" onchange="selectOpen()" style="width: 20px; height: 20px; margin-right: 20px; margin-top: 10px; float:right;" />
 						<span class="right_area">
 							<button class="btn btnThumbnail active" type="button">썸네일</button>
 							<button class="btn btnHorizontal" type="button">가로형</button>
-							<button class="btn btnVertical" type="button">세로형</button>
+                            <button class="btn btnVertical" type="button">세로형</button>
 						</span>
 					</div>
 				</div>
@@ -48,13 +49,17 @@
         $('#sort_standard').val('time');
     });
     
+    function selectOpen() {
+        $('.chkwrap').toggle();
+    }
+
     $('#sort_standard').change(() => {
         $('.active').trigger('click');
     });
 
     $('.btnThumbnail').click(() => {
         var standard = $('#sort_standard').val();
-        var url = './project/thumbnail';
+        var url = './library/thumbnail';
 
         $('.active').removeClass('active');
         $('.btnThumbnail').addClass('active');
@@ -74,7 +79,7 @@
 
     $('.btnHorizontal').click(() => {
         var standard = $('#sort_standard').val();
-        var url = './project/horizontal';
+        var url = './library/horizontal';
 
         $('.active').removeClass('active');
         $('.btnHorizontal').addClass('active');
@@ -94,7 +99,7 @@
 
     $('.btnVertical').click(() => {
         var standard = $('#sort_standard').val();
-        var url = './project/vertical';
+        var url = './library/vertical';
 
         $('.active').removeClass('active');
         $('.btnVertical').addClass('active');

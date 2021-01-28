@@ -187,9 +187,8 @@ $user_no = $_SESSION['no'];
 				<h2>Expected Power</h2>
 				<div class="inner-item relative">
 					<input class="input_box text-right" type="text" readonly id="expectedPower" name="expected_power">
-					<span class="right_area">kWh</span>
+					<span class="right_area">W</span>
 				</div>
-
 				<h2>Client</h2>
 				<div class="inner-item">
 					<select class="col" name="client_type">

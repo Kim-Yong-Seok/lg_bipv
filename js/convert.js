@@ -390,49 +390,49 @@ function rgbToHexWithPV ( targetType, rgbType, pv ) {
    var s = codes.s;
    var v = codes.v;
 
-//    console.log( 'h : ' +  h );
-//    console.log( 's : ' +  s );
-//    console.log( 'v : ' +  v );
+   console.log( 'h : ' +  h );
+   console.log( 's : ' +  s );
+   console.log( 'v : ' +  v );
 
    pv = parseInt(pv);
 
    var v = Math.round(v);
 
-   var isCheck = true;
 
    if (pv >= 75) {
        if( targetType == 'T' ) v = v * 4;
        else v = v / 4;
-   } else if (pv > 50) {
-       if( targetType == 'T' ) v = (2 + (pv - 50) * 0.08) * v;
-       else v = (pv/v - 2)/0.08 + 50;
-   } else if (pv == 50) {
+   } 
+//    else if (pv > 50) {
+//        if( targetType == 'T' ) v = (2 + (pv - 50) * 0.08) * v;
+//        else v = (pv/v - 2)/0.08 + 50;
+//    } 
+   else if (pv == 50) {
        if( targetType == 'T' ) v = v * 2;
        else v = v / 2;
-   } else if (pv > 25) {
-       if( targetType == 'T' ) v = (1.36 + (pv - 25) * 0.0246) * v;
-       else v = (pv/v - 1.36)/0.0246 + 25;
-   } else if (pv == 25) {
+   }
+//    else if (pv > 25) {
+//        if( targetType == 'T' ) v = (1.36 + (pv - 25) * 0.0246) * v;
+//        else v = (pv/v - 1.36)/0.0246 + 25;
+//    }
+   else if (pv == 25) {
        if( targetType == 'T' ) v = v * 1.36;
        else v = v / 1.36;
-   } else if (pv == 0) {
+   }
+   else if (pv == 0) {
        v = v * 1;
-   } else {
-       alert("This color cannot be generated [1]");				
    }
-
+   else {
+       alert("Please input the correct PV value");				
+   }
+   console.log( v );
    if (v > 100) {
-       alert("This color cannot be generated [2]");
-       return;
-   }
-
-   if (isNaN(v)) {
-       alert("This color cannot be generated [3]");
+       alert("This color's brightness is over 100%");
        return;
    }
 
    if(typeof v == "undefined" || v == null || v == "") {
-       alert("This color cannot be generated [4]");
+       alert("Brightness is undefined");
        return;
    }
 
@@ -493,6 +493,8 @@ function hexToHsl(hex){
     l = l * 100;
     l = Math.round(l);
     h = Math.round(360 * h);
+
+    console.log( h, s, l );
 
 	return h + "," + s + "," + l;
 

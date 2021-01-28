@@ -179,7 +179,7 @@ function setColor () {
     function getInputCode () {
         var inputCodeValue = '';
         if( inputCodeType == 'lab' || inputCodeType == 'rgb' ) {
-            inputCodeValue = $('#ibv1_1').val() + "," + $('#ibv1_2').val() + "," + $('#ibv1_2').val(); 
+            inputCodeValue = $('#ibv1_1').val() + "," + $('#ibv1_2').val() + "," + $('#ibv1_3').val(); 
         } else if ( inputCodeType == 'cmyk' ) {
             inputCodeValue = $('#ibv2_1').val() + ", " + $('#ibv2_2').val() + ", " + $('#ibv2_3').val() + ", " + $('#ibv2_4').val();
         } else {
@@ -213,7 +213,9 @@ function setColor () {
             return;
         }
         var noneRgb = hexToRgb( hexCode );
+        console.log( noneRgb );
         var noneHexCode = rgbToHexWithPV( purposeTarget, noneRgb, 50 );
+        console.log( noneHexCode );
         var noneHsl = hexToHsl( noneHexCode );
 
         // console.log( noneHsl );

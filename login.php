@@ -45,7 +45,7 @@
 		</section>
 		<div class="bottom_btn_area fixed">
 			<button class="btn typeBlack" type="button" onclick="location.href='./join.php';">REGISTER</button>
-			<button class="btn typeBlack" type="button" onclick="check()">Login</button>
+			<button class="btn typeBlack" type="button" onclick="check()">LOGIN</button>
 		</div>
     </main>
     </form>

@@ -14,16 +14,6 @@ $effectiveness = false;
 if( $user_state == 'L' || $user_state == 'M' ) {
 	$effectiveness = true;
 }
-// $color_type = $res['c_input_color_type'];
-// $color_target = $res['c_target'];
-
-// if( $color_target == 'T' ) {
-//     $none_fixed_hex_code = $res['c_surface_hex_code'];
-//     $fixed_hex_code = $res['c_target_hex_code'];
-// } else {
-//     $none_fixed_hex_code = $res['c_target_hex_code'];
-//     $fixed_hex_code = $res['c_surface_hex_code'];
-// }
 ?>
 <!DOCTYPE HTML>
 <html lang="ko">
@@ -40,7 +30,7 @@ if( $user_state == 'L' || $user_state == 'M' ) {
 <div id="wrap">
 	<header class="header">
 		<h1><?=$res['c_color_name']?></h1>
-		<button class="btn btnPrev" type="button" onclick="location.href='./home.php';">이전</button>
+		<button class="btn btnPrev" type="button" onclick="history.back(-1)">이전</button>
 		<?php 
 			if( $effectiveness ) {
 				?>

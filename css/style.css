@@ -28,6 +28,7 @@ input[type=text], input[type=password], input[type=search], input[type=number], 
 input[type="radio"] { position:absolute; left:-30000%;}
 .fs0 { font-size:0 !important;}
 .pd_0 { padding: 0 !important;}
+.pdr_10 { padding-right: 10px !important;}
 .mg_0 {margin: 0px !important;}
 .mgt_0 {margin-top: 0px !important;}
 .mgt_20 {margin-top: 20px !important;}
@@ -52,6 +53,10 @@ input:checked + .switch .tip.right {color: #fff;}
 .scroll_x { width: 100%; overflow-x: auto;}
 .chkwrap.checkBox label { display: inline-block; padding-left: 26px; line-height: 20px; font-size: 12px; background:url(../images/icoChk.png) no-repeat left center; background-size: auto 20px;}
 .chkwrap.checkBox input:checked + label { background:url(../images/icoChkOn.png) no-repeat left center; background-size: auto 20px;}
+
+.chkwrap.radioBox label { display: inline-block; margin: 10px 20px 10px 0; padding-left: 26px; line-height: 20px; font-size: 14px; background:url(../images/ic_radio_off.png) no-repeat left center; background-size: auto 20px;}
+.chkwrap.radioBox input:checked + label { background:url(../images/ic_radio_on.png) no-repeat left center; background-size: auto 20px;}
+
 /* hr { margin: 25px 0; border: 0; border-top: 1px solid #d8d8d8;} */
 
 .left_menu { display: none; position: fixed; top: 0; width: 100%; height: 100vh; z-index: 99999;}
@@ -100,12 +105,17 @@ select:disabled { opacity: 0.5;}
 .btnPhoto { width:100%; height:40px; border:1px solid #a1a3ac; background:#fff; line-height:40px; border-radius: 10px; font-size:14px; text-align:center;}
 .btnPhoto span { padding-left:20px; background:url(../images/icoPhoto.png) no-repeat left center; background-size: 16px; font-size:14px; color:#a1a3ac;}
 .btnPhoto:active {background: #ebebee;}
+.btnFilter { width:100px; height:40px; border:1px solid #151a2c; background:#fff; line-height:40px; border-radius: 20px; font-size:16px; text-align:center; vertical-align: top;}
+.btnFilter span { padding-right:28px; background:url(../images/ic_filter.png) no-repeat right center; background-size: 24px; font-size:16px; color:#151a2c;}
+.btnFilter:active {background: #ebebee;}
 .btnThumbnail { position: absolute; top:8px; right:68px; width:24px; height:24px; background: url(../images/ic_view_grid_nor.png) no-repeat center; background-size: 24px;}
 .btnThumbnail.active { background: url(../images/ic_view_grid_pre.png) no-repeat center; background-size: 24px;}
 .btnHorizontal { position: absolute; top:8px; right:34px; width:24px; height:24px; background: url(../images/ic_view_list_nor.png) no-repeat center; background-size: 24px;}
 .btnHorizontal.active { background: url(../images/ic_view_list_pre.png) no-repeat center; background-size: 24px;}
 .btnVertical { position: absolute; top:8px; right:0; width:24px; height:24px; background: url(../images/ic_view_detail_nor.png) no-repeat center; background-size: 24px;}
 .btnVertical.active { background: url(../images/ic_view_detail_pre.png) no-repeat center; background-size: 24px;}
+.btnChart { position: absolute; top:8px; right:0; width:24px; height:24px; background: url(../images/ic_view_chart_nor.png) no-repeat center; background-size: 24px;}
+.btnChart.active { background: url(../images/ic_view_chart_pre.png) no-repeat center; background-size: 24px;}
 
 .bgWhite { background:#ffffff;}
 .bgGray { background:#eff0f2;}
@@ -115,12 +125,17 @@ select:disabled { opacity: 0.5;}
 
 main {padding-top: 50px; padding-bottom: 10px; min-height: 100vh; box-sizing:border-box;}
 
-.header { position:absolute; left:0; top:0; width:100%; z-index:10; text-align:center;}
+.header { position:absolute; left:0; top:0; width:100%; min-height:50px; z-index:10; text-align:center; background:#151a2c;}
 .header h1 { height:50px; background:#151a2c; line-height:50px; font-size:18px; color:#fff; font-weight:bold; box-sizing:border-box;}
 .header.type2 h1 { border:none; background:#fff; line-height:54px; font-weight:bold;}
 .header .btnPrev { position:absolute; left:20px; top:50%; margin-top:-12px; width:24px; height:24px; background:url(../images/btnPrev.png) no-repeat center; background-size: 100%;}
 .header .btnCamera { position:absolute; right:20px; top:50%; margin-top:-12px; width:24px; height:24px; background:url(../images/ic_top_camera.png) no-repeat center; background-size: 100%;}
 .header .btnEdit { position:absolute; right:20px; top:50%; margin-top:-12px; width:24px; height:24px; background:url(../images/ic_top_edit.png) no-repeat center; background-size: 100%;}
+.header .btnClose { position:absolute; left:20px; top:50%; margin-top:-12px; width:24px; height:24px; background:url(../images/ic_close.png) no-repeat center; background-size: 100%;}
+.header .btnClose.right { left:auto; right: 20px;}
+.header .btnCompare { position:absolute; right:50px; top:50%; margin-top:-12px; width:24px; height:24px; background:url(../images/ic_top_compare.png) no-repeat center; background-size: 100%;}
+.header .btnDelete { position:absolute; right:20px; top:50%; margin-top:-12px; width:24px; height:24px; background:url(../images/ic_top_delete.png) no-repeat center; background-size: 100%;}
+
 
 section .inner { position:relative; margin-top: 16px; padding:20px; background:#ffffff; box-shadow: 0 2px 3px #ddd;}
 section .inner.type2 { position:relative; margin-top: 0px; padding:20px; background:#ffffff; box-shadow: none;}
@@ -178,7 +193,9 @@ section .inner .inner-item dl.inner-list { margin-bottom: 24px;}
 section .inner .inner-item dl.inner-list dt { margin-bottom: 7px;font-size: 12px; color: #5f6166;}
 section .inner .inner-item dl.inner-list dd { font-size: 14px; font-weight: bold; color: #151a2c;}
 section .inner .inner-item dl.inner-list dd.default { font-weight: normal; color: #b3b8ca;}
+section .inner .inner-item .tag-list_area {margin-top: 5px;}
 section .inner .inner-item .tag-list { display: inline-block; margin-top: 8px; margin-right: 8px; padding-left: 10px; height: 26px; font-size: 12px; border-radius: 14px; border: 1px solid #ecedee;}
+section .inner .inner-item .tag-list .dot { display: inline-block; margin-top: 9px; width: 8px; height: 8px; border-radius: 4px; vertical-align: top;}
 section .inner .inner-item .tag-list .ellipsis { max-width: 80px; line-height: 26px;}
 section .inner .inner-item .tag-list .close2 { width:27px; height:26px; background:url(../images/ic_tag_close.png) no-repeat center; background-size: 12px;}
 
@@ -194,30 +211,40 @@ section .inner .inner-view-item .tag {margin-top: 8px; padding: 0 10px; max-widt
 section .inner .inner-view-item .tag + .tag { margin-left: 6px;}
 
 section .inner.project { margin-top: 0px; padding: 0 10px 20px 20px; box-shadow: none;}
+section .inner.project:first-child { padding: 20px 10px 20px 20px; box-shadow: none;}
 section .inner.project .inner-item { margin-top: 20px;}
 section .inner.project .inner-item:first-child { margin-top: 0px;}
 section .inner.project .inner-item .tit { margin-right: 10px;}
 section .inner.project .inner-item .tit a { display:block; margin-bottom: 10px; height:40px; background:url(../images/ic_title_btn_down.png) no-repeat 100% center; background-size: auto 24px; line-height:40px; font-size:14px; box-sizing:border-box;}
 section .inner.project .inner-item .tit.active a { background:url(../images/ic_title_btn_up.png) no-repeat 100% center; background-size: auto 24px;}
+section .inner.project .inner-item .chkwrap.checkBox {position: absolute; top:50%; left:50%; transform:translate(-50%,-50%);}
+section .inner.project .inner-item .chkwrap.checkBox label { padding: 0; width: 24px; height: 24px; background:url(../images/ic_check_off.png) no-repeat left center; background-size: auto 24px;}
+section .inner.project .inner-item .chkwrap.checkBox input:checked + label {background:url(../images/ic_check_on.png) no-repeat left center; background-size: auto 24px;}
+
 section .inner.project .inner-item .tit + .list-thumbnail { display: none;}
 section .inner.project .inner-item .list-thumbnail.active { display: block;}
 section .inner.project .inner-item .list-thumbnail li { display: inline-block; margin-bottom: 10px; margin-right: 10px; width:72px;}
 section .inner.project .inner-item .list-thumbnail li dt { width:72px; margin-top: 5px; font-size: 12px;}
-section .inner.project .inner-item .list-thumbnail li dd { width:72px; height: 72px; border-radius: 10px;}
+section .inner.project .inner-item .list-thumbnail li dd { position: relative; width:72px; height: 72px; border-radius: 10px;}
 
 section .inner.project .inner-item .list-horizontal { margin-right: 10px;}
 section .inner.project .inner-item .tit + .list-horizontal { display: none;}
 section .inner.project .inner-item .list-horizontal.active { display: block;}
 section .inner.project .inner-item .list-horizontal li { margin-bottom: 10px;}
-section .inner.project .inner-item .list-horizontal dl { height: 68px; line-height: 68px; font-size: 14px; border-radius: 10px;}
-section .inner.project .inner-item .list-horizontal dl dt { float: left; padding-left: 12px; line-height: 68px; color: #fff}
-section .inner.project .inner-item .list-horizontal dl dd { float: right; padding-right: 12px; line-height: 68px; color: #fff}
+section .inner.project .inner-item .list-horizontal dl { position: relative; height: 68px; line-height: 68px; font-size: 14px; border-radius: 10px;}
+section .inner.project .inner-item .list-horizontal dl dt { display: inline-block; padding-left: 12px; line-height: 68px; color: #fff}
+section .inner.project .inner-item .list-horizontal dl dd { display: inline-block; float: right; padding-right: 12px; line-height: 68px; color: #fff}
+section .inner.project .inner-item .list-horizontal dl dd .checkBox { position: absolute; top:50%; left:10px; line-height: 1em; transform:translate(0%, -50%);}
+section .inner.project .inner-item .list-horizontal dl dd.check { float: none; width: 15px;}
 
 section .inner.project .inner-item .tit + .list-vertical { display: none;}
 section .inner.project .inner-item .list-vertical.active { display: block;}
+section .inner.project .inner-item .list-vertical { padding-right: 10px;}
 section .inner.project .inner-item .list-vertical li + li { margin-top: 30px;}
-section .inner.project .inner-item .list-vertical li .title { margin-bottom: 10px; font-size: 16px; font-weight: bold;}
+section .inner.project .inner-item .list-vertical li .title { position: relative; margin-bottom: 10px; font-size: 16px; font-weight: bold;}
+section .inner.project .inner-item .list-vertical li .title .checkBox {  display: inline-block; position: inherit; top:auto; left:auto; transform:translate(0%, 0%);}
 section .inner.project .inner-item .list-vertical dl { display: inline-block; font-size: 14px; vertical-align: top;}
+section .inner.project .inner-item .list-vertical .color_ratio { margin-bottom: 10px;}
 section .inner.project .inner-item .list-vertical dl.color_area { width: 40%;}
 section .inner.project .inner-item .list-vertical dl.color_area dd.color_box { width: calc(100% - 10px);}
 section .inner.project .inner-item .list-vertical dl.pv_area { width: 20%;}
@@ -225,6 +252,12 @@ section .inner.project .inner-item .list-vertical dl dd.color_box { height: 20px
 section .inner.project .inner-item .list-vertical dl dt { margin-top: 5px; font-weight: bold;}
 section .inner.project .inner-item .list-vertical dl dd.info_box { margin-top: 5px; color: #a1a3ac; font-size: 12px;}
 section .inner.project .inner-item .list-vertical dl dd.info_box p { line-height: 1.6em;}
+
+section .inner.project.cluster { margin-top: 16px; padding: 15px 10px 20px 20px; box-shadow: 0 2px 3px #ddd;}
+section .inner.project.cluster .cluster_header { height: 24px;}
+section .inner.project.cluster .cluster_header .right_area { top: 15px;}
+section .inner.project.cluster .cluster_header .right_area .btn { top: 0px;}
+section .inner.project.cluster .chart_area { min-height: 100px; font-size: 14px;}
 
 section .inner .button_area {margin-top: 10px;}
 
@@ -268,7 +301,7 @@ input[type=text].text-right + .right_area {top:10px;font-size: 14px;}
 .home main .inner-item .tag_area .color_tag .text { margin-left: 5px; max-width: 280px; line-height: 26px; font-size: 12px; vertical-align: middle;}
 
 /* LOGIN */
-.login { height:100vh; background: #151a2c url(../images/img_intro_bg.png) no-repeat;background-size: 100%;}
+.login { height:100%; background: #000 url(../images/img_intro_bg.png) no-repeat;background-size: 100%;}
 .login main { padding-top: 0;}
 .login .logo {padding: 178px 20px 0px; height: 94px; background:url(../images/img_intro_logo.png) no-repeat 20px 178px;background-size: 162px;}
 .login section .inner { background:transparent; box-shadow:none;}

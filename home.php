@@ -74,7 +74,7 @@ $user_state = $_SESSION['state'];
 
 		<section>
 			<?php
-				$query = "SELECT * FROM `b_bipv_color` ORDER BY `c_no` DESC";
+				$query = "SELECT * FROM `b_bipv_color` WHERE `c_approval`='N' ORDER BY `c_no` DESC";
 				$result = $conn->query( $query );
 			?>
 			<div class="inner">
@@ -123,7 +123,7 @@ $user_state = $_SESSION['state'];
 				<h2 class="relative">
 					Library
 					<span class="num"><?=$result->num_rows?></span>
-					<button class="btn btn_more" style="cursor: pointer">더보기</button>
+					<button class="btn btn_more" onclick="location.href='./library_list.php';">더보기</button>
 				</h2>
 				<div class="inner-item scroll_x">
 					<?php
@@ -140,7 +140,7 @@ $user_state = $_SESSION['state'];
 													<li class="right" style="background: #000000;"></li>
 												</ul>
 											</dd>
-											<dt><?=$res['c_no']?></dt>
+											<dt><?=$res['c_color_name']?></dt>
 											<span class="tag ellipsis">#Tagtag</span>
 										</dl>
 										<?php

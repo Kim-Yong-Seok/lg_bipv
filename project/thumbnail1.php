@@ -10,7 +10,7 @@
             while( $res = $result->fetch_array(MYSQLI_ASSOC) ) {
                 ?>
                     <li>
-                        <dl>
+                        <dl onclick="location.href='./project_preview.php?id=<?=$res['c_no']?>'">
                             <dd style="background: <?=$res['c_surface_hex_code']?>;"></dd>
                             <dt class="ellipsis"><?=$res['c_color_name']?></dt>
                         </dl>
@@ -18,6 +18,6 @@
                 <?php
             }
         }
-?>
+        ?>
     </ul>
 </div>
