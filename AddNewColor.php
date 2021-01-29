@@ -107,7 +107,9 @@ $user_no = $_SESSION['no'];
 					</div>
 					<div class="col color_right">
 						<h3>Surface Color</h3>
-						<div class="color_code noneFixedTarget" id="surfaceColor"></div>
+						<div class="color_code noneFixedTarget" id="surfaceColor" style="text-align: center;">
+							<p id="surface_color_text" style="font-size: 16px; float: left; width: 100%;"></p>
+						</div>
 					</div>
 				</div>
 

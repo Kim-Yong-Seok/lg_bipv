@@ -248,6 +248,8 @@ function setColor () {
             $('#toneSlider').slider( 'option', 'value', s);
             $('#hueSlider').slider( 'option', 'value', h);
 
+            $('#surface_color_text').text( noneHexCode );
+
             FIXED_HEX_CODE = hexCode;
             NONE_FIXED_HEX_CODE = noneHexCode;
             ORIGIN_NONE_FIXED_HEX_CODE = noneHexCode;
@@ -295,7 +297,7 @@ function changePv ( pv ) {
     $("#pvSlider .ui-slider-range").css( "background-color", barColor );
     $("#brightSlider .ui-slider-range").css( "background-color", barColor );
     $("#toneSlider .ui-slider-range").css( "background-color", barColor );
-    
+    $('#surface_color_text').text( noneHexCode );
     var expectedPower = '';
     switch( pv ) {
         case 75:
@@ -337,6 +339,7 @@ function changeBright ( bright ) {
     $("#toneSlider .ui-slider-range").css( "background-color", barColor );
     $("#hueSlider .ui-slider-range").css( "background-color", barColor );
 
+    $('#surface_color_text').text( light );
     // $('.noneFixedTarget > span#labValue').text( rgbTolab( hexToRgb( light ) ) );
     // $('.noneFixedTarget > span#cmykValue').text( rgbToCmyk( hexToRgb( light ) ) );
     // $('.noneFixedTarget > span#rgbValue').text( hexToRgb( light ) );
@@ -361,6 +364,7 @@ function changeTone ( tone ) {
     $("#toneSlider .ui-slider-range").css( "background-color", barColor );
     $("#hueSlider .ui-slider-range").css( "background-color", barColor );
 
+    $('#surface_color_text').text( newHexCode );
     // $('.noneFixedTarget > span#labValue').text( rgbTolab( hexToRgb( newHexCode ) ) );
     // $('.noneFixedTarget > span#cmykValue').text( rgbToCmyk( hexToRgb( newHexCode ) ) );
     // $('.noneFixedTarget > span#rgbValue').text( hexToRgb( newHexCode ) );
@@ -385,6 +389,8 @@ function changeHue ( hue ) {
     $("#brightSlider .ui-slider-range").css( "background-color", barColor );
     $("#toneSlider .ui-slider-range").css( "background-color", barColor );
     $("#hueSlider .ui-slider-range").css( "background-color", barColor );
+
+    $('#surface_color_text').text( newHexCode );
 
     NONE_FIXED_TONE_CODE = newHexCode.toUpperCase();
 }

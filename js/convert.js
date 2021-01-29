@@ -426,10 +426,10 @@ function rgbToHexWithPV ( targetType, rgbType, pv ) {
        alert("Please input the correct PV value");				
    }
    console.log( v );
-   if (v > 100) {
-       alert("This color's brightness is over 100%");
-       return;
-   }
+//    if (v > 100) {
+//        alert("This color's brightness is over 100%");
+//        return;
+//    }
 
    if(typeof v == "undefined" || v == null || v == "") {
        alert("Brightness is undefined");
