@@ -94,11 +94,16 @@ $user_state = $_SESSION['state'];
 									else $my_works = '';
 
 									?>
-									<dl class="color_list <?=$my_works?>" onclick="location.href='./project_preview.php?id=<?=$res['c_no']?>'">
-										<dd style="background: <?=$res['c_target_hex_code']?>;"></dd>
+									<dl class="color_list project <?=$my_works?>" onclick="location.href='./project_preview.php?id=<?=$res['c_no']?>'">
+										<dd style="background: <?=$res['c_target_hex_code']?>;">
+											<div style="width: 100%; height: 52px;">
+											</div>
+											<div style="width: 100%; height: 20px; background: <?=$res['c_surface_hex_code']?>; border-bottom-left-radius: 10px; border-bottom-right-radius: 10px;">
+											</div>
+										</dd>
 										<dt><?=$res['c_color_name']?></dt>
 									</dl>
-									<?php							
+									<?php
 								}
 							?>
 						</div>

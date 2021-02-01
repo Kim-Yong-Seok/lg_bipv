@@ -14,7 +14,9 @@
 <div id="wrap">
 	<header class="header">
 		<h1>Library</h1>
-		<button class="btn btnPrev" type="button" onclick="location.href='./home.php'">이전</button>
+        <button class="btn btnPrev" type="button" onclick="location.href='./home.php'">이전</button>
+        <button class="btn btnCompare" type="button" style="display: none;">비교</button>
+		<button class="btn btnDelete" type="button" style="display: none;" onclick="deleteSelect();">삭제</button>
 	</header>
 	<main class="fs0">
 		<section>
@@ -33,10 +35,12 @@
 						</span>
 					</div>
 				</div>
-			</div>
-			<div class="inner project" id="project">
-				
-			</div>
+            </div>
+            <form id="form">
+                <div class="inner project" id="project">
+                    
+                </div>
+            </form>
 		</section>
 
 	</main>
@@ -48,9 +52,34 @@
         $('.btnThumbnail').trigger('click');
         $('#sort_standard').val('time');
     });
+
+    function deleteSelect() {
+        $.ajax({
+            url: './server/color/delete_library.php',
+            method: 'post',
+            data: $('#form').serialize(),
+            success: ( res ) => {
+                console.log( res );
+            }
+        });
+        location.reload();
+    }
     
     function selectOpen() {
         $('.chkwrap').toggle();
+        $('.btnCompare').toggle();
+        $('.btnDelete').toggle();
+
+        var linkValue = $('.lists').attr('onclick');
+
+        if($('.chkwrap').is(':visible')) {
+            $('.lists').attr('onclick', '/*'+linkValue + '*/');
+        } else {
+            linkValue = linkValue.replace('/*', '');
+            linkValue = linkValue.replace('*/', '');
+            
+            $('.lists').attr('onclick', linkValue);
+        }
     }
 
     $('#sort_standard').change(() => {

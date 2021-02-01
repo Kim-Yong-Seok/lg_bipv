@@ -6,7 +6,7 @@ $(function() {
     range: "min",
     value: 50,
     min: 0,
-    max: 75,
+    max: 100,
     step: 25,
     slide: function( event, ui ) {
         num = parseInt( ui.value );

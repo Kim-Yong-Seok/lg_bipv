@@ -16,7 +16,7 @@ function setName() {
     $('#pjtName').val( name );
 }
 
-function addNewColor ( ) {
+function addNewColor() {
     $('#fixedHexValue').val(FIXED_HEX_CODE);
     $('#noneFixedHexValue').val(NONE_FIXED_HEX_CODE);
     
@@ -40,10 +40,48 @@ function addNewColor ( ) {
     }
 }
 
+function updateText() {
+    var idx = $('#idx').val();
+    $('#fixedHexValue').val(FIXED_HEX_CODE);
+    $('#noneFixedHexValue').val(NONE_FIXED_HEX_CODE);
+
+    $.ajax({
+        url: './server/color/update_text.php',
+        data: $('#addNewColorForm').serialize(),
+        method: 'post',
+        success: ( response ) => {
+            if( response == '1' ) {
+                location.href='./project_preview.php?id='+idx;
+            } else {
+                showAlert('Update Failed');
+            }
+        }
+    });
+}
+
+function validate() {
+    var idx = $('#idx').val();
+    $.ajax({
+        url: './server/color/validate.php',
+        method: 'post',
+        data: {
+            idx: idx
+        },
+        success: ( response ) => {
+            if( response == '1' ) {
+                location.href='./home.php';
+            } else {
+                showAlert('Validate Failed');
+            }
+        }
+    })
+}
+
 function reset () {
     console.log('RESET!');
 
     $('.fixedTarget, .noneFixedTarget').find('span').text('');
+    $('.fixedTarget, .noneFixedTarget').find('p').text('');
 
     $('#targetColor, #surfaceColor').removeClass('fixedTarget');
     $('#targetColor, #surfaceColor').removeClass('noneFixedTarget');
@@ -248,7 +286,9 @@ function setColor () {
             $('#toneSlider').slider( 'option', 'value', s);
             $('#hueSlider').slider( 'option', 'value', h);
 
-            $('#surface_color_text').text( noneHexCode );
+            $('.fixedTarget > p').text( hexCode );
+            $('.noneFixedTarget > p').text( noneHexCode );
+
 
             FIXED_HEX_CODE = hexCode;
             NONE_FIXED_HEX_CODE = noneHexCode;
@@ -262,6 +302,8 @@ function setColor () {
     });
 
 }
+
+var changeCnt = 0;
 
 function changePv ( pv ) {
     console.log( pv );
@@ -297,20 +339,26 @@ function changePv ( pv ) {
     $("#pvSlider .ui-slider-range").css( "background-color", barColor );
     $("#brightSlider .ui-slider-range").css( "background-color", barColor );
     $("#toneSlider .ui-slider-range").css( "background-color", barColor );
-    $('#surface_color_text').text( noneHexCode );
+    
+    $('.fixedTarget > p').text( FIXED_HEX_CODE );
+    $('.noneFixedTarget > p').text( noneHexCode );
+
     var expectedPower = '';
     switch( pv ) {
+        case 100:
+            expectedPower = '361 (19%)';
+            break;
         case 75:
-            expectedPower = '253 (13.3%)';
+            expectedPower = '325 (17.1%)';
             break;
         case 50:
             expectedPower = '289 (15.2%)';
             break;
         case 25:
-            expectedPower = '325 (17.1%)';
+            expectedPower = '253 (13.3%)';
             break;
         case 0:
-            expectedPower = '361 (19.0%)';
+            expectedPower = '217 (11.4%)';
             break;
         default:
             break;
@@ -321,6 +369,11 @@ function changePv ( pv ) {
     NONE_FIXED_HEX_CODE = noneHexCode.toUpperCase();
     ORIGIN_NONE_FIXED_HEX_CODE = noneHexCode.toUpperCase();
 
+    if( chageCnt ) {
+        $('#saveBTN').show();
+        $('#updateBTN').hide();
+    }
+    changeCnt++;
 }
 
 function changeBright ( bright ) {
@@ -339,13 +392,15 @@ function changeBright ( bright ) {
     $("#toneSlider .ui-slider-range").css( "background-color", barColor );
     $("#hueSlider .ui-slider-range").css( "background-color", barColor );
 
-    $('#surface_color_text').text( light );
+    $('.noneFixedTarget > p').text( light );
     // $('.noneFixedTarget > span#labValue').text( rgbTolab( hexToRgb( light ) ) );
     // $('.noneFixedTarget > span#cmykValue').text( rgbToCmyk( hexToRgb( light ) ) );
     // $('.noneFixedTarget > span#rgbValue').text( hexToRgb( light ) );
     // $('.noneFixedTarget > span#hexValue').text( light.toUpperCase() );
 
     NONE_FIXED_HEX_CODE = light.toUpperCase();
+    $('#saveBTN').show();
+    $('#updateBTN').hide();
 }
 
 function changeTone ( tone ) {
@@ -364,13 +419,15 @@ function changeTone ( tone ) {
     $("#toneSlider .ui-slider-range").css( "background-color", barColor );
     $("#hueSlider .ui-slider-range").css( "background-color", barColor );
 
-    $('#surface_color_text').text( newHexCode );
+    $('.noneFixedTarget > p').text( newHexCode );
     // $('.noneFixedTarget > span#labValue').text( rgbTolab( hexToRgb( newHexCode ) ) );
     // $('.noneFixedTarget > span#cmykValue').text( rgbToCmyk( hexToRgb( newHexCode ) ) );
     // $('.noneFixedTarget > span#rgbValue').text( hexToRgb( newHexCode ) );
     // $('.noneFixedTarget > span#hexValue').text( newHexCode.toUpperCase() );
 
     NONE_FIXED_TONE_CODE = newHexCode.toUpperCase();
+    $('#saveBTN').show();
+    $('#updateBTN').hide();
 }
 
 function changeHue ( hue ) {
@@ -390,9 +447,11 @@ function changeHue ( hue ) {
     $("#toneSlider .ui-slider-range").css( "background-color", barColor );
     $("#hueSlider .ui-slider-range").css( "background-color", barColor );
 
-    $('#surface_color_text').text( newHexCode );
+    $('.noneFixedTarget > p').text( newHexCode );
 
     NONE_FIXED_TONE_CODE = newHexCode.toUpperCase();
+    $('#saveBTN').show();
+    $('#updateBTN').hide();
 }
 
 function getTheColor( colorVal ) {

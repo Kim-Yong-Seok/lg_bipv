@@ -42,7 +42,8 @@ if( $color_target == 'T' ) {
 		<h1>Add New Color</h1>
 		<button class="btn btnPrev" type="button" onclick="history.back(-1)">이전</button>
     </header>
-	<form action="./server/color/add_new_color.php" method="POST" id="addNewColorForm">
+	<form method="POST" id="addNewColorForm">
+	<input type="hidden" name="idx" value="<?=$id?>" id="idx">
 	<div class="dimmed"></div>
 	<div class="popup" id="addnewcolorbtn">
 		<div class="popup-content">
@@ -117,11 +118,15 @@ if( $color_target == 'T' ) {
 				<div class="inner-item">
 					<div class="col color_left">
 						<h3>Target Color</h3>
-						<div class="color_code <?=$color_target == 'T' ? 'fixedTarget' : 'noneFixedTarget'?>" id="targetColor" ></div>
+						<div class="color_code <?=$color_target == 'T' ? 'fixedTarget' : 'noneFixedTarget'?>" id="targetColor" style="text-align: center;">
+							<p style="font-size: 16px; float: left; width: 100%;"></p>
+						</div>
 					</div>
 					<div class="col color_right">
 						<h3>Surface Color</h3>
-						<div class="color_code <?=$color_target == 'S' ? 'fixedTarget' : 'noneFixedTarget'?>" id="surfaceColor" ></div>
+						<div class="color_code <?=$color_target == 'S' ? 'fixedTarget' : 'noneFixedTarget'?>" id="surfaceColor" style="text-align: center;">
+							<p style="font-size: 16px; float: left; width: 100%;"></p>
+						</div>
 					</div>
 				</div>
 
@@ -262,10 +267,14 @@ if( $color_target == 'T' ) {
 			</div>
 		</section>
 
-
-		<div class="bottom_btn_area">
-			<button class="btn typeWhite popopen" type="button" onclick="setName();" name="addnewcolorbtn">SAVE</button>
+		<div class="bottom_btn_area col2">
+			<button class="btn typeWhite popopen" type="button" onclick="setName();" name="addnewcolorbtn" style="display: none;" id="saveBTN">SAVE AS</button>
+			<button class="btn typeWhite" type="button" onclick="updateText();" id="updateBTN">UPDATE</button>
+			<button class="btn typeWhite" type="button" onclick="validate();">VALIDATE</button>
 		</div>
+		<!-- <div class="bottom_btn_area">
+			<button class="btn typeWhite popopen" type="button" onclick="setName();" name="addnewcolorbtn">SAVE</button>
+		</div> -->
         <input type="hidden" id="fixedHexValue" name="fixed_hex_value">
         <input type="hidden" id="noneFixedHexValue" name="none_fixed_hex_value">
     </main>
@@ -291,5 +300,5 @@ if( $color_target == 'T' ) {
 
         $('#pvSlider').slider( 'option', 'value', pv );
         
-    })
+	});
 </script>

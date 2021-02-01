@@ -7,15 +7,23 @@
         $result = $conn->query( $query );
 
         if( isset( $result ) && $result->num_rows > 0 ) {
+            $cnt = 1;
             while( $res = $result->fetch_array(MYSQLI_ASSOC) ) {
                 ?>
                     <li>
-                        <dl style="background: <?=$res['c_surface_hex_code']?>;" onclick="location.href='./project_preview.php?id=<?=$res['c_no']?>'">
+                        <dl style="background: <?=$res['c_target_hex_code']?>;" onclick="location.href='./project_preview.php?id=<?=$res['c_no']?>'" class="lists">
+                            <dd class="check">
+                                <div class="chkwrap checkBox" style="display: none;">
+                                    <input type="checkbox" id="check<?=$cnt?>" name="check_<?=$res['c_no']?>">
+                                    <label for="check<?=$cnt?>" class="text"></label>
+                                </div>
+                            </dd>
                             <dt><?=$res['c_color_name']?></dt>
-                            <dd class="ellipsis"><?=$res['c_surface_hex_code']?></dd>
+                            <dd><?=$res['c_target_hex_code']?></dd>
                         </dl>
                     </li>
                 <?php
+                $cnt++;
             }
         }
         ?>

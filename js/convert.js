@@ -399,7 +399,10 @@ function rgbToHexWithPV ( targetType, rgbType, pv ) {
    var v = Math.round(v);
 
 
-   if (pv >= 75) {
+   if(pv == 100) {
+       v = v;
+   }
+   else if (pv >= 75) {
        if( targetType == 'T' ) v = v * 4;
        else v = v / 4;
    } 

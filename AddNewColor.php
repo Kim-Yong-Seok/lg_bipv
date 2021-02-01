@@ -103,12 +103,14 @@ $user_no = $_SESSION['no'];
 				<div class="inner-item">
 					<div class="col color_left">
 						<h3>Target Color</h3>
-						<div class="color_code fixedTarget" id="targetColor"></div>
+						<div class="color_code fixedTarget" id="targetColor" style="text-align: center;">
+							<p style="font-size: 16px; float: left; width: 100%;"></p>
+						</div>
 					</div>
 					<div class="col color_right">
 						<h3>Surface Color</h3>
 						<div class="color_code noneFixedTarget" id="surfaceColor" style="text-align: center;">
-							<p id="surface_color_text" style="font-size: 16px; float: left; width: 100%;"></p>
+							<p style="font-size: 16px; float: left; width: 100%;"></p>
 						</div>
 					</div>
 				</div>
