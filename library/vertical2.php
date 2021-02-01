@@ -38,7 +38,13 @@ if( isset($result) && $result->num_rows > 0 ) {
                     while( $res = $result->fetch_array(MYSQLI_ASSOC) ) {
                         ?>
                         <li onclick="location.href='./project_preview.php?id=<?=$res['c_no']?>'">
-                            <div class="title"><?=$res['c_color_name']?></div>
+                            <div class="title">
+                                <div class="chkwrap checkBox" style="display: none;">
+                                    <input type="checkbox" id="check<?=$j?>" name="check_<?=$res['c_no']?>">
+                                    <label for="check<?=$j?>" class="text"></label>
+                                </div>
+                                <?=$res['c_color_name']?>
+                            </div>
                             <dl class="color_area">
                                 <dd class="color_box" style="background-color: <?=$res['c_target_hex_code']?>;" id="vertical_target<?=$j?>" name="<?=$res['c_target_hex_code']?>"></dd>
                                 <dt class="ellipsis">Target Color</dt>
@@ -48,8 +54,8 @@ if( isset($result) && $result->num_rows > 0 ) {
                                     <p id="t_rgb<?=$j?>"></p>
                                 </dd>
                             </dl>
-                            <div style="width: 60%; display: inline-block;">
-                            <dl class="color_area" style="width: <?=100-$res['c_pv']?>%">
+                            <!-- <div style="width: 60%; display: inline-block;"> -->
+                            <dl class="color_area">
                                 <dd class="color_box" style="background-color: <?=$res['c_surface_hex_code']?>;" id="vertical_surface<?=$j?>" name="<?=$res['c_surface_hex_code']?>"></dd>
                                 <dt class="ellipsis">Surface Color</dt>
                                 <dd class="info_box">
@@ -58,16 +64,17 @@ if( isset($result) && $result->num_rows > 0 ) {
                                     <p id="s_rgb<?=$j?>"></p>
                                 </dd>
                             </dl>
-                            <dl class="pv_area" style="width: <?=$res['c_pv']?>%">
+                            <dl class="pv_area">
                                 <dd class="color_box" style="background-color: #000;"></dd>
                                 <dt class="ellipsis">PV</dt>
                                 <dd class="info_box">
                                     <p>Ratio <?=$res['c_pv']?>%</p>
                                 </dd>
                             </dl>
-                            </div>
+                            <!-- </div> -->
                         </li>
                         <?php
+                        $cnt++;
                         $j++;
                     }
                 ?>

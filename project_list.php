@@ -14,8 +14,11 @@
 <div id="wrap">
 	<header class="header">
 		<h1>Project</h1>
-		<button class="btn btnPrev" type="button" onclick="location.href='./home.php'">이전</button>
-	</header>
+        <button class="btn btnPrev" type="button" onclick="location.href='./home.php'">이전</button>
+        <button class="btn btnCompare" type="button" style="display: none;" onclick="compareSelect();">비교</button>
+		<button class="btn btnDelete" type="button" style="display: none;" onclick="deleteSelect();">삭제</button>
+    </header>
+    <form id="form" method="post">
 	<main class="fs0">
 		<section>
 			<div class="inner type2">
@@ -25,6 +28,7 @@
 						<option value="color">Color</option>
 					</select>
 					<div class="inner_right">
+                    <input type="checkbox" onchange="selectOpen()" style="width: 20px; height: 20px; margin-right: 20px; margin-top: 10px; float:right;" id="selectCheckbox" />
 						<span class="right_area">
 							<button class="btn btnThumbnail active" type="button">썸네일</button>
 							<button class="btn btnHorizontal" type="button">가로형</button>
@@ -37,8 +41,8 @@
 				
 			</div>
 		</section>
-
-	</main>
+    </main>
+    </form>
 </div>
 </body>
 </html>
@@ -52,7 +56,50 @@
         $('.active').trigger('click');
     });
 
+    function compareSelect() {
+        $('#form').attr('action', './project_compare.php');
+        $('#form').submit();
+    }
+
+    function deleteSelect() {
+        $.ajax({
+            url: './server/color/delete_project.php',
+            method: 'post',
+            data: $('#form').serialize(),
+            success: ( res ) => {
+                console.log( res );
+            }
+        });
+        location.reload();
+    }
+
+    function showHeaderButton() {
+        if( $('#selectCheckbox').is(':checked') ) {
+            $('.btnDelete, .btnCompare').show();
+        } else {
+            $('.btnDelete, .btnCompare').hide();
+        }
+    }
+    
+    function selectOpen() {
+        $('.chkwrap').toggle();
+        showHeaderButton();
+
+        var linkValue = $('.lists').attr('onclick');
+
+        if($('.chkwrap').is(':visible')) {
+            $('.lists').attr('onclick', '/*'+linkValue + '*/');
+        } else {
+            linkValue = linkValue.replace('/*', '');
+            linkValue = linkValue.replace('*/', '');
+            
+            $('.lists').attr('onclick', linkValue);
+        }
+    }
+
     $('.btnThumbnail').click(() => {
+        $('#selectCheckbox').removeAttr('checked');
+        showHeaderButton();
         var standard = $('#sort_standard').val();
         var url = './project/thumbnail';
 
@@ -73,6 +120,8 @@
     });
 
     $('.btnHorizontal').click(() => {
+        $('#selectCheckbox').removeAttr('checked');
+        showHeaderButton();
         var standard = $('#sort_standard').val();
         var url = './project/horizontal';
 
@@ -93,6 +142,8 @@
     });
 
     $('.btnVertical').click(() => {
+        $('#selectCheckbox').removeAttr('checked');
+        showHeaderButton();
         var standard = $('#sort_standard').val();
         var url = './project/vertical';
 

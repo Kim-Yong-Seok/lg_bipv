@@ -27,7 +27,7 @@
 						<option value="color">Color</option>
 					</select>
 					<div class="inner_right">
-                        <input type="checkbox" onchange="selectOpen()" style="width: 20px; height: 20px; margin-right: 20px; margin-top: 10px; float:right;" />
+                        <input type="checkbox" onchange="selectOpen()" style="width: 20px; height: 20px; margin-right: 20px; margin-top: 10px; float:right;" id="selectCheckbox" />
 						<span class="right_area">
 							<button class="btn btnThumbnail active" type="button">썸네일</button>
 							<button class="btn btnHorizontal" type="button">가로형</button>
@@ -36,7 +36,7 @@
 					</div>
 				</div>
             </div>
-            <form id="form">
+            <form id="form" method="post">
                 <div class="inner project" id="project">
                     
                 </div>
@@ -53,6 +53,11 @@
         $('#sort_standard').val('time');
     });
 
+    function compareSelect() {
+        $('#form').attr('action', './library_compare.php');
+        $('#form').submit();
+    }
+
     function deleteSelect() {
         $.ajax({
             url: './server/color/delete_library.php',
@@ -64,11 +69,18 @@
         });
         location.reload();
     }
+
+    function showHeaderButton() {
+        if( $('#selectCheckbox').is(':checked') ) {
+            $('.btnDelete, .btnCompare').show();
+        } else {
+            $('.btnDelete, .btnCompare').hide();
+        }
+    }
     
     function selectOpen() {
         $('.chkwrap').toggle();
-        $('.btnCompare').toggle();
-        $('.btnDelete').toggle();
+        showHeaderButton();
 
         var linkValue = $('.lists').attr('onclick');
 
@@ -87,6 +99,8 @@
     });
 
     $('.btnThumbnail').click(() => {
+        $('#selectCheckbox').removeAttr('checked');
+        showHeaderButton();
         var standard = $('#sort_standard').val();
         var url = './library/thumbnail';
 
@@ -107,6 +121,8 @@
     });
 
     $('.btnHorizontal').click(() => {
+        $('#selectCheckbox').removeAttr('checked');
+        showHeaderButton();
         var standard = $('#sort_standard').val();
         var url = './library/horizontal';
 
@@ -127,6 +143,8 @@
     });
 
     $('.btnVertical').click(() => {
+        $('#selectCheckbox').removeAttr('checked');
+        showHeaderButton();
         var standard = $('#sort_standard').val();
         var url = './library/vertical';
 

@@ -2,6 +2,26 @@ var purposeTarget = 'T';
 var FIXED_HEX_CODE = '';
 var NONE_FIXED_HEX_CODE = '';
 var ORIGIN_NONE_FIXED_HEX_CODE = '';
+var changeCnt = 0;
+
+function goToCamera() {
+    HybridApp.CallAndroid();
+}
+
+function getAndroid( rgb ) {
+    var value = rgb.split(',');
+    
+    var r = value[0];
+    var g = value[1];
+    var b = value[2];
+
+    $('#inputCodeType').val('rgb');
+    $('#ibv1_1').val(r);
+    $('#ibv1_2').val(g);
+    $('#ibv1_3').val(b);
+
+    setColor();
+}
 
 function setName() {
     var name;
@@ -221,7 +241,8 @@ function setColor () {
         } else if ( inputCodeType == 'cmyk' ) {
             inputCodeValue = $('#ibv2_1').val() + ", " + $('#ibv2_2').val() + ", " + $('#ibv2_3').val() + ", " + $('#ibv2_4').val();
         } else {
-            inputCodeValue = $('#ibv3_1').val() + "-" + $('#ibv3_2').val();
+            // inputCodeValue = $('#ibv3_1').val() + "-" + $('#ibv3_2').val();
+            inputCodeValue = $('#ibv3_1').val();
         }
         return inputCodeValue;
     }
@@ -293,7 +314,7 @@ function setColor () {
             FIXED_HEX_CODE = hexCode;
             NONE_FIXED_HEX_CODE = noneHexCode;
             ORIGIN_NONE_FIXED_HEX_CODE = noneHexCode;
-
+            chageCnt = 0;
             changePv( 50 );
         } else {
             alert('Some error occured!!');
@@ -302,8 +323,6 @@ function setColor () {
     });
 
 }
-
-var changeCnt = 0;
 
 function changePv ( pv ) {
     console.log( pv );
@@ -369,11 +388,15 @@ function changePv ( pv ) {
     NONE_FIXED_HEX_CODE = noneHexCode.toUpperCase();
     ORIGIN_NONE_FIXED_HEX_CODE = noneHexCode.toUpperCase();
 
-    if( chageCnt ) {
+    if( typeof changeCnt != 'undefined' && changeCnt > 0 ) {
         $('#saveBTN').show();
         $('#updateBTN').hide();
     }
-    changeCnt++;
+    if( typeof changeCnt != 'undefined' ) {
+        changeCnt = 0;
+        changeCnt++;
+    }
+    
 }
 
 function changeBright ( bright ) {
@@ -425,7 +448,7 @@ function changeTone ( tone ) {
     // $('.noneFixedTarget > span#rgbValue').text( hexToRgb( newHexCode ) );
     // $('.noneFixedTarget > span#hexValue').text( newHexCode.toUpperCase() );
 
-    NONE_FIXED_TONE_CODE = newHexCode.toUpperCase();
+    NONE_FIXED_HEX_CODE = newHexCode.toUpperCase();
     $('#saveBTN').show();
     $('#updateBTN').hide();
 }
@@ -449,7 +472,7 @@ function changeHue ( hue ) {
 
     $('.noneFixedTarget > p').text( newHexCode );
 
-    NONE_FIXED_TONE_CODE = newHexCode.toUpperCase();
+    NONE_FIXED_HEX_CODE = newHexCode.toUpperCase();
     $('#saveBTN').show();
     $('#updateBTN').hide();
 }

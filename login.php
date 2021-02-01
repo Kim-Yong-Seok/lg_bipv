@@ -43,7 +43,7 @@
 				<p><a href="#">Forgot ID / Password?</a></p>
 			</div>
 		</section>
-		<div class="bottom_btn_area fixed">
+		<div class="bottom_btn_area">
 			<button class="btn typeBlack" type="button" onclick="location.href='./join.php';">REGISTER</button>
 			<button class="btn typeBlack" type="button" onclick="check()">LOGIN</button>
 		</div>
@@ -53,6 +53,11 @@
 </body>
 </html>
 <script type="text/javascript">
+	$(window).load(() => {
+		$('#email').val(localStorage.bipvEmail);
+		$('#password').val(localStorage.bipvPassword);
+	});
+
     function check() {
 		var email = $('#email').val();
 		var password = $('#password').val();
@@ -74,6 +79,13 @@
 			data: formData,
 			success: ( res ) => {
 				if( res == 'login' ) {
+					if( $('#RememberMe').is(':checked') ) {
+						localStorage.bipvEmail = $('#email').val();
+						localStorage.bipvPassword = $('#password').val();
+					} else {
+						localStorage.bipvEmail = '';
+						localStorage.bipvPassword = '';
+					}
 					showAlert('Login success');
 					setTimeout(() => {
 						location.href='./home.php';

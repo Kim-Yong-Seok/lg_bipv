@@ -72,27 +72,27 @@ $user_no = $_SESSION['no'];
 					</select>
 					<!-- rgb 선택일 경우 -->
 					<div class="input_box rgb mgl_10 " id="inputCodeBox1" style="width: calc(70% - 10px);">
-						<input type="text" id="ibv1_1" name="ibv1_1"> - 
-						<input type="text" id="ibv1_2" name="ibv1_2"> - 
+						<input type="text" id="ibv1_1" name="ibv1_1"> , 
+						<input type="text" id="ibv1_2" name="ibv1_2"> , 
 						<input type="text" id="ibv1_3" name="ibv1_3" onfocusout="setColor()">
 					</div>
 					<!-- CMYK 선택일 경우 -->
 					<div class="input_box cmyk mgl_10" id="inputCodeBox2" style="width: calc(70% - 10px); display: none;">
-						<input type="text" id="ibv2_1" name="ibv2_1"> - 
-						<input type="text" id="ibv2_2" name="ibv2_2"> - 
-						<input type="text" id="ibv2_3" name="ibv2_3"> - 
+						<input type="text" id="ibv2_1" name="ibv2_1"> , 
+						<input type="text" id="ibv2_2" name="ibv2_2"> , 
+						<input type="text" id="ibv2_3" name="ibv2_3"> , 
 						<input type="text" id="ibv2_4" name="ibv2_4" onfocusout="setColor()">
 					</div>
 					<div class="input_box pantone mgl_10" id="inputCodeBox3" style="width: calc(70% - 10px); display: none;">
-						<input type="text" id="ibv3_1" name="ibv3_1"> - 
-						<input type="text" id="ibv3_2" name="ibv3_2" onfocusout="setColor()">
+						<input type="text" id="ibv3_1" name="ibv3_1" onfocusout="setColor()">
+						<!-- <input type="text" id="ibv3_2" name="ibv3_2" onfocusout="setColor()"> -->
 					</div>
                 </div>
                 <!-- <input type="hidden" name="color_value_1" id="colorValue1">
                 <input type="hidden" name="color_value_2" id="colorValue2">
                 <input type="hidden" name="color_value_3" id="colorValue3"> -->
 				<div class="button_area">
-					<button class="btnPhoto"><span>Photo</span></button>
+					<button class="btnPhoto" type="button" onclick="goToCamera();"><span>Photo</span></button>
 				</div>
 			</div>
 		</section>

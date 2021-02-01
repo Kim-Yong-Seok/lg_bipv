@@ -400,27 +400,19 @@ function rgbToHexWithPV ( targetType, rgbType, pv ) {
 
 
    if(pv == 100) {
-       v = v;
+       v = 100;
+       return '#000000';
+   } else if (pv >= 75) {
+       if( targetType == 'T' ) v = v * 3.12;
+       else v = v / 3.12;
    }
-   else if (pv >= 75) {
-       if( targetType == 'T' ) v = v * 4;
-       else v = v / 4;
-   } 
-//    else if (pv > 50) {
-//        if( targetType == 'T' ) v = (2 + (pv - 50) * 0.08) * v;
-//        else v = (pv/v - 2)/0.08 + 50;
-//    } 
    else if (pv == 50) {
-       if( targetType == 'T' ) v = v * 2;
-       else v = v / 2;
+       if( targetType == 'T' ) v = v * 1.56;
+       else v = v / 1.56;
    }
-//    else if (pv > 25) {
-//        if( targetType == 'T' ) v = (1.36 + (pv - 25) * 0.0246) * v;
-//        else v = (pv/v - 1.36)/0.0246 + 25;
-//    }
    else if (pv == 25) {
-       if( targetType == 'T' ) v = v * 1.36;
-       else v = v / 1.36;
+       if( targetType == 'T' ) v = v * 1.06;
+       else v = v / 1.06;
    }
    else if (pv == 0) {
        v = v * 1;
@@ -428,7 +420,6 @@ function rgbToHexWithPV ( targetType, rgbType, pv ) {
    else {
        alert("Please input the correct PV value");				
    }
-   console.log( v );
 //    if (v > 100) {
 //        alert("This color's brightness is over 100%");
 //        return;

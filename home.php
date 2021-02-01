@@ -81,7 +81,7 @@ $user_state = $_SESSION['state'];
 				<h2 class="relative">
 					Project
 					<span class="num"><?=$result->num_rows?></span>
-					<button class="btn btn_more" onclick="location.href='./profile_list.php';">더보기</button>
+					<button class="btn btn_more" onclick="location.href='./project_list.php';">더보기</button>
 				</h2>
 				<?php
 					if( $result->num_rows > 0 ) {
@@ -138,7 +138,7 @@ $user_state = $_SESSION['state'];
 								<?php
 									while( $res = $result->fetch_array(MYSQLI_ASSOC) ) {
 										?>
-										<dl class="color_list library">
+										<dl class="color_list library" onclick="location.href='./project_preview.php?id=<?=$res['c_no']?>'">
 											<dd style="background: <?=$res['c_surface_hex_code']?>;">
 												<ul>
 													<li class="left" style="background: <?=$res['c_target_hex_code']?>;"></li>
@@ -146,7 +146,7 @@ $user_state = $_SESSION['state'];
 												</ul>
 											</dd>
 											<dt><?=$res['c_color_name']?></dt>
-											<span class="tag ellipsis">#Tagtag</span>
+											<span class="tag ellipsis"><?=$res['c_tag'] ? $res['c_tag'] : '.' ?></span>
 										</dl>
 										<?php
 									}

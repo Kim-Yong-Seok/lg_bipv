@@ -39,7 +39,7 @@ if( $color_target == 'T' ) {
 <body>
 <div id="wrap">
 	<header class="header">
-		<h1>Add New Color</h1>
+		<h1>Update Color</h1>
 		<button class="btn btnPrev" type="button" onclick="history.back(-1)">이전</button>
     </header>
 	<form method="POST" id="addNewColorForm">
@@ -90,24 +90,23 @@ if( $color_target == 'T' ) {
                     </select>
                     <!-- rgb 선택일 경우 -->
 					<div class="input_box rgb mgl_10 " id="inputCodeBox1" style="width: calc(70% - 10px); <?=$color_type == 'lab' || $color_type == 'rgb' ? 'display: inline-block' : 'display: none'?>">
-                        <input type="text" id="ibv1_1" name="ibv1_1" value="<?=$res['c_input_color_code1']?>"> - 
-						<input type="text" id="ibv1_2" name="ibv1_2" value="<?=$res['c_input_color_code2']?>"> - 
+                        <input type="text" id="ibv1_1" name="ibv1_1" value="<?=$res['c_input_color_code1']?>"> , 
+						<input type="text" id="ibv1_2" name="ibv1_2" value="<?=$res['c_input_color_code2']?>"> , 
 						<input type="text" id="ibv1_3" name="ibv1_3" value="<?=$res['c_input_color_code3']?>" onfocusout="setColor()">
 					</div>
 					<!-- CMYK 선택일 경우 -->
 					<div class="input_box cmyk mgl_10" id="inputCodeBox2" style="width: calc(70% - 10px); <?=$color_type == 'cmyk' ? 'display: inline-block' : 'display: none'?>">
-						<input type="text" id="ibv2_1" name="ibv2_1" value="<?=$res['c_input_color_code1']?>"> - 
-						<input type="text" id="ibv2_2" name="ibv2_2" value="<?=$res['c_input_color_code2']?>"> - 
-						<input type="text" id="ibv2_3" name="ibv2_3" value="<?=$res['c_input_color_code3']?>"> - 
+						<input type="text" id="ibv2_1" name="ibv2_1" value="<?=$res['c_input_color_code1']?>"> , 
+						<input type="text" id="ibv2_2" name="ibv2_2" value="<?=$res['c_input_color_code2']?>"> , 
+						<input type="text" id="ibv2_3" name="ibv2_3" value="<?=$res['c_input_color_code3']?>"> , 
 						<input type="text" id="ibv2_4" name="ibv2_4" value="<?=$res['c_input_color_code4']?>" onfocusout="setColor()">
 					</div>
 					<div class="input_box pantone mgl_10" id="inputCodeBox3" style="width: calc(70% - 10px); <?=$color_type == 'pantone' ? 'display: inline-block' : 'display: none'?>">
-						<input type="text" id="ibv3_1" name="ibv3_1" value="<?=$res['c_input_color_code1']?>"> - 
-						<input type="text" id="ibv3_2" name="ibv3_2" value="<?=$res['c_input_color_code2']?>" onfocusout="setColor()">
+						<input type="text" id="ibv3_1" name="ibv3_1" value="<?=$res['c_input_color_code1']?>" onfocusout="setColor()">
 					</div>
                 </div>
 				<div class="button_area">
-					<button class="btnPhoto"><span>Photo</span></button>
+					<button class="btnPhoto" type="button" onclick="goToCamera();"><span>Photo</span></button>
 				</div>
 			</div>
 		</section>
@@ -288,7 +287,7 @@ if( $color_target == 'T' ) {
         var bright = <?php echo $res['c_adjust_brightness']; ?>;
         var tone = <?php echo $res['c_adjust_saturation']; ?>;
         var hue = <?php echo $res['c_adjust_hue']; ?>;
-        
+        changeCnt = 0;
         console.log( pv, bright, tone, hue );
 
         NONE_FIXED_HEX_CODE = '<?php echo $none_fixed_hex_code; ?>';
