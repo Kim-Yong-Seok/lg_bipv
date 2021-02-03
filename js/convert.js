@@ -390,40 +390,53 @@ function rgbToHexWithPV ( targetType, rgbType, pv ) {
    var s = codes.s;
    var v = codes.v;
 
-   console.log( 'h : ' +  h );
-   console.log( 's : ' +  s );
-   console.log( 'v : ' +  v );
+   console.log( 'before h : ' +  h );
+   console.log( 'before s : ' +  s );
+   console.log( 'before v : ' +  v );
 
    pv = parseInt(pv);
 
    var v = Math.round(v);
 
+	if(pv == 100) {
+		v = 100;
+		return '#000000';
+	} else if (pv >= 75) {
+		if( targetType == 'T' ) {
+			v = v * 4;
+		} else {
+			v = v / 4;
+		}
+	} else if (pv == 50) {
+		if( targetType == 'T' ) {
+			v = v * 2;
+		} else {
+			v = v / 2;
+		}
+	} else if (pv == 25) {
+		if( targetType == 'T' ) {
+			v = v * 1.36;
+		} else {
+			v = v / 1.36;
+		}
+	} else if (pv == 0) {
+		if( targetType == 'T' ) {
+			v = v * 1.22;
+		} else {
+			v = v / 1.22;
+		}
+	} else {
+		alert("Please input the correct PV value");				
+	}
 
-   if(pv == 100) {
-       v = 100;
-       return '#000000';
-   } else if (pv >= 75) {
-       if( targetType == 'T' ) v = v * 3.12;
-       else v = v / 3.12;
-   }
-   else if (pv == 50) {
-       if( targetType == 'T' ) v = v * 1.56;
-       else v = v / 1.56;
-   }
-   else if (pv == 25) {
-       if( targetType == 'T' ) v = v * 1.06;
-       else v = v / 1.06;
-   }
-   else if (pv == 0) {
-       v = v * 1;
-   }
-   else {
-       alert("Please input the correct PV value");				
-   }
 //    if (v > 100) {
 //        alert("This color's brightness is over 100%");
 //        return;
 //    }
+
+   console.log( 'after h : ' +  h );
+   console.log( 'after s : ' +  s );
+   console.log( 'after v : ' +  v );
 
    if(typeof v == "undefined" || v == null || v == "") {
        alert("Brightness is undefined");

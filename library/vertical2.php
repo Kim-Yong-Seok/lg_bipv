@@ -32,12 +32,12 @@ if( isset($result) && $result->num_rows > 0 ) {
             </div>
             <ul class="list-vertical <?=$i==0 ? 'active' : ''?>">
                 <?php
-                    $query = "SELECT * FROM `b_bipv_color` WHERE `c_target_hex_code`='$colors[$i]';";
+                    $query = "SELECT * FROM `b_bipv_color` WHERE `c_target_hex_code`='$colors[$i]' and `c_approval`='Y';";
                     $result = $conn->query( $query );
                     
                     while( $res = $result->fetch_array(MYSQLI_ASSOC) ) {
                         ?>
-                        <li onclick="location.href='./project_preview.php?id=<?=$res['c_no']?>'">
+                        <li onclick="location.href='./project_preview.php?id=<?=$res['c_no']?>'" class="lists">
                             <div class="title">
                                 <div class="chkwrap checkBox" style="display: none;">
                                     <input type="checkbox" id="check<?=$j?>" name="check_<?=$res['c_no']?>">

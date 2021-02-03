@@ -37,7 +37,7 @@ if( isset($result) && $result->num_rows > 0 ) {
                     
                     while( $res = $result->fetch_array(MYSQLI_ASSOC) ) {
                         ?>
-                        <li onclick="location.href='./project_preview.php?id=<?=$res['c_no']?>'">
+                        <li onclick="location.href='./project_preview.php?id=<?=$res['c_no']?>'" class="lists">
                             <div class="title">
                                 <div class="chkwrap checkBox" style="display: none;">
                                     <input type="checkbox" id="check<?=$j?>" name="check_<?=$res['c_no']?>">

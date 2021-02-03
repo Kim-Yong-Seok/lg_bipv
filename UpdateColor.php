@@ -171,7 +171,7 @@ if( $color_target == 'T' ) {
 					</div>
 
 					<dl class="openList_area">
-						<dt class="active"><a href="#a"><h2>Surface Color Adjustment</h2></a></dt>
+						<dt class=""><a href="#a"><h2>Surface Color Adjustment</h2></a></dt>
 						<dd class="openList_item">
 							<div class="ratio_bar">
                                 <span class="tit2">Brightness</span>

@@ -80,6 +80,7 @@
     
     function selectOpen() {
         $('.chkwrap').toggle();
+        $('.check').toggle();
         showHeaderButton();
 
         var linkValue = $('.lists').attr('onclick');

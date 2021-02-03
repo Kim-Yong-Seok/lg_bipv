@@ -139,9 +139,9 @@ $user_state = $_SESSION['state'];
 									while( $res = $result->fetch_array(MYSQLI_ASSOC) ) {
 										?>
 										<dl class="color_list library" onclick="location.href='./project_preview.php?id=<?=$res['c_no']?>'">
-											<dd style="background: <?=$res['c_surface_hex_code']?>;">
+											<dd style="background: <?=$res['c_target_hex_code']?>;">
 												<ul>
-													<li class="left" style="background: <?=$res['c_target_hex_code']?>;"></li>
+													<li class="left" style="background: <?=$res['c_surface_hex_code']?>;"></li>
 													<li class="right" style="background: #000000;"></li>
 												</ul>
 											</dd>

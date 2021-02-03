@@ -20,7 +20,7 @@ if( isset($result) && $result->num_rows > 0 ) {
             $size++;
         }
     }
-
+    $cnt = 1;
     for( $i=0; $i<$size; $i++ ) {
         ?>
         <div class="inner-item">
@@ -31,14 +31,13 @@ if( isset($result) && $result->num_rows > 0 ) {
             </div>
             <ul class="list-horizontal <?=$i==0 ? 'active' : ''?>">
                 <?php
-                    $query = "SELECT * FROM `b_bipv_color` WHERE `c_target_hex_code`='$colors[$i]' and `c_approval`='Y';";
+                    $query = "SELECT * FROM `b_bipv_color` WHERE `c_target_hex_code`='$colors[$i]' and `c_approval`='N';";
                     $result = $conn->query( $query );
                     while( $res = $result->fetch_array(MYSQLI_ASSOC) ) {
-                        $cnt = 1;
                         ?>
                         <li>
                             <dl style="background: <?=$res['c_target_hex_code']?>;" onclick="location.href='./project_preview.php?id=<?=$res['c_no']?>'" class="lists">
-                                <dd class="check">
+                                <dd class="check" style="display: none;">
                                     <div class="chkwrap checkBox" style="display: none;">
                                         <input type="checkbox" id="check<?=$cnt?>" name="check_<?=$res['c_no']?>">
                                         <label for="check<?=$cnt?>" class="text"></label>

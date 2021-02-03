@@ -12,7 +12,7 @@
                 ?>
                     <li>
                         <dl style="background: <?=$res['c_target_hex_code']?>;" onclick="location.href='./project_preview.php?id=<?=$res['c_no']?>'" class="lists">
-                            <dd class="check">
+                            <dd class="check" style="display: none;">
                                 <div class="chkwrap checkBox" style="display: none;">
                                     <input type="checkbox" id="check<?=$cnt?>" name="check_<?=$res['c_no']?>">
                                     <label for="check<?=$cnt?>" class="text"></label>

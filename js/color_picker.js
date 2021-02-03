@@ -331,11 +331,6 @@ function changePv ( pv ) {
     var hsl = hexToHsl( noneHexCode ).replace( /[^%,.\d]/g, "" ).split(',');
     var [h, s, l] = hsl;
 
-    // $('.noneFixedTarget > span#labValue').text( rgbTolab( hexToRgb( noneHexCode ) ) );
-    // $('.noneFixedTarget > span#cmykValue').text( rgbToCmyk( hexToRgb( noneHexCode ) ) );
-    // $('.noneFixedTarget > span#rgbValue').text( hexToRgb( noneHexCode ) );
-    // $('.noneFixedTarget > span#hexValue').text( noneHexCode.toUpperCase() );
-
     $("#pvSliderValue").html( pv );
     $('#pvSliderValue2').html( 100 - pv );
 
@@ -361,6 +356,12 @@ function changePv ( pv ) {
     
     $('.fixedTarget > p').text( FIXED_HEX_CODE );
     $('.noneFixedTarget > p').text( noneHexCode );
+
+    if( purposeTarget == 'T' ) {
+        if( pv == 0 ) $('#pvTable').css("background-color", FIXED_HEX_CODE);
+    } else {
+        if( pv != 0 && pv != 100 ) $('#pvTable').css("background-color", FIXED_HEX_CODE );
+    }
 
     var expectedPower = '';
     switch( pv ) {
