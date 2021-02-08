@@ -429,11 +429,11 @@ function rgbToHexWithPV ( targetType, rgbType, pv ) {
 		alert("Please input the correct PV value");				
 	}
 
-   if (v > 100) {
-    //    alert('!!!!!');
-    //    showAlert('This color cannot maked.');
-       return;
-   }
+//    if (v > 100) {
+//     //    alert('!!!!!');
+//     //    showAlert('This color cannot maked.');
+//        return;
+//    }
 
    console.log( 'after h : ' +  h );
    console.log( 'after s : ' +  s );

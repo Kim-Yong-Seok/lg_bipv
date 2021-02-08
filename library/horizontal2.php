@@ -31,7 +31,7 @@ if( isset($result) && $result->num_rows > 0 ) {
             </div>
             <ul class="list-horizontal <?=$i==0 ? 'active' : ''?>">
                 <?php
-                    $query = "SELECT * FROM `b_bipv_color` WHERE `c_target_hex_code`='$colors[$i]' and `c_approval`='N';";
+                    $query = "SELECT * FROM `b_bipv_color` WHERE `c_target_hex_code`='$colors[$i]' and `c_approval`='Y';";
                     $result = $conn->query( $query );
                     while( $res = $result->fetch_array(MYSQLI_ASSOC) ) {
                         ?>

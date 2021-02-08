@@ -11,10 +11,18 @@ function colorChipSize(){
 	var colorChipW = $('section .inner .inner-item .color_list dd').width();
 		colorChip = $('section .inner .inner-item .color_list dd');
 		colorChipLi = $('section .inner .inner-item .color_list dd li');
-		console.log(colorChipW);
 
 		$(colorChip).height(colorChipW);
 		$(colorChipLi).height(colorChipW / 4);
+
+		colorChipW2 = $('.list-thumbnail dd').width(),
+		colorChip2 = $('.list-thumbnail dd'),
+		colorChipDt2 = $('.list-thumbnail dt'),
+		colorChipLi2 = $('.list-thumbnail dd li');
+
+		$(colorChip2).height(colorChipW2);
+		$(colorChipDt2).width(colorChipW2);
+		$(colorChipLi2).height(colorChipW2 / 4);
 }
 
 function openList(){

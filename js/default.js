@@ -9,13 +9,21 @@ $(function(){ // Load
 });
 
 function colorChipSize(){
-	var colorChipW = $('.home section .inner .inner-item .color_list dd').width();
-		colorChip = $('.home section .inner .inner-item .color_list dd');
-		colorChipLi = $('.home section .inner .inner-item .color_list dd li');
-		console.log(colorChipW);
+	var colorChipW = $('.home section .inner .inner-item .color_list dd').width(),
+		colorChip = $('.home section .inner .inner-item .color_list dd'),
+		colorChipLi = $('.home section .inner .inner-item .color_list dd li'),
+
+		colorChipW2 = $('.list-thumbnail dd').width(),
+		colorChip2 = $('.list-thumbnail dd'),
+		colorChipDt2 = $('.list-thumbnail dt'),
+		colorChipLi2 = $('.list-thumbnail dd li');
 
 		$(colorChip).height(colorChipW);
 		$(colorChipLi).height(colorChipW / 4);
+
+		$(colorChip2).height(colorChipW2);
+		$(colorChipDt2).width(colorChipW2);
+		$(colorChipLi2).height(colorChipW2 / 4);
 }
 
 function openList(){

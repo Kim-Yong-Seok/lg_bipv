@@ -30,7 +30,7 @@ $user_email = $_SESSION['email'];
 	<main class="fs0 bgGray">
 		<section>
 			<div class="inner">
-				<h2>Pattern</h2>
+				<h2>Name</h2>
 				<div class="inner-item">
 					<div class="input_box icoSearch">
 						<input type="text" placeholder="이름을 입력해주세요." onfocusout="setName();" id="name" name="name">
