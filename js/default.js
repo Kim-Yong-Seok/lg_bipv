@@ -1,4 +1,5 @@
 $(function(){ // Load
+	colorChipSize();
 	openList();
 	projectOpenList();
 	bottomBtnArea();
@@ -6,6 +7,16 @@ $(function(){ // Load
 	alert();
 	popopen();
 });
+
+function colorChipSize(){
+	var colorChipW = $('.home section .inner .inner-item .color_list dd').width();
+		colorChip = $('.home section .inner .inner-item .color_list dd');
+		colorChipLi = $('.home section .inner .inner-item .color_list dd li');
+		console.log(colorChipW);
+
+		$(colorChip).height(colorChipW);
+		$(colorChipLi).height(colorChipW / 4);
+}
 
 function openList(){
 	$('.openList_area dt a').click(function(){

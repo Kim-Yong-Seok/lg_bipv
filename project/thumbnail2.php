@@ -27,7 +27,7 @@ if( isset($result) && $result->num_rows > 0 ) {
         <div class="inner-item">
             <div class="tit <?=$i==0 ? 'active' : ''?>">
                 <a href="#a">
-                    <h2><?=$colors[$i]?></h2>
+                    <h2 style="color: <?=$colors[$i]?>;"><?=$colors[$i]?></h2>
                 </a>
             </div>
             <ul class="list-thumbnail <?=$i==0 ? 'active' : ''?>">
@@ -40,8 +40,10 @@ if( isset($result) && $result->num_rows > 0 ) {
                         <li>
                             <dl onclick="location.href='./project_preview.php?id=<?=$res['c_no']?>'" class="lists">
                                 <dd style="background: <?=$res['c_target_hex_code']?>;">
-                                    <div style="width: 100%; height: 52px;"></div>
-                                    <div style="width: 100%; height: 20px; background: <?=$res['c_surface_hex_code']?>; border-bottom-left-radius: 10px; border-bottom-right-radius: 10px;"></div>
+                                    <ul>
+                                        <li class="left" style="background: <?=$res['c_surface_hex_code']?>;"></li>
+                                        <li class="right" style="background: #000;"></li>
+                                    </ul>
                                     <div class="chkwrap checkBox" style="display: none;">
                                         <input type="checkbox" id="check<?=$cnt?>" name="check_<?=$res['c_no']?>">
                                         <label for="check<?=$cnt?>" class="text"></label>

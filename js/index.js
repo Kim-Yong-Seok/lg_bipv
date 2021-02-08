@@ -4,7 +4,18 @@ $(function(){ // Load
 	leftNav();
 	popopen();
 	projectOpenList();
+	// colorChipSize();
 });
+
+function colorChipSize(){
+	var colorChipW = $('section .inner .inner-item .color_list dd').width();
+		colorChip = $('section .inner .inner-item .color_list dd');
+		colorChipLi = $('section .inner .inner-item .color_list dd li');
+		console.log(colorChipW);
+
+		$(colorChip).height(colorChipW);
+		$(colorChipLi).height(colorChipW / 4);
+}
 
 function openList(){
 	$('.openList_area dt a').click(function(){
@@ -46,10 +57,11 @@ function leftNav(){
 }
 
 function showAlert( msg ){
-    if($('#wrap').find('.bottom_btn_area')){
-        $('.alert').css('bottom', '68px');
-        $('.message').html( msg );
-    };
+    // if($('#wrap').find('.bottom_btn_area')){
+	$('.alert').css('bottom', '68px');
+	$('#alert .message').html( msg );
+	console.log( msg );
+	// }
 
     $('#alert').fadeIn(300);
 

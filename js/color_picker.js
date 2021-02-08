@@ -103,6 +103,9 @@ function reset () {
     $('.fixedTarget, .noneFixedTarget').find('span').text('');
     $('.fixedTarget, .noneFixedTarget').find('p').text('');
 
+    $('#target-hex-value').text('');
+    $('#surface-hex-value').text('');
+
     $('#targetColor, #surfaceColor').removeClass('fixedTarget');
     $('#targetColor, #surfaceColor').removeClass('noneFixedTarget');
 
@@ -118,7 +121,9 @@ function reset () {
     
     $('#ibv3_1').val('');
     $('#ibv3_2').val('');
-    
+
+    selectCodeType();
+
     $('#targetColor').css('background-color', '');
     $('#surfaceColor').css('background-color', '');
     $('#pvTable').css('background-color', '');
@@ -132,6 +137,9 @@ function reset () {
     $("#brightSlider .ui-slider-range").css( "background-color", '' );
     $("#toneSlider .ui-slider-range").css( "background-color", '' );
     $('#hueSlider .ui-slider-range').css( "background-color", '' );
+
+    $('#pvSliderValue').text('50');
+    $('#pvSliderValue2').text('50');
 
     $('#pvValue').val('');
     $('#brightnessValue').val('');
@@ -159,6 +167,17 @@ function selectTarget () {
 
 function selectCodeType () {
     const type = $('#inputCodeType').val();
+    
+    $('#ibv1_1').val('');
+    $('#ibv1_2').val('');
+    $('#ibv1_3').val('');
+
+    $('#ibv2_1').val('');
+    $('#ibv2_2').val('');
+    $('#ibv2_3').val('');
+    $('#ibv2_4').val('');
+    
+    $('#ibv3_1').val('');
     if( type == "lab" || type == "rgb" ) {
         $('#inputCodeBox1').css("display", "inline-block");
         $('#inputCodeBox2').css("display", "none");
@@ -235,6 +254,8 @@ function setColor () {
     }
 
     function getInputCode () {
+        $('#pvSlider').slider('option', 'value', 50);
+        $('#pvSliderValue').html(50);
         var inputCodeValue = '';
         if( inputCodeType == 'lab' || inputCodeType == 'rgb' ) {
             inputCodeValue = $('#ibv1_1').val() + "," + $('#ibv1_2').val() + "," + $('#ibv1_3').val(); 
@@ -268,14 +289,24 @@ function setColor () {
     hexCode = getHexCode( inputCodeType, inputCodeValue ).then(( hexCode ) => {
         console.log("Hex Code: ", hexCode);
         if( !hexCode ) {
-            alert('This color can not be maked.');
+            showAlert('This color cannot be maked');
+            reset();
             return;
         }
         var noneRgb = hexToRgb( hexCode );
         console.log( noneRgb );
         var noneHexCode = rgbToHexWithPV( purposeTarget, noneRgb, 50 );
-        console.log( noneHexCode );
+        if( !noneHexCode ) {
+            showAlert('This Color cannot be maked');
+            reset();
+            return;
+        }
         var noneHsl = hexToHsl( noneHexCode );
+        if( !noneHsl ) {
+            showAlert('This Color cannot be maked');
+            reset();
+            return;
+        }
 
         // console.log( noneHsl );
         var hsl = noneHsl.replace( /[^%,.\d]/g, "" ).split(',');
@@ -284,18 +315,7 @@ function setColor () {
         var l = hsl[2];
 
         if( noneHexCode && hexCode && noneHsl ) {
-            $('.fixedTarget > span#labValue').text( rgbTolab( hexToRgb( hexCode ) ) );
-            $('.fixedTarget > span#cmykValue').text( rgbToCmyk( hexToRgb( hexCode ) ) );
-            $('.fixedTarget > span#rgbValue').text( hexToRgb( hexCode ) );
-            $('.fixedTarget > span#hexValue').text( hexCode.toUpperCase() );
-
             $('.fixedTarget').css('background-color', hexCode);
-            
-            $('.noneFixedTarget > span#labValue').text( rgbTolab( hexToRgb( noneHexCode ) ) );
-            $('.noneFixedTarget > span#cmykValue').text( rgbToCmyk( hexToRgb( noneHexCode ) ) );
-            $('.noneFixedTarget > span#rgbValue').text( hexToRgb( noneHexCode ) );
-            $('.noneFixedTarget > span#hexValue').text( noneHexCode.toUpperCase() );
-
             $('.noneFixedTarget').css('background-color', noneHexCode);
 
             var barColor = getTheColor( noneHexCode );
@@ -328,11 +348,16 @@ function changePv ( pv ) {
     console.log( pv );
     var noneRgb = hexToRgb( FIXED_HEX_CODE );
     var noneHexCode = rgbToHexWithPV( purposeTarget, noneRgb, pv );
+    if( !noneHexCode ) {
+        showAlert('This Color cannot maked');
+        return;
+    } else {
+        $("#pvSliderValue").html( pv );
+        $('#pvSliderValue2').html( 100 - pv );
+
+    }
     var hsl = hexToHsl( noneHexCode ).replace( /[^%,.\d]/g, "" ).split(',');
     var [h, s, l] = hsl;
-
-    $("#pvSliderValue").html( pv );
-    $('#pvSliderValue2').html( 100 - pv );
 
     $("#pvTable").removeClass();
     $("#pvTable").addClass("color_ratio noneFixedTarget pv" + pv);
@@ -353,9 +378,15 @@ function changePv ( pv ) {
     $("#pvSlider .ui-slider-range").css( "background-color", barColor );
     $("#brightSlider .ui-slider-range").css( "background-color", barColor );
     $("#toneSlider .ui-slider-range").css( "background-color", barColor );
+    $('#hueSlider .ui-slider-range').css( "background-color", barColor );
     
-    $('.fixedTarget > p').text( FIXED_HEX_CODE );
-    $('.noneFixedTarget > p').text( noneHexCode );
+    if( purposeTarget == 'T' ) {
+        $('#target-hex-value').text( FIXED_HEX_CODE );
+        $('#surface-hex-value').text( noneHexCode );
+    }else {
+        $('#target-hex-value').text( noneHexCode );
+        $('#surface-hex-value').text( FIXED_HEX_CODE );
+    }
 
     if( purposeTarget == 'T' ) {
         if( pv == 0 ) $('#pvTable').css("background-color", FIXED_HEX_CODE);
@@ -416,7 +447,9 @@ function changeBright ( bright ) {
     $("#toneSlider .ui-slider-range").css( "background-color", barColor );
     $("#hueSlider .ui-slider-range").css( "background-color", barColor );
 
-    $('.noneFixedTarget > p').text( light );
+    if( purposeTarget == 'T' ) $('#surface-hex-value').text( light );
+    else $('#target-hex-value').text( light );
+    
     // $('.noneFixedTarget > span#labValue').text( rgbTolab( hexToRgb( light ) ) );
     // $('.noneFixedTarget > span#cmykValue').text( rgbToCmyk( hexToRgb( light ) ) );
     // $('.noneFixedTarget > span#rgbValue').text( hexToRgb( light ) );
@@ -443,7 +476,8 @@ function changeTone ( tone ) {
     $("#toneSlider .ui-slider-range").css( "background-color", barColor );
     $("#hueSlider .ui-slider-range").css( "background-color", barColor );
 
-    $('.noneFixedTarget > p').text( newHexCode );
+    if( purposeTarget == 'T' ) $('#surface-hex-value').text( newHexCode );
+    else $('#target-hex-value').text( newHexCode );
     // $('.noneFixedTarget > span#labValue').text( rgbTolab( hexToRgb( newHexCode ) ) );
     // $('.noneFixedTarget > span#cmykValue').text( rgbToCmyk( hexToRgb( newHexCode ) ) );
     // $('.noneFixedTarget > span#rgbValue').text( hexToRgb( newHexCode ) );
@@ -471,7 +505,8 @@ function changeHue ( hue ) {
     $("#toneSlider .ui-slider-range").css( "background-color", barColor );
     $("#hueSlider .ui-slider-range").css( "background-color", barColor );
 
-    $('.noneFixedTarget > p').text( newHexCode );
+    if( purposeTarget == 'T' ) $('#surface-hex-value').text( newHexCode );
+    else $('#target-hex-value').text( newHexCode );
 
     NONE_FIXED_HEX_CODE = newHexCode.toUpperCase();
     $('#saveBTN').show();

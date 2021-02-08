@@ -429,17 +429,18 @@ function rgbToHexWithPV ( targetType, rgbType, pv ) {
 		alert("Please input the correct PV value");				
 	}
 
-//    if (v > 100) {
-//        alert("This color's brightness is over 100%");
-//        return;
-//    }
+   if (v > 100) {
+    //    alert('!!!!!');
+    //    showAlert('This color cannot maked.');
+       return;
+   }
 
    console.log( 'after h : ' +  h );
    console.log( 'after s : ' +  s );
    console.log( 'after v : ' +  v );
 
    if(typeof v == "undefined" || v == null || v == "") {
-       alert("Brightness is undefined");
+       showAlert('Invalid data');
        return;
    }
 

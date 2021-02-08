@@ -94,12 +94,12 @@ $user_state = $_SESSION['state'];
 									else $my_works = '';
 
 									?>
-									<dl class="color_list project <?=$my_works?>" onclick="location.href='./project_preview.php?id=<?=$res['c_no']?>'">
+									<dl class="color_list <?=$my_works?>" onclick="location.href='./project_preview.php?id=<?=$res['c_no']?>'">
 										<dd style="background: <?=$res['c_target_hex_code']?>;">
-											<div style="width: 100%; height: 52px;">
-											</div>
-											<div style="width: 100%; height: 20px; background: <?=$res['c_surface_hex_code']?>; border-bottom-left-radius: 10px; border-bottom-right-radius: 10px;">
-											</div>
+											<ul>
+												<li class="left" style="background: <?=$res['c_surface_hex_code']?>;"></li>
+												<li class="right" style="background: #3d1c1c;"></li>
+											</ul>
 										</dd>
 										<dt><?=$res['c_color_name']?></dt>
 									</dl>
@@ -186,6 +186,9 @@ $user_state = $_SESSION['state'];
 </body>
 </html>
 <script type="text/javascript">
+	$(window).load(() => {
+		colorChipSize();
+	})
 	function showMyWork( no ) {
 		$('.not_my_color_works').toggle();
 	}

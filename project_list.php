@@ -28,8 +28,9 @@
 						<option value="color">Color</option>
 					</select>
 					<div class="inner_right">
-                    <input type="checkbox" onchange="selectOpen()" style="width: 20px; height: 20px; margin-right: 20px; margin-top: 10px; float:right;" id="selectCheckbox" />
+                        <input type="checkbox" style="display: none;" id="selectCheckbox" />
 						<span class="right_area">
+                            <button class="btn btnProjectCheck" type="button" onclick="selectOpen()" id="projectCheck">체크표시</button>
 							<button class="btn btnThumbnail active" type="button">썸네일</button>
 							<button class="btn btnHorizontal" type="button">가로형</button>
 							<button class="btn btnVertical" type="button">세로형</button>
@@ -47,9 +48,11 @@
 </body>
 </html>
 <script type="text/javascript">
+    var cnt = 0;
     $(window).load(() => {
         $('.btnThumbnail').trigger('click');
         $('#sort_standard').val('time');
+        
     });
     
     $('#sort_standard').change(() => {
@@ -74,7 +77,7 @@
     }
 
     function showHeaderButton() {
-        if( $('#selectCheckbox').is(':checked') ) {
+        if( cnt % 2 ) {
             $('.btnDelete, .btnCompare').show();
         } else {
             $('.btnDelete, .btnCompare').hide();
@@ -82,8 +85,14 @@
     }
     
     function selectOpen() {
+        cnt++;
         $('.chkwrap').toggle();
         $('.check').toggle();
+        if( $('#projectCheck').hasClass('checked') ) {
+            $('#projectCheck').removeClass('checked');
+        }else {
+            $('#projectCheck').addClass('checked');
+        }
         showHeaderButton();
 
         var linkValue = $('.lists').attr('onclick');
@@ -99,7 +108,8 @@
     }
 
     $('.btnThumbnail').click(() => {
-        $('#selectCheckbox').removeAttr('checked');
+        cnt = 0;
+        $('#projectCheck').removeClass('checked');
         showHeaderButton();
         var standard = $('#sort_standard').val();
         var url = './project/thumbnail';
@@ -115,13 +125,14 @@
             method: 'get',
             success: ( res ) => {
                 $('#project').html( res );
+                colorChipSize();
             }
         });
-
     });
 
     $('.btnHorizontal').click(() => {
-        $('#selectCheckbox').removeAttr('checked');
+        cnt = 0;
+        $('#projectCheck').removeClass('checked');
         showHeaderButton();
         var standard = $('#sort_standard').val();
         var url = './project/horizontal';
@@ -143,7 +154,8 @@
     });
 
     $('.btnVertical').click(() => {
-        $('#selectCheckbox').removeAttr('checked');
+        cnt = 0;
+        $('#projectCheck').removeClass('checked');
         showHeaderButton();
         var standard = $('#sort_standard').val();
         var url = './project/vertical';

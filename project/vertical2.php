@@ -27,7 +27,7 @@ if( isset($result) && $result->num_rows > 0 ) {
         <div class="inner-item">
             <div class="tit <?=$i==0 ? 'active' : ''?>">
                 <a href="#a">
-                    <h2><?=$colors[$i]?></h2>
+                    <h2 style="color: <?=$colors[$i]?>;"><?=$colors[$i]?></h2>
                 </a>
             </div>
             <ul class="list-vertical <?=$i==0 ? 'active' : ''?>">

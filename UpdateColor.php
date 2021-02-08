@@ -116,15 +116,15 @@ if( $color_target == 'T' ) {
 				<h2>Preview</h2>
 				<div class="inner-item">
 					<div class="col color_left">
-						<h3>Target Color</h3>
+						<h3>Target Color<span class="right" id="target-hex-value"></span></h3>
 						<div class="color_code <?=$color_target == 'T' ? 'fixedTarget' : 'noneFixedTarget'?>" id="targetColor" style="text-align: center;">
-							<p style="font-size: 16px; float: left; width: 100%;"></p>
+							<!-- <p style="font-size: 16px; float: left; width: 100%;"></p> -->
 						</div>
 					</div>
 					<div class="col color_right">
-						<h3>Surface Color</h3>
+						<h3>Surface Color<span class="right" id="surface-hex-value"></span></h3>
 						<div class="color_code <?=$color_target == 'S' ? 'fixedTarget' : 'noneFixedTarget'?>" id="surfaceColor" style="text-align: center;">
-							<p style="font-size: 16px; float: left; width: 100%;"></p>
+							<!-- <p style="font-size: 16px; float: left; width: 100%;"></p> -->
 						</div>
 					</div>
 				</div>
