@@ -3,7 +3,7 @@
         <?php
             require_once('../server/config.php');
 
-            $query = "SELECT * FROM `b_bipv_color` WHERE `c_approval`='Y' ORDER BY `c_insert_datetime` DESC;";
+            $query = "SELECT * FROM `b_bipv_color` WHERE `c_approval`='Y' ORDER BY `c_no` DESC;";
             $result = $conn->query( $query );
 
             if( isset($result) && $result->num_rows > 0 ) {

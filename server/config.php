@@ -1,8 +1,8 @@
 <?php
 $SERVER_ADDRESS = "localhost";
-$USER = "daejeoninega";
-$PASSWORD = "emwpdl(())";
-$DATABASE = "daejeoninega";
+$USER = "dejay";
+$PASSWORD = "dejay2018@@";
+$DATABASE = "dejay";
 
 $conn = new mysqli( $SERVER_ADDRESS, $USER, $PASSWORD, $DATABASE );
 
