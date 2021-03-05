@@ -93,7 +93,7 @@ if( $user_state == 'L' || $user_state == 'M' ) {
 			<div class="inner type_view">
 				<div class="inner-view-item mgt_0">
 					<h2>Expected Power</h2>
-					<span class="item"><?=$res['c_expected_power']?> kWh</span>
+					<span class="item"><?=$res['c_expected_power']?> W</span>
 				</div>
 
 				<div class="inner-view-item">
