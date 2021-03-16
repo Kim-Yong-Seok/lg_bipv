@@ -50,12 +50,12 @@ if( $user_state == 'L' || $user_state == 'M' ) {
 						<div class="color_code" style="background: <?=$res['c_target_hex_code']?>;"></div>
 					</div>
 					<div class="col color_right">
-						<h3>Surface Color</h3>
+						<h3>Print Color</h3>
 						<div class="color_code" style="background: <?=$res['c_surface_hex_code']?>;"></div>
 					</div>
 				</div>
 
-				<h3 class="sub"><span>Surface<em><?=100-$res['c_pv']?></em></span><span>PV<em><?=$res['c_pv']?></em></span></h3>
+				<h3 class="sub"><span>Print<em><?=100-$res['c_pv']?></em></span><span>PV<em><?=$res['c_pv']?></em></span></h3>
 				<div class="inner-item">
 					<!-- pv0 pv25 pv50 pv75 pv100 -->
 					<table class="color_ratio pv25" style="background: <?=$res['c_surface_hex_code']?>;">

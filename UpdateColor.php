@@ -76,7 +76,7 @@ if( $color_target == 'T' ) {
 							<label class="switch" for="chkAccept1">
 								<span class="slider"></span>
 								<span class="tip left">Target</span>
-								<span class="tip right">Surface</span>
+								<span class="tip right">Print</span>
 							</label>
 						</div>
 					</div>
@@ -122,7 +122,7 @@ if( $color_target == 'T' ) {
 						</div>
 					</div>
 					<div class="col color_right">
-						<h3>Surface Color<span class="right" id="surface-hex-value"></span></h3>
+						<h3>Print Color<span class="right" id="surface-hex-value"></span></h3>
 						<div class="color_code <?=$color_target == 'S' ? 'fixedTarget' : 'noneFixedTarget'?>" id="surfaceColor" style="text-align: center;">
 							<!-- <p style="font-size: 16px; float: left; width: 100%;"></p> -->
 						</div>
@@ -166,12 +166,12 @@ if( $color_target == 'T' ) {
                         <input type="hidden" id="pvValue" name="pv_value">
                         <div id="pvSlider"></div>
 						<!-- 슬라이드 스크립트 적용 -->
-						<span class="tit left" id="targetName">Surface Color</span>
+						<span class="tit left" id="targetName">Print Color</span>
 						<span class="tit right">PV</span>
 					</div>
 
 					<dl class="openList_area">
-						<dt class=""><a href="#a"><h2>Surface Color Adjustment</h2></a></dt>
+						<dt class=""><a href="#a"><h2>Print Color Adjustment</h2></a></dt>
 						<dd class="openList_item">
 							<div class="ratio_bar">
                                 <span class="tit2">Brightness</span>
