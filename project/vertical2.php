@@ -57,7 +57,7 @@ if( isset($result) && $result->num_rows > 0 ) {
                             <!-- <div style="width: 60%; display: inline-block;"> -->
                             <dl class="color_area">
                                 <dd class="color_box" style="background-color: <?=$res['c_surface_hex_code']?>;" id="vertical_surface<?=$j?>" name="<?=$res['c_surface_hex_code']?>"></dd>
-                                <dt class="ellipsis">Surface Color</dt>
+                                <dt class="ellipsis">Print Color</dt>
                                 <dd class="info_box">
                                     <p id="s_lab<?=$j?>"></p>
                                     <p id="s_cmyk<?=$j?>"></p>
