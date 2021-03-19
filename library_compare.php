@@ -27,15 +27,13 @@
 
                             $query = "SELECT * FROM `b_bipv_color` WHERE `c_approval` = 'Y';";
                             $result = $conn->query( $query );
-
+                            $i = 1;
                             if( isset($result) && $result->num_rows > 0 ) {
-                                
                                 while( $res = $result->fetch_array(MYSQLI_ASSOC) ) {
                                     $chk_sum = 'check_'.$res['c_no'];
                                     $no = $res['c_no'];
-
+                                    
                                     if( isset($_POST[$chk_sum]) ) {
-                                        $i = 1;
                                         ?>
                                         <li>
                                             <div class="title"><?=$res['c_color_name']?></div>
@@ -111,6 +109,7 @@
             $('#t_rgb'+i).html("RGB " + rgb.replaceAll(',', ''));
 
             hex = $('#vertical_surface'+i).attr('name');
+            rgb = hexToRgb(hex);
             $('#s_lab'+i).html("Lab " + rgbTolab(rgb).replaceAll(',', ''));
             $('#s_cmyk'+i).html("CMYK " + rgbToCmyk(rgb).replaceAll(',', ''));
             $('#s_rgb'+i).html("RGB " + rgb.replaceAll(',', ''));

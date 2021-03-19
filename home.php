@@ -98,7 +98,7 @@ $user_state = $_SESSION['state'];
 										<dd style="background: <?=$res['c_target_hex_code']?>;">
 											<ul>
 												<li class="left" style="background: <?=$res['c_surface_hex_code']?>;"></li>
-												<li class="right" style="background: #3d1c1c;"></li>
+												<li class="right" style="background: black;"></li>
 											</ul>
 										</dd>
 										<dt><?=$res['c_color_name']?></dt>
